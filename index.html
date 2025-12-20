@@ -19,45 +19,87 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bevan&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Animated Water Background -->
+    <div class="water-bg" aria-hidden="true">
+        <div class="bubble bubble-1"></div>
+        <div class="bubble bubble-2"></div>
+        <div class="bubble bubble-3"></div>
+        <div class="bubble bubble-4"></div>
+        <div class="bubble bubble-5"></div>
+        <div class="bubble bubble-6"></div>
+        <div class="bubble bubble-7"></div>
+        <div class="bubble bubble-8"></div>
+        <div class="soap-sud sud-1"></div>
+        <div class="soap-sud sud-2"></div>
+        <div class="soap-sud sud-3"></div>
+        <div class="soap-sud sud-4"></div>
+        <div class="soap-sud sud-5"></div>
+        <div class="water-spray spray-1"></div>
+        <div class="water-spray spray-2"></div>
+        <div class="water-drop drop-1"></div>
+        <div class="water-drop drop-2"></div>
+        <div class="water-drop drop-3"></div>
+        <div class="water-drop drop-4"></div>
+        <div class="water-drop drop-5"></div>
+        <div class="water-drop drop-6"></div>
+    </div>
+
     <!-- Header / Navigation -->
     <header class="header">
         <nav class="nav container">
             <a href="#" class="logo" aria-label="Carolina Cleaning Boys Home">
-                <img src="images/Carolina_Cleaning_Logo.png" alt="Carolina Cleaning Boys Logo" class="logo-img">
+                <img src="images/carolinacleaninglogo.png" alt="Carolina Cleaning Boys Logo" class="logo-img">
             </a>
-            <a href="tel:919-717-465" class="nav-cta">
-                <span class="phone-icon" aria-hidden="true">
+            <div class="nav-contact">
+                <a href="mailto:carolinacleaningboys@gmail.com" class="nav-email" aria-label="Email us">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.99C20.47 21.04 19.93 21.07 19.38 21.07C10.44 21.07 3.07 13.7 3.07 4.76C3.07 4.21 3.1 3.67 3.15 3.14C3.21 2.58 3.66 2.14 4.22 2.14H7.22C7.72 2.14 8.14 2.5 8.21 2.99C8.28 3.51 8.4 4.01 8.57 4.49C8.71 4.87 8.61 5.3 8.31 5.6L6.79 7.12C8.21 9.69 10.39 11.87 12.96 13.29L14.48 11.77C14.78 11.47 15.21 11.37 15.59 11.51C16.07 11.68 16.57 11.8 17.09 11.87C17.58 11.94 17.94 12.36 17.94 12.86V15.86C17.94 16.42 17.5 16.87 16.94 16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                </span>
-                <span class="phone-text">Call Now</span>
-            </a>
+                </a>
+                <a href="tel:919-717-465" class="nav-cta">
+                    <span class="phone-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.99C20.47 21.04 19.93 21.07 19.38 21.07C10.44 21.07 3.07 13.7 3.07 4.76C3.07 4.21 3.1 3.67 3.15 3.14C3.21 2.58 3.66 2.14 4.22 2.14H7.22C7.72 2.14 8.14 2.5 8.21 2.99C8.28 3.51 8.4 4.01 8.57 4.49C8.71 4.87 8.61 5.3 8.31 5.6L6.79 7.12C8.21 9.69 10.39 11.87 12.96 13.29L14.48 11.77C14.78 11.47 15.21 11.37 15.59 11.51C16.07 11.68 16.57 11.8 17.09 11.87C17.58 11.94 17.94 12.36 17.94 12.86V15.86C17.94 16.42 17.5 16.87 16.94 16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <span class="phone-text">Contact Now</span>
+                </a>
+            </div>
         </nav>
     </header>
 
     <main>
         <!-- Hero Section -->
         <section class="hero" aria-labelledby="hero-heading">
-            <div class="hero-bg">
-                <div class="hero-gradient"></div>
-                <div class="hero-pattern"></div>
-            </div>
             <div class="hero-content container">
-                <div class="hero-badge">
+                <div class="hero-badge animate-on-scroll">
                     <span class="badge-dot"></span>
                     Serving Greenville NC &amp; Surrounding Areas
                 </div>
-                <h1 id="hero-heading" class="hero-title">
+                <h1 id="hero-heading" class="hero-title animate-on-scroll">
                     <span class="title-line">Carolina</span>
                     <span class="title-line accent">Cleaning Boys</span>
                 </h1>
-                <p class="hero-tagline">Where youthful energy meets seasoned expertise, delivering rejuvenating cleans with meticulous attention!</p>
+                <p class="hero-tagline animate-on-scroll">Where youthful energy meets seasoned expertise, delivering rejuvenating cleans with meticulous attention!</p>
                 
-                <div class="services-highlight">
+                <!-- Primary CTA Button -->
+                <div class="hero-cta animate-on-scroll">
+                    <a href="#estimate-form" class="btn btn-primary btn-large">
+                        <span class="btn-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        Click Here to Get a FREE Estimate
+                    </a>
+                </div>
+                
+                <div class="services-highlight animate-on-scroll">
                     <h2 class="services-title">Our Services</h2>
                     <ul class="services-list">
                         <li>
@@ -90,23 +132,9 @@
                     </ul>
                 </div>
                 
-                <p class="hero-promise">Trust us to exceed expectations in residential and commercial spaces</p>
+                <p class="hero-promise animate-on-scroll">Trust us to exceed expectations in residential and commercial spaces</p>
                 
-                <div class="hero-cta">
-                    <a href="tel:919-717-465" class="btn btn-primary">
-                        <span class="btn-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.99C20.47 21.04 19.93 21.07 19.38 21.07C10.44 21.07 3.07 13.7 3.07 4.76C3.07 4.21 3.1 3.67 3.15 3.14C3.21 2.58 3.66 2.14 4.22 2.14H7.22C7.72 2.14 8.14 2.5 8.21 2.99C8.28 3.51 8.4 4.01 8.57 4.49C8.71 4.87 8.61 5.3 8.31 5.6L6.79 7.12C8.21 9.69 10.39 11.87 12.96 13.29L14.48 11.77C14.78 11.47 15.21 11.37 15.59 11.51C16.07 11.68 16.57 11.8 17.09 11.87C17.58 11.94 17.94 12.36 17.94 12.86V15.86C17.94 16.42 17.5 16.87 16.94 16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                        <span class="btn-text">
-                            <span class="btn-label">Free Quotes for Any Service!</span>
-                            <span class="btn-number">919-717-465</span>
-                        </span>
-                    </a>
-                </div>
-                
-                <div class="trust-badges">
+                <div class="trust-badges animate-on-scroll">
                     <div class="trust-item">
                         <span class="trust-icon" aria-hidden="true">✓</span>
                         <span>Licensed &amp; Insured</span>
@@ -122,26 +150,25 @@
                 </div>
             </div>
             
-            <!-- Decorative Water Droplets -->
-            <div class="water-drops" aria-hidden="true">
-                <div class="drop drop-1"></div>
-                <div class="drop drop-2"></div>
-                <div class="drop drop-3"></div>
-                <div class="drop drop-4"></div>
-                <div class="drop drop-5"></div>
+            <!-- Water spray effect on scroll -->
+            <div class="hero-water-effect" aria-hidden="true">
+                <div class="spray-line"></div>
+                <div class="spray-line"></div>
+                <div class="spray-line"></div>
             </div>
         </section>
 
         <!-- Services Detail Section -->
         <section class="services-section" aria-labelledby="services-heading">
+            <div class="rinse-effect" aria-hidden="true"></div>
             <div class="container">
-                <h2 id="services-heading" class="section-title">What We Do Best</h2>
-                <p class="section-subtitle">Professional exterior cleaning solutions for every surface</p>
+                <h2 id="services-heading" class="section-title animate-on-scroll">What We Do Best</h2>
+                <p class="section-subtitle animate-on-scroll">Professional exterior cleaning solutions for every surface</p>
                 
                 <div class="services-grid">
-                    <article class="service-card">
+                    <article class="service-card animate-on-scroll">
                         <div class="service-card-image">
-                            <img src="images/IMG_9563.jpg" alt="Professional pressure washing service cleaning a driveway" loading="lazy">
+                            <img src="images/img_9563.jpg" alt="Professional pressure washing service cleaning a driveway" loading="lazy">
                             <div class="service-card-overlay"></div>
                         </div>
                         <div class="service-card-content">
@@ -150,9 +177,9 @@
                         </div>
                     </article>
                     
-                    <article class="service-card">
+                    <article class="service-card animate-on-scroll">
                         <div class="service-card-image">
-                            <img src="images/IMG_7156.jpg" alt="Gentle soft-washing treatment on home siding" loading="lazy">
+                            <img src="images/img_7156.jpg" alt="Gentle soft-washing treatment on home siding" loading="lazy">
                             <div class="service-card-overlay"></div>
                         </div>
                         <div class="service-card-content">
@@ -161,9 +188,9 @@
                         </div>
                     </article>
                     
-                    <article class="service-card">
+                    <article class="service-card animate-on-scroll">
                         <div class="service-card-image">
-                            <img src="images/IMG_2794.jpg" alt="Thorough gutter cleaning and debris removal" loading="lazy">
+                            <img src="images/img_2794.jpg" alt="Thorough gutter cleaning and debris removal" loading="lazy">
                             <div class="service-card-overlay"></div>
                         </div>
                         <div class="service-card-content">
@@ -178,100 +205,406 @@
         <!-- Meet the Team / Our Work Section -->
         <section class="team-section" aria-labelledby="team-heading">
             <div class="container">
-                <h2 id="team-heading" class="section-title">Meet the Team</h2>
-                <p class="section-subtitle">See us in action — delivering quality results on every job</p>
+                <h2 id="team-heading" class="section-title animate-on-scroll">Meet the Team</h2>
+                <p class="section-subtitle animate-on-scroll">See us in action — delivering quality results on every job</p>
                 
-                <div class="gallery-grid">
-                    <div class="gallery-item gallery-item-large">
-                        <img src="images/IMG_0560.jpg" alt="Carolina Cleaning Boys team at work" loading="lazy">
+                <div class="gallery-showcase">
+                    <!-- Featured Large Images -->
+                    <div class="gallery-featured animate-on-scroll">
+                        <div class="featured-main">
+                            <img src="images/img_0560.jpg" alt="Carolina Cleaning Boys team at work" loading="lazy">
+                        </div>
+                        <div class="featured-side">
+                            <img src="images/img_1263.jpg" alt="Pressure washing in progress" loading="lazy">
+                            <img src="images/img_0891.jpg" alt="Team member cleaning exterior surfaces" loading="lazy">
+                        </div>
                     </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_1263.jpg" alt="Pressure washing in progress" loading="lazy">
+                    
+                    <!-- Masonry Grid -->
+                    <div class="gallery-masonry">
+                        <div class="masonry-column">
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_9546.jpg" alt="Professional cleaning service" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_1091.jpg" alt="Before and after cleaning results" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_1077.jpg" alt="Team working on residential property" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_0927.jpg" alt="Commercial cleaning service" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="masonry-column">
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_1085.jpg" alt="Detailed cleaning work" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_1079.jpg" alt="Exterior washing service" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_1082.jpg" alt="Professional equipment in use" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_0933.jpg" alt="Team at work on location" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="masonry-column">
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_1090.jpg" alt="Complete property cleaning" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_9297.jpg" alt="Team member pressure washing" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_9501.jpg" alt="Quality cleaning results" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_0964.jpg" alt="Pressure washing driveway" loading="lazy">
+                            </div>
+                        </div>
+                        <div class="masonry-column">
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_7169.jpg" alt="Soft washing service" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_9496.jpg" alt="Residential cleaning project" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_0967.jpg" alt="Surface cleaning in progress" loading="lazy">
+                            </div>
+                            <div class="gallery-item animate-on-scroll">
+                                <img src="images/img_0977.jpg" alt="Professional cleaning crew" loading="lazy">
+                            </div>
+                        </div>
                     </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_0891.jpg" alt="Team member cleaning exterior surfaces" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_9546.jpg" alt="Professional cleaning service" loading="lazy">
-                    </div>
-                    <div class="gallery-item gallery-item-wide">
-                        <img src="images/IMG_1091.jpg" alt="Before and after cleaning results" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_1077.jpg" alt="Team working on residential property" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_1085.jpg" alt="Detailed cleaning work" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_1079.jpg" alt="Exterior washing service" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_1082.jpg" alt="Professional equipment in use" loading="lazy">
-                    </div>
-                    <div class="gallery-item gallery-item-large">
-                        <img src="images/IMG_1090.jpg" alt="Complete property cleaning" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_9297.jpg" alt="Team member pressure washing" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_9501.jpg" alt="Quality cleaning results" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_7169.jpg" alt="Soft washing service" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_9496.jpg" alt="Residential cleaning project" loading="lazy">
-                    </div>
-                    <div class="gallery-item gallery-item-wide">
-                        <img src="images/IMG_0927.jpg" alt="Commercial cleaning service" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_0933.jpg" alt="Team at work on location" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_0964.jpg" alt="Pressure washing driveway" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_0967.jpg" alt="Surface cleaning in progress" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_0977.jpg" alt="Professional cleaning crew" loading="lazy">
-                    </div>
-                    <div class="gallery-item gallery-item-large">
-                        <img src="images/IMG_0978.jpg" alt="Complete exterior cleaning" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_7095.jpg" alt="Team preparing equipment" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_7111.jpg" alt="Cleaning service in action" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_8845.jpg" alt="Detailed pressure washing" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="images/IMG_0428.jpg" alt="Carolina Cleaning Boys on the job" loading="lazy">
+                    
+                    <!-- Bottom Row -->
+                    <div class="gallery-bottom animate-on-scroll">
+                        <div class="gallery-item">
+                            <img src="images/img_0978.jpg" alt="Complete exterior cleaning" loading="lazy">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/img_7095.jpg" alt="Team preparing equipment" loading="lazy">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/img_7111.jpg" alt="Cleaning service in action" loading="lazy">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/img_8845.jpg" alt="Detailed pressure washing" loading="lazy">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/img_0428.jpg" alt="Carolina Cleaning Boys on the job" loading="lazy">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/img_2798.jpg" alt="Professional service" loading="lazy">
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
+        <!-- Reviews Section -->
+        <section class="reviews-section" aria-labelledby="reviews-heading">
+            <div class="suds-effect" aria-hidden="true">
+                <div class="sud-float"></div>
+                <div class="sud-float"></div>
+                <div class="sud-float"></div>
+            </div>
+            <div class="container">
+                <h2 id="reviews-heading" class="section-title animate-on-scroll">What Our Customers Say</h2>
+                <p class="section-subtitle animate-on-scroll">Real reviews from satisfied customers</p>
+                
+                <!-- Review Platforms -->
+                <div class="review-platforms animate-on-scroll">
+                    <a href="https://www.facebook.com/CarolinaCleaningBoys" target="_blank" rel="noopener noreferrer" class="platform-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.79-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796v8.437C19.612 23.091 24 18.099 24 12.073z"/>
+                        </svg>
+                        Facebook Reviews
+                    </a>
+                    <a href="https://www.google.com/search?q=Carolina+Cleaning+Boys+Greenville+NC+reviews" target="_blank" rel="noopener noreferrer" class="platform-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Google Reviews
+                    </a>
+                </div>
+                
+                <!-- Scrollable Reviews -->
+                <div class="reviews-carousel-wrapper">
+                    <button class="carousel-btn carousel-prev" aria-label="Previous reviews">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <div class="reviews-carousel" id="reviewsCarousel">
+                        <div class="review-card">
+                            <div class="review-stars" aria-label="5 out of 5 stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <p class="review-text">"Amazing work! They made our driveway look brand new. Very professional and thorough. Highly recommend!"</p>
+                            <div class="review-author">
+                                <span class="author-name">Sarah M.</span>
+                                <span class="review-source">Facebook</span>
+                            </div>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-stars" aria-label="5 out of 5 stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <p class="review-text">"Best pressure washing service in Greenville! They were on time, friendly, and did an incredible job on our deck and patio."</p>
+                            <div class="review-author">
+                                <span class="author-name">Michael T.</span>
+                                <span class="review-source">Google</span>
+                            </div>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-stars" aria-label="5 out of 5 stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <p class="review-text">"Exceeded all expectations! Our house looks like it was just painted. The soft washing really brought the siding back to life."</p>
+                            <div class="review-author">
+                                <span class="author-name">Jennifer L.</span>
+                                <span class="review-source">Facebook</span>
+                            </div>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-stars" aria-label="5 out of 5 stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <p class="review-text">"Great communication from start to finish. Fair pricing and outstanding results. Will definitely use again!"</p>
+                            <div class="review-author">
+                                <span class="author-name">David R.</span>
+                                <span class="review-source">Google</span>
+                            </div>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-stars" aria-label="5 out of 5 stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <p class="review-text">"They cleaned our gutters and washed the whole exterior of our home. Everything sparkles now! Very satisfied customer."</p>
+                            <div class="review-author">
+                                <span class="author-name">Amanda K.</span>
+                                <span class="review-source">Facebook</span>
+                            </div>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-stars" aria-label="5 out of 5 stars">
+                                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                            </div>
+                            <p class="review-text">"Professional, punctual, and perfect results. These guys really know what they're doing. My fence looks amazing!"</p>
+                            <div class="review-author">
+                                <span class="author-name">Robert H.</span>
+                                <span class="review-source">Google</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn carousel-next" aria-label="Next reviews">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Leave a Review Button -->
+                <div class="leave-review animate-on-scroll">
+                    <a href="https://www.facebook.com/CarolinaCleaningBoys/reviews" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <span class="btn-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        Leave Us a Review
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estimate Form Section -->
+        <section class="estimate-section" id="estimate-form" aria-labelledby="estimate-heading">
+            <div class="container">
+                <h2 id="estimate-heading" class="section-title animate-on-scroll">Get Your FREE Estimate</h2>
+                <p class="section-subtitle animate-on-scroll">Fill out the form below and we'll get back to you within 24 hours</p>
+                
+                <form class="estimate-form animate-on-scroll" action="https://formsubmit.co/carolinacleaningboys@gmail.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Estimate Request from Website">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="#">
+                    
+                    <div class="form-grid">
+                        <!-- Property Type -->
+                        <div class="form-group form-full">
+                            <label class="form-label">Property Type <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="property_type" value="Residential" required>
+                                    <span class="radio-custom"></span>
+                                    Residential
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="property_type" value="Commercial">
+                                    <span class="radio-custom"></span>
+                                    Commercial
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Name Fields -->
+                        <div class="form-group">
+                            <label for="first_name" class="form-label">First Name <span class="required">*</span></label>
+                            <input type="text" id="first_name" name="first_name" required class="form-input" placeholder="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name" class="form-label">Last Name <span class="required">*</span></label>
+                            <input type="text" id="last_name" name="last_name" required class="form-input" placeholder="Smith">
+                        </div>
+                        
+                        <!-- Contact Fields -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required class="form-input" placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required class="form-input" placeholder="(919) 555-1234">
+                        </div>
+                        
+                        <!-- Address Fields -->
+                        <div class="form-group form-full">
+                            <label for="street_address" class="form-label">Street Address <span class="required">*</span></label>
+                            <input type="text" id="street_address" name="street_address" required class="form-input" placeholder="123 Main Street">
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="form-label">City <span class="required">*</span></label>
+                            <input type="text" id="city" name="city" required class="form-input" placeholder="Greenville">
+                        </div>
+                        <div class="form-group">
+                            <label for="state" class="form-label">State <span class="required">*</span></label>
+                            <input type="text" id="state" name="state" required class="form-input" placeholder="NC" value="NC">
+                        </div>
+                        
+                        <!-- Services Selection -->
+                        <div class="form-group form-full">
+                            <label class="form-label">Type of Service (Select all that apply) <span class="required">*</span></label>
+                            <div class="checkbox-grid">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="House">
+                                    <span class="checkbox-custom"></span>
+                                    House
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Driveway">
+                                    <span class="checkbox-custom"></span>
+                                    Driveway
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Deck">
+                                    <span class="checkbox-custom"></span>
+                                    Deck
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Fence">
+                                    <span class="checkbox-custom"></span>
+                                    Fence
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Patio">
+                                    <span class="checkbox-custom"></span>
+                                    Patio
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Sidewalk">
+                                    <span class="checkbox-custom"></span>
+                                    Sidewalk
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Inside Gutters">
+                                    <span class="checkbox-custom"></span>
+                                    Inside Gutters
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Roof">
+                                    <span class="checkbox-custom"></span>
+                                    Roof
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="services" value="Other">
+                                    <span class="checkbox-custom"></span>
+                                    Other
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- How did you hear about us -->
+                        <div class="form-group form-full">
+                            <label for="referral_source" class="form-label">How did you hear about us?</label>
+                            <select id="referral_source" name="referral_source" class="form-select">
+                                <option value="">Select an option...</option>
+                                <option value="Google Search">Google Search</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="Referral from Friend/Family">Referral from Friend/Family</option>
+                                <option value="Yard Sign">Yard Sign</option>
+                                <option value="Nextdoor">Nextdoor</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Additional Information -->
+                        <div class="form-group form-full">
+                            <label for="additional_info" class="form-label">Questions or Additional Information</label>
+                            <textarea id="additional_info" name="additional_info" rows="4" class="form-textarea" placeholder="Tell us more about your project or any questions you have..."></textarea>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="form-group form-full">
+                            <button type="submit" class="btn btn-primary btn-large btn-full">
+                                <span class="btn-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                Submit Request
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Bottom CTA Section -->
         <section class="cta-section" aria-labelledby="cta-heading">
             <div class="container">
                 <div class="cta-content">
-                    <h2 id="cta-heading">Ready for a Fresh, Clean Look?</h2>
-                    <p>Get your free quote today and see the Carolina Cleaning Boys difference.</p>
-                    <a href="tel:919-717-465" class="btn btn-light">
-                        <span class="btn-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.99C20.47 21.04 19.93 21.07 19.38 21.07C10.44 21.07 3.07 13.7 3.07 4.76C3.07 4.21 3.1 3.67 3.15 3.14C3.21 2.58 3.66 2.14 4.22 2.14H7.22C7.72 2.14 8.14 2.5 8.21 2.99C8.28 3.51 8.4 4.01 8.57 4.49C8.71 4.87 8.61 5.3 8.31 5.6L6.79 7.12C8.21 9.69 10.39 11.87 12.96 13.29L14.48 11.77C14.78 11.47 15.21 11.37 15.59 11.51C16.07 11.68 16.57 11.8 17.09 11.87C17.58 11.94 17.94 12.36 17.94 12.86V15.86C17.94 16.42 17.5 16.87 16.94 16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </span>
-                        Call 919-717-465
-                    </a>
+                    <h2 id="cta-heading" class="animate-on-scroll">Ready for a Fresh, Clean Look?</h2>
+                    <p class="animate-on-scroll">Get your free quote today and see the Carolina Cleaning Boys difference.</p>
+                    <div class="cta-buttons animate-on-scroll">
+                        <a href="#estimate-form" class="btn btn-light btn-large">
+                            <span class="btn-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            Click Here to Get a FREE Estimate
+                        </a>
+                        <a href="tel:919-717-465" class="btn btn-outline">
+                            <span class="btn-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.99C20.47 21.04 19.93 21.07 19.38 21.07C10.44 21.07 3.07 13.7 3.07 4.76C3.07 4.21 3.1 3.67 3.15 3.14C3.21 2.58 3.66 2.14 4.22 2.14H7.22C7.72 2.14 8.14 2.5 8.21 2.99C8.28 3.51 8.4 4.01 8.57 4.49C8.71 4.87 8.61 5.3 8.31 5.6L6.79 7.12C8.21 9.69 10.39 11.87 12.96 13.29L14.48 11.77C14.78 11.47 15.21 11.37 15.59 11.51C16.07 11.68 16.57 11.8 17.09 11.87C17.58 11.94 17.94 12.36 17.94 12.86V15.86C17.94 16.42 17.5 16.87 16.94 16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            Call 919-717-465
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -283,9 +616,16 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <a href="#" class="footer-logo">
-                        <img src="images/Carolina_Cleaning_Logo.png" alt="Carolina Cleaning Boys Logo" class="footer-logo-img">
+                        <img src="images/carolinacleaninglogo.png" alt="Carolina Cleaning Boys Logo" class="footer-logo-img">
                     </a>
                     <p class="footer-desc">Professional pressure washing, soft-washing, and gutter cleaning services for residential and commercial properties in Greenville, NC.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/CarolinaCleaningBoys" target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook page">
+                            <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.79-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796v8.437C19.612 23.091 24 18.099 24 12.073z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="footer-contact">
@@ -293,13 +633,20 @@
                     <address>
                         <p>Greenville, North Carolina</p>
                         <p>
-                            <a href="tel:919-717-465" class="footer-phone">
-                                <span class="phone-icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.99C20.47 21.04 19.93 21.07 19.38 21.07C10.44 21.07 3.07 13.7 3.07 4.76C3.07 4.21 3.1 3.67 3.15 3.14C3.21 2.58 3.66 2.14 4.22 2.14H7.22C7.72 2.14 8.14 2.5 8.21 2.99C8.28 3.51 8.4 4.01 8.57 4.49C8.71 4.87 8.61 5.3 8.31 5.6L6.79 7.12C8.21 9.69 10.39 11.87 12.96 13.29L14.48 11.77C14.78 11.47 15.21 11.37 15.59 11.51C16.07 11.68 16.57 11.8 17.09 11.87C17.58 11.94 17.94 12.36 17.94 12.86V15.86C17.94 16.42 17.5 16.87 16.94 16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
+                            <a href="tel:919-717-465" class="footer-link">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 16.92V19.92C22 20.48 21.56 20.93 21 20.99C20.47 21.04 19.93 21.07 19.38 21.07C10.44 21.07 3.07 13.7 3.07 4.76C3.07 4.21 3.1 3.67 3.15 3.14C3.21 2.58 3.66 2.14 4.22 2.14H7.22C7.72 2.14 8.14 2.5 8.21 2.99C8.28 3.51 8.4 4.01 8.57 4.49C8.71 4.87 8.61 5.3 8.31 5.6L6.79 7.12C8.21 9.69 10.39 11.87 12.96 13.29L14.48 11.77C14.78 11.47 15.21 11.37 15.59 11.51C16.07 11.68 16.57 11.8 17.09 11.87C17.58 11.94 17.94 12.36 17.94 12.86V15.86C17.94 16.42 17.5 16.87 16.94 16.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
                                 919-717-465
+                            </a>
+                        </p>
+                        <p>
+                            <a href="mailto:carolinacleaningboys@gmail.com" class="footer-link">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                carolinacleaningboys@gmail.com
                             </a>
                         </p>
                     </address>
@@ -315,6 +662,13 @@
                         <li>Commercial Cleaning</li>
                     </ul>
                 </div>
+                
+                <div class="footer-cta">
+                    <h3>Get Started</h3>
+                    <a href="#estimate-form" class="btn btn-primary">
+                        Get FREE Estimate
+                    </a>
+                </div>
             </div>
             
             <div class="footer-bottom">
@@ -323,5 +677,111 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Reviews Carousel
+        const carousel = document.getElementById('reviewsCarousel');
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+        
+        let scrollAmount = 0;
+        const cardWidth = 340; // card width + gap
+
+        prevBtn.addEventListener('click', () => {
+            scrollAmount = Math.max(scrollAmount - cardWidth, 0);
+            carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+            scrollAmount = Math.min(scrollAmount + cardWidth, maxScroll);
+            carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        // Touch/drag scrolling for carousel
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        carousel.addEventListener('mousedown', (e) => {
+            isDown = true;
+            carousel.classList.add('grabbing');
+            startX = e.pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            isDown = false;
+            carousel.classList.remove('grabbing');
+        });
+
+        carousel.addEventListener('mouseup', () => {
+            isDown = false;
+            carousel.classList.remove('grabbing');
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+
+        // Parallax water effects on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const bubbles = document.querySelectorAll('.bubble');
+            const suds = document.querySelectorAll('.soap-sud');
+            const drops = document.querySelectorAll('.water-drop');
+            
+            bubbles.forEach((bubble, index) => {
+                const speed = 0.1 + (index * 0.05);
+                bubble.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+            
+            suds.forEach((sud, index) => {
+                const speed = 0.08 + (index * 0.03);
+                sud.style.transform = `translateY(${scrolled * -speed}px) rotate(${scrolled * 0.02}deg)`;
+            });
+            
+            drops.forEach((drop, index) => {
+                const speed = 0.15 + (index * 0.04);
+                drop.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
