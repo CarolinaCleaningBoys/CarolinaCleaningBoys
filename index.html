@@ -362,7 +362,7 @@
                 <h2 id="estimate-heading" class="section-title animate-on-scroll">Get Your FREE Estimate</h2>
                 <p class="section-subtitle animate-on-scroll">Fill out the form below and we'll get back to you within 24 hours</p>
                 
-                <form class="estimate-form animate-on-scroll" action="https://formsubmit.co/carolinacleaningboys@gmail.com" method="POST">
+                <form class="estimate-form animate-on-scroll" id="leadForm" onsubmit="submitForm(event)">
                     <input type="hidden" name="_subject" value="New Estimate Request from Website">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
@@ -449,7 +449,7 @@
                         <textarea id="additional_info" name="additional_info" rows="4" class="form-textarea" placeholder="Tell us more about your project..."></textarea>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary btn-large btn-full">📧 Submit Request</button>
+                    <button type="submit" class="btn btn-primary btn-large btn-full" id="submitBtn">📧 Submit Request</button>
                 </form>
             </div>
         </section>
@@ -612,5 +612,92 @@
             document.getElementById('reviewsCarousel').scrollBy({ left: 340, behavior: 'smooth' });
         });
     </script>
+    <script>
+function submitForm(e) {
+    e.preventDefault();
+    
+    var btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    
+    var form = document.getElementById('leadForm');
+    
+    // Gather checkbox values
+    var services = [];
+    var checkboxes = form.querySelectorAll('input[name="services"]:checked');
+    checkboxes.forEach(function(cb) {
+        services.push(cb.value);
+    });
+    
+    // Get radio value
+    var propertyType = form.querySelector('input[name="property_type"]:checked');
+    
+    var data = {
+        property_type: propertyType ? propertyType.value : '',
+        first_name: form.querySelector('#first_name').value,
+        last_name: form.querySelector('#last_name').value,
+        email: form.querySelector('#email').value,
+        phone: form.querySelector('#phone').value,
+        street_address: form.querySelector('#street_address').value,
+        city: form.querySelector('#city').value,
+        state: form.querySelector('#state').value,
+        services: services.join(', '),
+        referral_source: form.querySelector('#referral_source').value,
+        additional_info: form.querySelector('#additional_info').value
+    };
+    
+    // Send to Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbxlVq2f7rbyxu6yB1xIpoIYIzYEBuZM85_YzteLuLmZk304cCFw8qBgxde_3DT38Z0w/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(function() {
+        // Also send email via FormSubmit
+        var emailForm = document.createElement('form');
+        emailForm.method = 'POST';
+        emailForm.action = 'https://formsubmit.co/carolinacleaningboys@gmail.com';
+        
+        for (var key in data) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = data[key];
+            emailForm.appendChild(input);
+        }
+        
+        // FormSubmit settings
+        var subject = document.createElement('input');
+        subject.type = 'hidden';
+        subject.name = '_subject';
+        subject.value = 'New Estimate Request from Website';
+        emailForm.appendChild(subject);
+        
+        var template = document.createElement('input');
+        template.type = 'hidden';
+        template.name = '_template';
+        template.value = 'table';
+        emailForm.appendChild(template);
+        
+        var captcha = document.createElement('input');
+        captcha.type = 'hidden';
+        captcha.name = '_captcha';
+        captcha.value = 'false';
+        emailForm.appendChild(captcha);
+        
+        document.body.appendChild(emailForm);
+        emailForm.submit();
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
+        btn.textContent = '📧 Submit Request';
+        btn.disabled = false;
+        alert('There was an error. Please try again.');
+    });
+}
+</script>
 </body>
 </html>
