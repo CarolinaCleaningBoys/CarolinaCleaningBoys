@@ -673,7 +673,11 @@ function submitForm(e) {
     })
     .then(function() {
         // Track Google Ads conversion
-        gtag('event', 'conversion', {'send_to': 'AW-17822819353/C0zQCLO-0tcbEJnIyrJC'});
+        gtag('event', 'conversion', {
+            'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
+            'value': 150.0,
+            'currency': 'USD'
+        });
         
         // Also send email via FormSubmit
         var emailForm = document.createElement('form');
