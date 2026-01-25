@@ -19,6 +19,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<!-- Google Maps Address Autocomplete -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMgQPLJlz8BrHJ7T6WJuJf54KU2JcwqN8&libraries=places"></script>
     
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -715,6 +717,52 @@ function submitForm(e) {
         alert('There was an error. Please try again.');
     });
 }
+</script>
+    <script>
+function initAutocomplete() {
+    const addressInput = document.getElementById('street_address');
+    
+    const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' }
+    });
+    
+    autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        
+        if (!place.address_components) return;
+        
+        let streetNumber = '';
+        let route = '';
+        let city = '';
+        let state = '';
+        
+        for (const component of place.address_components) {
+            const type = component.types[0];
+            
+            if (type === 'street_number') {
+                streetNumber = component.long_name;
+            }
+            if (type === 'route') {
+                route = component.long_name;
+            }
+            if (type === 'locality') {
+                city = component.long_name;
+            }
+            if (type === 'administrative_area_level_1') {
+                state = component.short_name;
+            }
+        }
+        
+        // Fill in the form fields
+        document.getElementById('street_address').value = streetNumber + ' ' + route;
+        document.getElementById('city').value = city;
+        document.getElementById('state').value = state;
+    });
+}
+
+// Initialize when page loads
+window.addEventListener('load', initAutocomplete);
 </script>
 </body>
 </html>
