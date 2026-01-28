@@ -404,3 +404,147 @@ address { font-style: normal; }
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .animate-on-scroll { opacity: 1; transform: none; } .bubble, .soap-sud, .water-drop { display: none; } }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--primary-light); outline-offset: 2px; }
+
+/* ============================================
+   UPGRADED HEADER CTA BUTTON
+   ============================================ */
+.nav-cta-upgraded {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7C531 100%) !important;
+    color: #1a1a1a !important;
+    padding: 0.75rem 1.25rem !important;
+    font-size: 0.95rem !important;
+    animation: headerPulse 2s ease-in-out infinite;
+    border: 2px solid #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-cta-upgraded::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes headerPulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4); }
+    50% { box-shadow: 0 4px 25px rgba(255, 107, 53, 0.7), 0 0 30px rgba(247, 197, 49, 0.4); }
+}
+
+.nav-cta-upgraded:hover {
+    background: linear-gradient(135deg, #FF8555 0%, #FFD54F 100%) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+}
+
+.cta-icon {
+    font-size: 1.1rem;
+    margin-right: 0.25rem;
+}
+
+.cta-subtext {
+    font-weight: 400;
+    font-size: 0.8rem;
+}
+
+@media (max-width: 600px) {
+    .cta-subtext { display: none; }
+    .nav-cta-upgraded { padding: 0.7rem 1rem !important; }
+}
+
+@media (max-width: 380px) {
+    .nav-cta-upgraded::before { content: '📋'; font-size: 1.2rem; }
+    .cta-icon { display: none; }
+}
+
+/* ============================================
+   FLOATING CTA BUTTON - Always Visible
+   ============================================ */
+.floating-cta {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #FF6B35 0%, #F7C531 100%);
+    color: #1a1a1a;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5), 0 3px 10px rgba(0,0,0,0.2);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: floatingBounce 2s ease-in-out infinite, floatingGlow 2s ease-in-out infinite;
+    border: 3px solid #fff;
+}
+
+.floating-cta:hover {
+    transform: scale(1.08) translateY(-5px);
+    box-shadow: 0 10px 40px rgba(255, 107, 53, 0.6), 0 5px 15px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #FF8555 0%, #FFD54F 100%);
+}
+
+@keyframes floatingBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+@keyframes floatingGlow {
+    0%, 100% { box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5), 0 3px 10px rgba(0,0,0,0.2); }
+    50% { box-shadow: 0 8px 40px rgba(255, 107, 53, 0.7), 0 4px 15px rgba(0,0,0,0.25), 0 0 20px rgba(247, 197, 49, 0.4); }
+}
+
+.floating-cta-icon {
+    font-size: 1.4rem;
+}
+
+.floating-cta-text {
+    letter-spacing: 0.02em;
+}
+
+.floating-cta-badge {
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+    margin-left: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Hide floating CTA when near the form */
+@media (max-width: 480px) {
+    .floating-cta {
+        bottom: 15px;
+        right: 15px;
+        padding: 0.85rem 1.2rem;
+        font-size: 1rem;
+    }
+    .floating-cta-icon { font-size: 1.2rem; }
+    .floating-cta-badge { display: none; }
+}
+
+/* Extra small screens */
+@media (max-width: 350px) {
+    .floating-cta {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    .floating-cta-text { display: none; }
+    .floating-cta-icon { font-size: 1.5rem; }
+    .floating-cta::after { content: 'Quote'; margin-left: 0.3rem; }
+}
