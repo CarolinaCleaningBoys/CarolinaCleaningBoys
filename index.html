@@ -59,13 +59,37 @@
         <div class="water-drop drop-10"></div>
     </div>
 
+    <!-- Sidebar Navigation -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <nav class="sidebar" id="sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()" aria-label="Close menu">&times;</button>
+        <div class="sidebar-content">
+            <a href="index.html" class="sidebar-link active">🏠 Home</a>
+            <div class="sidebar-divider"></div>
+            <span class="sidebar-label">Our Services</span>
+            <a href="services/pressure-washing.html" class="sidebar-link">💧 Pressure Washing</a>
+            <a href="services/soft-washing.html" class="sidebar-link">🧼 Soft-Washing</a>
+            <a href="services/surface-cleaning.html" class="sidebar-link">🧱 Surface Cleaning</a>
+            <a href="services/roof-cleaning.html" class="sidebar-link">🏠 Roof Cleaning</a>
+            <a href="services/gutter-cleaning.html" class="sidebar-link">🍂 Gutter Cleaning</a>
+            <div class="sidebar-divider"></div>
+            <a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">📋 Get a FREE Quote</a>
+            <a href="tel:919-717-4653" class="sidebar-link">📞 919-717-4653</a>
+        </div>
+    </nav>
+
     <header class="header">
         <nav class="nav container">
-            <a href="#" class="logo" aria-label="Carolina Cleaning Boys Home">
+            <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <a href="index.html" class="logo" aria-label="Carolina Cleaning Boys Home">
                 <img src="images/logo1.png" alt="Carolina Cleaning Boys Logo" class="logo-img">
             </a>
             <div class="nav-contact">
-                <a href="/cdn-cgi/l/email-protection#81e2e0f3eeede8efe0e2ede4e0efe8efe6e3eef8f2c1e6ece0e8edafe2eeec" class="nav-email" aria-label="Send us an email">
+                <a href="mailto:carolinacleaningboys@gmail.com" class="nav-email" aria-label="Send us an email">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -101,12 +125,11 @@
                 <div class="services-highlight animate-on-scroll">
                     <h2 class="services-title">Our Services</h2>
                     <ul class="services-list">
-                        <li><span class="service-emoji">💧</span> Pressure Washing</li>
-                        <li><span class="service-emoji">🧼</span> Soft-Washing</li>
-                        <li><span class="service-emoji">🧹</span> Surface Cleaning</li>
-                        <li><span class="service-emoji">🏠</span> Roof Cleaning</li>
-                        <li><span class="service-emoji">🍂</span> Gutter Cleaning</li>
-                        <li><span class="service-emoji">🌿</span> Leaf Blowing</li>
+                        <li><a href="services/pressure-washing.html"><span class="service-emoji">💧</span> Pressure Washing</a></li>
+                        <li><a href="services/soft-washing.html"><span class="service-emoji">🧼</span> Soft-Washing</a></li>
+                        <li><a href="services/surface-cleaning.html"><span class="service-emoji">🧹</span> Surface Cleaning</a></li>
+                        <li><a href="services/roof-cleaning.html"><span class="service-emoji">🏠</span> Roof Cleaning</a></li>
+                        <li><a href="services/gutter-cleaning.html"><span class="service-emoji">🍂</span> Gutter Cleaning</a></li>
                     </ul>
                 </div>
                 
@@ -151,74 +174,63 @@
         <section class="services-section" aria-labelledby="services-heading">
             <div class="container">
                 <h2 id="services-heading" class="section-title animate-on-scroll">What We Do Best</h2>
-                <p class="section-subtitle animate-on-scroll">Click any service to view our work</p>
+                <p class="section-subtitle animate-on-scroll">Click any service to learn more</p>
                 
                 <div class="services-grid">
-                    <article class="service-card animate-on-scroll" onclick="openServiceGallery('pressure-washing')">
+                    <a href="services/pressure-washing.html" class="service-card animate-on-scroll">
                         <div class="service-card-image">
                             <img src="images/pw1.jpeg" alt="Pressure washing" loading="lazy">
-                            <div class="service-card-overlay"><span class="view-gallery-text">Click to View Gallery</span></div>
+                            <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
                         </div>
                         <div class="service-card-content">
                             <h3>Pressure Washing</h3>
                             <p>High-powered cleaning for driveways, sidewalks, and patios. Remove years of built-up grime, mold, and stains.</p>
                         </div>
-                    </article>
+                    </a>
                     
-                    <article class="service-card animate-on-scroll" onclick="openServiceGallery('soft-washing')">
+                    <a href="services/soft-washing.html" class="service-card animate-on-scroll">
                         <div class="service-card-image">
                             <img src="images/sw3.jpeg" alt="Soft-washing" loading="lazy">
-                            <div class="service-card-overlay"><span class="view-gallery-text">Click to View Gallery</span></div>
+                            <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
                         </div>
                         <div class="service-card-content">
                             <h3>Soft-Washing</h3>
                             <p>Gentle yet effective cleaning for siding, roofs, and delicate surfaces. Safe biodegradable solutions that protect while they clean.</p>
                         </div>
-                    </article>
+                    </a>
                     
-                    <article class="service-card animate-on-scroll" onclick="openServiceGallery('gutter-cleaning')">
+                    <a href="services/surface-cleaning.html" class="service-card animate-on-scroll">
+                        <div class="service-card-image">
+                            <img src="images/pw1.jpeg" alt="Surface cleaning" loading="lazy">
+                            <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
+                        </div>
+                        <div class="service-card-content">
+                            <h3>Surface Cleaning</h3>
+                            <p>Professional cleaning for concrete, driveways, sidewalks, patios, pavers, brick, and pool decks.</p>
+                        </div>
+                    </a>
+                    
+                    <a href="services/roof-cleaning.html" class="service-card animate-on-scroll">
+                        <div class="service-card-image">
+                            <img src="images/rf1.jpg" alt="Roof cleaning" loading="lazy">
+                            <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
+                        </div>
+                        <div class="service-card-content">
+                            <h3>Roof Cleaning</h3>
+                            <p>Safe and effective roof cleaning that removes algae, moss, and stains without damaging your shingles.</p>
+                        </div>
+                    </a>
+                    
+                    <a href="services/gutter-cleaning.html" class="service-card animate-on-scroll">
                         <div class="service-card-image">
                             <img src="images/g2.jpeg" alt="Gutter cleaning" loading="lazy">
-                            <div class="service-card-overlay"><span class="view-gallery-text">Click to View Gallery</span></div>
+                            <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
                         </div>
                         <div class="service-card-content">
                             <h3>Gutter Cleaning</h3>
                             <p>Complete gutter and downspout cleaning to prevent water damage and protect your home's foundation.</p>
                         </div>
-                    </article>
-                    
-                    <article class="service-card animate-on-scroll" onclick="openServiceGallery('roof-washing')">
-                        <div class="service-card-image">
-                            <img src="images/rf1.jpg" alt="Roof washing" loading="lazy">
-                            <div class="service-card-overlay"><span class="view-gallery-text">Click to View Gallery</span></div>
-                        </div>
-                        <div class="service-card-content">
-                            <h3>Roof Washing</h3>
-                            <p>Safe and effective roof cleaning that removes algae, moss, and stains without damaging your shingles.</p>
-                        </div>
-                    </article>
-                    
-                    <article class="service-card animate-on-scroll" onclick="openServiceGallery('fence-cleaning')">
-                        <div class="service-card-image">
-                            <img src="images/f1.jpg" alt="Fence cleaning" loading="lazy">
-                            <div class="service-card-overlay"><span class="view-gallery-text">Click to View Gallery</span></div>
-                        </div>
-                        <div class="service-card-content">
-                            <h3>Fence Cleaning</h3>
-                            <p>Restore your fence to its original beauty. We clean wood, vinyl, and metal fences with care.</p>
-                        </div>
-                    </article>
-                    
-                    <article class="service-card animate-on-scroll" onclick="openServiceGallery('deck-cleaning')">
-                        <div class="service-card-image">
-                            <img src="images/d1.jpg" alt="Deck cleaning" loading="lazy">
-                            <div class="service-card-overlay"><span class="view-gallery-text">Click to View Gallery</span></div>
-                        </div>
-                        <div class="service-card-content">
-                            <h3>Deck Cleaning</h3>
-                            <p>Revitalize your outdoor living space. We safely clean and restore decks of all materials.</p>
-                        </div>
-                    </article>
+                    </a>
                 </div>
             </div>
         </section>
@@ -505,28 +517,40 @@
                     <address>
                         <p>📍 Greenville, North Carolina</p>
                         <p><a href="tel:919-717-4653" class="footer-link">📞 919-717-4653</a></p>
-                        <p><a href="/cdn-cgi/l/email-protection#3e5d5f4c515257505f5d525b5f505750595c51474d7e59535f5752105d5153" class="footer-link"> <span class="__cf_email__" data-cfemail="743715061b181d1a15371811151a1d1a13361b0d07341319151d185a171b19">[email&#160;protected]</span></a></p>                
+                        <p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link">✉️ carolinacleaningboys@gmail.com</a></p>                
                 </div>
                 <div class="footer-services">
                     <h3>Services</h3>
                     <ul>
-                        <li>Pressure Washing</li>
-                        <li>Soft-Washing</li>
-                        <li>Gutter Cleaning</li>
-                        <li>Roof Cleaning</li>
-                        <li>Fence Cleaning</li>
-                        <li>Deck Cleaning</li>
+                        <li><a href="services/pressure-washing.html" class="footer-link">Pressure Washing</a></li>
+                        <li><a href="services/soft-washing.html" class="footer-link">Soft-Washing</a></li>
+                        <li><a href="services/surface-cleaning.html" class="footer-link">Surface Cleaning</a></li>
+                        <li><a href="services/roof-cleaning.html" class="footer-link">Roof Cleaning</a></li>
+                        <li><a href="services/gutter-cleaning.html" class="footer-link">Gutter Cleaning</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2024 Carolina Cleaning Boys. All rights reserved.</p>
-                <p>Proudly serving Eastern, NC and surrounding areas.</p>
+                <p>Proudly serving Eastern NC and surrounding areas.</p>
             </div>
         </div>
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Sidebar toggle functions
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+            document.body.style.overflow = document.getElementById('sidebar').classList.contains('active') ? 'hidden' : '';
+        }
+        
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         var serviceGalleries = {
             'pressure-washing': {
                 title: 'Pressure Washing Gallery',
