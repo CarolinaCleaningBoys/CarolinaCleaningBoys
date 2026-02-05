@@ -20,6 +20,163 @@
     --shadow-sm: 0 2px 8px var(--shadow-color);
     --shadow-md: 0 4px 16px var(--shadow-color);
     --shadow-lg: 0 8px 32px var(--shadow-color);
+    
+    /* Page-specific accent colors */
+    --accent-pressure: #E85D04;
+    --accent-pressure-light: #F48C06;
+    --accent-soft: #48CAE4;
+    --accent-soft-light: #90E0EF;
+    --accent-surface: #6C757D;
+    --accent-surface-light: #ADB5BD;
+    --accent-roof: #1D3557;
+    --accent-roof-light: #457B9D;
+    --accent-gutter: #BC6C25;
+    --accent-gutter-light: #DDA15E;
+}
+
+/* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-light), var(--primary));
+    z-index: 10000;
+    transition: width 0.1s ease-out;
+}
+
+/* Page-specific progress bar colors */
+.page-pressure .scroll-progress { background: linear-gradient(90deg, var(--accent-pressure), var(--accent-pressure-light)); }
+.page-soft .scroll-progress { background: linear-gradient(90deg, var(--accent-soft), var(--accent-soft-light)); }
+.page-surface .scroll-progress { background: linear-gradient(90deg, var(--accent-surface), var(--accent-surface-light)); }
+.page-roof .scroll-progress { background: linear-gradient(90deg, var(--accent-roof), var(--accent-roof-light)); }
+.page-gutter .scroll-progress { background: linear-gradient(90deg, var(--accent-gutter), var(--accent-gutter-light)); }
+
+/* ============================================
+   STAGGERED ANIMATIONS
+   ============================================ */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+
+/* Enhanced scroll animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Slide from left */
+.animate-slide-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-slide-left.animated {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Slide from right */
+.animate-slide-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-slide-right.animated {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Scale up animation */
+.animate-scale {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-scale.animated {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ============================================
+   ENHANCED HOVER MICRO-INTERACTIONS
+   ============================================ */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+/* Card hover effects */
+.service-card,
+.process-card,
+.benefit-card,
+.included-card,
+.feature-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.service-card:hover,
+.process-card:hover,
+.benefit-card:hover,
+.included-card:hover,
+.feature-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Image zoom on hover */
+.service-card img,
+.gallery-item img,
+.process-image img {
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover img,
+.gallery-item:hover img,
+.process-card:hover .process-image img {
+    transform: scale(1.1);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1215,5 +1372,353 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 @media (max-width: 600px) {
     .process-grid.four-steps {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   PAGE-SPECIFIC HERO STYLES
+   ============================================ */
+
+/* Pressure Washing - Bold, powerful, left-aligned */
+.page-pressure .service-hero {
+    background: linear-gradient(135deg, var(--accent-pressure) 0%, var(--accent-pressure-light) 50%, #FFBA08 100%);
+}
+
+.page-pressure .service-hero-content {
+    text-align: left;
+    max-width: 700px;
+    margin-left: 0;
+}
+
+.page-pressure .service-hero-title .accent {
+    color: var(--white);
+    text-shadow: 3px 3px 0 var(--accent-pressure);
+}
+
+.page-pressure .process-number {
+    background: linear-gradient(135deg, var(--accent-pressure) 0%, var(--accent-pressure-light) 100%);
+}
+
+.page-pressure .btn-primary {
+    background: var(--accent-pressure);
+}
+
+.page-pressure .btn-primary:hover {
+    background: var(--accent-pressure-light);
+}
+
+/* Soft-Washing - Gentle, calming, centered with soft curves */
+.page-soft .service-hero {
+    background: linear-gradient(180deg, var(--accent-soft-light) 0%, var(--accent-soft) 50%, var(--primary-light) 100%);
+}
+
+.page-soft .service-hero-content {
+    text-align: center;
+}
+
+.page-soft .service-hero-title .accent {
+    color: var(--white);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+}
+
+.page-soft .process-number {
+    background: linear-gradient(135deg, var(--accent-soft) 0%, var(--accent-soft-light) 100%);
+}
+
+.page-soft .process-section {
+    position: relative;
+}
+
+.page-soft .process-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: var(--off-white);
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+/* Surface Cleaning - Industrial, grid pattern, concrete feel */
+.page-surface .service-hero {
+    background: linear-gradient(135deg, var(--accent-surface) 0%, var(--accent-surface-light) 50%, #E9ECEF 100%);
+    position: relative;
+}
+
+.page-surface .service-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+}
+
+.page-surface .service-hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.page-surface .process-number {
+    background: linear-gradient(135deg, var(--accent-surface) 0%, var(--accent-surface-light) 100%);
+}
+
+/* Roof Cleaning - Angled, professional, slate colors */
+.page-roof .service-hero {
+    background: linear-gradient(160deg, var(--accent-roof) 0%, var(--accent-roof-light) 60%, var(--primary-light) 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    padding-bottom: 120px;
+}
+
+.page-roof .service-hero-content {
+    text-align: right;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.page-roof .service-hero-title .accent {
+    color: var(--accent-roof-light);
+}
+
+.page-roof .process-number {
+    background: linear-gradient(135deg, var(--accent-roof) 0%, var(--accent-roof-light) 100%);
+}
+
+.page-roof .process-section {
+    margin-top: -50px;
+    padding-top: 80px;
+}
+
+/* Gutter Cleaning - Autumn, warm, flowing */
+.page-gutter .service-hero {
+    background: linear-gradient(180deg, var(--accent-gutter) 0%, var(--accent-gutter-light) 50%, #FEFAE0 100%);
+}
+
+.page-gutter .service-hero-content {
+    text-align: center;
+}
+
+.page-gutter .service-hero-title .accent {
+    color: #FEFAE0;
+    text-shadow: 2px 2px 0 var(--accent-gutter);
+}
+
+.page-gutter .included-icon {
+    color: var(--accent-gutter);
+}
+
+.page-gutter .included-card {
+    border-top: 4px solid var(--accent-gutter);
+}
+
+/* ============================================
+   UNIQUE SECTION DIVIDERS
+   ============================================ */
+.section-divider-wave {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+
+.section-divider-wave svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+}
+
+.section-divider-angle {
+    position: relative;
+    height: 80px;
+    background: linear-gradient(to bottom right, var(--off-white) 49%, var(--white) 50%);
+}
+
+.section-divider-angle.reverse {
+    background: linear-gradient(to bottom left, var(--white) 49%, var(--off-white) 50%);
+}
+
+/* ============================================
+   FLOATING ELEMENTS ANIMATION (LEAVES FOR GUTTER)
+   ============================================ */
+.page-gutter .floating-leaf {
+    position: fixed;
+    font-size: 2rem;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+    animation: fallLeaf 10s linear infinite;
+}
+
+@keyframes fallLeaf {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.floating-leaf:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+.floating-leaf:nth-child(2) { left: 30%; animation-delay: 2s; animation-duration: 10s; }
+.floating-leaf:nth-child(3) { left: 50%; animation-delay: 4s; animation-duration: 14s; }
+.floating-leaf:nth-child(4) { left: 70%; animation-delay: 1s; animation-duration: 11s; }
+.floating-leaf:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 13s; }
+
+/* ============================================
+   WATER SPRAY ANIMATION (PRESSURE WASHING)
+   ============================================ */
+.page-pressure .water-spray {
+    position: absolute;
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+    border-radius: 2px;
+    animation: spray 0.5s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes spray {
+    0% {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100px) scaleY(0.5);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   ENHANCED PROCESS CARDS WITH STAGGER
+   ============================================ */
+.process-grid .process-card:nth-child(1) { transition-delay: 0.1s; }
+.process-grid .process-card:nth-child(2) { transition-delay: 0.2s; }
+.process-grid .process-card:nth-child(3) { transition-delay: 0.3s; }
+.process-grid .process-card:nth-child(4) { transition-delay: 0.4s; }
+
+.benefits-grid .benefit-card:nth-child(1) { transition-delay: 0.1s; }
+.benefits-grid .benefit-card:nth-child(2) { transition-delay: 0.2s; }
+.benefits-grid .benefit-card:nth-child(3) { transition-delay: 0.3s; }
+
+.included-grid .included-card:nth-child(1) { transition-delay: 0.1s; }
+.included-grid .included-card:nth-child(2) { transition-delay: 0.2s; }
+.included-grid .included-card:nth-child(3) { transition-delay: 0.3s; }
+.included-grid .included-card:nth-child(4) { transition-delay: 0.4s; }
+
+/* ============================================
+   COUNTER ANIMATION STYLES
+   ============================================ */
+.stats-section {
+    padding: var(--space-xl) 0;
+    background: var(--primary);
+    color: var(--white);
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+}
+
+.stat-item {
+    padding: var(--space-md);
+}
+
+.stat-number {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Page-specific stat section colors */
+.page-pressure .stats-section { background: var(--accent-pressure); }
+.page-soft .stats-section { background: var(--accent-soft); }
+.page-surface .stats-section { background: var(--accent-surface); }
+.page-roof .stats-section { background: var(--accent-roof); }
+.page-gutter .stats-section { background: var(--accent-gutter); }
+
+/* ============================================
+   MOBILE OPTIMIZATIONS FOR ANIMATIONS
+   ============================================ */
+@media (max-width: 768px) {
+    /* Simplify animations on mobile */
+    .floating-leaf {
+        display: none;
+    }
+    
+    .page-roof .service-hero {
+        clip-path: none;
+        padding-bottom: var(--space-xl);
+    }
+    
+    .page-roof .process-section {
+        margin-top: 0;
+        padding-top: var(--space-xl);
+    }
+    
+    .page-pressure .service-hero-content,
+    .page-roof .service-hero-content {
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    /* Reduce animation intensity */
+    .animate-on-scroll {
+        transform: translateY(20px);
+    }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+    
+    .service-card:hover,
+    .process-card:hover,
+    .benefit-card:hover {
+        transform: translateY(-5px) scale(1.01);
+    }
+}
+
+/* ============================================
+   REDUCED MOTION PREFERENCE
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .scroll-progress {
+        display: none;
     }
 }
