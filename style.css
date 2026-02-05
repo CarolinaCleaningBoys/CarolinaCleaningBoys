@@ -2049,3 +2049,349 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         display: none;
     }
 }
+
+/* ============================================
+   PHASE 3: SERVICE-SPECIFIC ANIMATIONS
+   ============================================ */
+
+/* Water Spray Effect for Pressure Washing */
+.water-spray-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.water-particle {
+    position: absolute;
+    width: 3px;
+    height: 12px;
+    background: linear-gradient(to bottom, rgba(111, 175, 216, 0.8), rgba(111, 175, 216, 0.2));
+    border-radius: 50%;
+    animation: waterFall 1.5s linear infinite;
+    opacity: 0;
+}
+
+@keyframes waterFall {
+    0% {
+        transform: translateY(-20px) rotate(15deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(100vh) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+/* Generate multiple water particles */
+.water-particle:nth-child(1) { left: 5%; animation-delay: 0s; animation-duration: 1.2s; }
+.water-particle:nth-child(2) { left: 15%; animation-delay: 0.2s; animation-duration: 1.4s; }
+.water-particle:nth-child(3) { left: 25%; animation-delay: 0.4s; animation-duration: 1.1s; }
+.water-particle:nth-child(4) { left: 35%; animation-delay: 0.1s; animation-duration: 1.6s; }
+.water-particle:nth-child(5) { left: 45%; animation-delay: 0.3s; animation-duration: 1.3s; }
+.water-particle:nth-child(6) { left: 55%; animation-delay: 0.5s; animation-duration: 1.5s; }
+.water-particle:nth-child(7) { left: 65%; animation-delay: 0.15s; animation-duration: 1.2s; }
+.water-particle:nth-child(8) { left: 75%; animation-delay: 0.35s; animation-duration: 1.4s; }
+.water-particle:nth-child(9) { left: 85%; animation-delay: 0.25s; animation-duration: 1.3s; }
+.water-particle:nth-child(10) { left: 95%; animation-delay: 0.45s; animation-duration: 1.1s; }
+
+/* Extra Foam Bubbles for Soft-Washing */
+.foam-bubble {
+    position: fixed;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), rgba(144, 224, 239, 0.6));
+    border: 1px solid rgba(72, 202, 228, 0.3);
+    box-shadow: inset 0 0 20px rgba(255,255,255,0.5), 0 0 10px rgba(72, 202, 228, 0.2);
+    animation: foamFloat 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes foamFloat {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-30px) scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+.foam-bubble:nth-child(1) { width: 40px; height: 40px; left: 8%; top: 20%; animation-delay: 0s; }
+.foam-bubble:nth-child(2) { width: 60px; height: 60px; left: 88%; top: 30%; animation-delay: 1s; }
+.foam-bubble:nth-child(3) { width: 35px; height: 35px; left: 12%; top: 60%; animation-delay: 2s; }
+.foam-bubble:nth-child(4) { width: 50px; height: 50px; left: 92%; top: 70%; animation-delay: 0.5s; }
+.foam-bubble:nth-child(5) { width: 45px; height: 45px; left: 5%; top: 85%; animation-delay: 1.5s; }
+.foam-bubble:nth-child(6) { width: 55px; height: 55px; left: 95%; top: 15%; animation-delay: 2.5s; }
+
+/* Concrete Grid Texture for Surface Cleaning */
+.page-surface .service-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================
+   PHASE 3: UNIQUE SECTION DIVIDERS
+   ============================================ */
+
+/* Wave Divider - for Soft-Washing */
+.section-divider-wave {
+    position: relative;
+    height: 80px;
+    margin-top: -1px;
+}
+
+.section-divider-wave svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    fill: var(--off-white);
+}
+
+.section-divider-wave.wave-white svg {
+    fill: var(--white);
+}
+
+/* Angled Divider - for Roof Cleaning */
+.section-divider-angle {
+    position: relative;
+    height: 60px;
+    margin-top: -1px;
+}
+
+.section-divider-angle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom right, transparent 49.5%, var(--off-white) 50%);
+}
+
+.section-divider-angle.angle-reverse::before {
+    background: linear-gradient(to bottom left, transparent 49.5%, var(--off-white) 50%);
+}
+
+.section-divider-angle.angle-white::before {
+    background: linear-gradient(to bottom right, transparent 49.5%, var(--white) 50%);
+}
+
+/* Straight Divider with Accent Line - for Pressure Washing */
+.section-divider-line {
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-divider-line::before {
+    content: '';
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--accent-pressure), transparent);
+    border-radius: 2px;
+}
+
+.page-soft .section-divider-line::before {
+    background: linear-gradient(90deg, transparent, var(--accent-soft), transparent);
+}
+
+.page-surface .section-divider-line::before {
+    background: linear-gradient(90deg, transparent, var(--accent-surface), transparent);
+}
+
+.page-roof .section-divider-line::before {
+    background: linear-gradient(90deg, transparent, var(--accent-roof), transparent);
+}
+
+.page-gutter .section-divider-line::before {
+    background: linear-gradient(90deg, transparent, var(--accent-gutter), transparent);
+}
+
+/* ============================================
+   PHASE 3: FORM PROGRESS INDICATOR
+   ============================================ */
+.form-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+    background: rgba(255,255,255,0.5);
+    border-radius: 12px;
+}
+
+.form-progress-step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.form-progress-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--off-white);
+    border: 2px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.form-progress-step.active .form-progress-number {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.form-progress-step.completed .form-progress-number {
+    background: #28a745;
+    border-color: #28a745;
+    color: var(--white);
+}
+
+.form-progress-step.completed .form-progress-number::after {
+    content: '✓';
+}
+
+.form-progress-label {
+    font-size: 0.85rem;
+    color: var(--primary);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.form-progress-step.active .form-progress-label {
+    opacity: 1;
+    font-weight: 600;
+}
+
+.form-progress-connector {
+    width: 40px;
+    height: 2px;
+    background: var(--primary-light);
+    opacity: 0.3;
+}
+
+.form-progress-connector.active {
+    opacity: 1;
+    background: var(--primary);
+}
+
+/* Form sections for multi-step */
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-nav-buttons {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.form-nav-buttons .btn {
+    flex: 1;
+}
+
+.btn-secondary {
+    background: var(--off-white);
+    color: var(--primary);
+    border: 2px solid var(--primary-light);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-light);
+    color: var(--white);
+}
+
+/* Page-specific form progress colors */
+.page-pressure .form-progress-step.active .form-progress-number {
+    background: var(--accent-pressure);
+    border-color: var(--accent-pressure);
+}
+
+.page-soft .form-progress-step.active .form-progress-number {
+    background: var(--accent-soft);
+    border-color: var(--accent-soft);
+}
+
+.page-surface .form-progress-step.active .form-progress-number {
+    background: var(--accent-surface);
+    border-color: var(--accent-surface);
+}
+
+.page-roof .form-progress-step.active .form-progress-number {
+    background: var(--accent-roof);
+    border-color: var(--accent-roof);
+}
+
+.page-gutter .form-progress-step.active .form-progress-number {
+    background: var(--accent-gutter);
+    border-color: var(--accent-gutter);
+}
+
+/* ============================================
+   PHASE 3: MOBILE OPTIMIZATIONS
+   ============================================ */
+@media (max-width: 768px) {
+    .water-particle,
+    .foam-bubble {
+        display: none;
+    }
+    
+    .section-divider-wave,
+    .section-divider-angle {
+        height: 40px;
+    }
+    
+    .form-progress {
+        flex-wrap: wrap;
+        gap: var(--space-xs);
+    }
+    
+    .form-progress-connector {
+        width: 20px;
+    }
+    
+    .form-progress-label {
+        display: none;
+    }
+}
