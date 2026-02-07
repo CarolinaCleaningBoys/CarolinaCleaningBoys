@@ -89,7 +89,7 @@
                 <img src="images/logo1.png" alt="Carolina Cleaning Boys Logo" class="logo-img">
             </a>
             <div class="nav-contact">
-                <a href="mailto:carolinacleaningboys@gmail.com" class="nav-email" aria-label="Send us an email">
+                <a href="/cdn-cgi/l/email-protection#3a595b48555653545b59565f5b5453545d585543497a5d575b535614595557" class="nav-email" aria-label="Send us an email">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -517,7 +517,7 @@
                     <address>
                         <p>📍 Greenville, North Carolina</p>
                         <p><a href="tel:919-717-4653" class="footer-link">📞 919-717-4653</a></p>
-                        <p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link">✉️ carolinacleaningboys@gmail.com</a></p>
+                        <p><a href="/cdn-cgi/l/email-protection#81e2e0f3eeede8efe0e2ede4e0efe8efe6e3eef8f2c1e6ece0e8edafe2eeec" class="footer-link">✉️ <span class="__cf_email__" data-cfemail="086b697a67646166696b646d696661666f6a67717b486f65696164266b6765">[email&#160;protected]</span></a></p>
                     </address>
                 </div>
                 <div class="footer-services">
@@ -538,7 +538,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Sidebar toggle functions
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('active');
@@ -698,47 +698,86 @@ function submitForm(e) {
         body: JSON.stringify(data)
     })
     .then(function() {
-        // Track Google Ads conversion
+        // Track Google Ads conversion with callback
         gtag('event', 'conversion', {
             'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
             'value': 150.0,
-            'currency': 'USD'
+            'currency': 'USD',
+            'event_callback': function() {
+                // Send email via FormSubmit after conversion is tracked
+                var emailForm = document.createElement('form');
+                emailForm.method = 'POST';
+                emailForm.action = 'https://formsubmit.co/carolinacleaningboys@gmail.com';
+                
+                for (var key in data) {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = data[key];
+                    emailForm.appendChild(input);
+                }
+                
+                // FormSubmit settings
+                var subject = document.createElement('input');
+                subject.type = 'hidden';
+                subject.name = '_subject';
+                subject.value = 'New Estimate Request from Website';
+                emailForm.appendChild(subject);
+                
+                var template = document.createElement('input');
+                template.type = 'hidden';
+                template.name = '_template';
+                template.value = 'table';
+                emailForm.appendChild(template);
+                
+                var captcha = document.createElement('input');
+                captcha.type = 'hidden';
+                captcha.name = '_captcha';
+                captcha.value = 'false';
+                emailForm.appendChild(captcha);
+                
+                document.body.appendChild(emailForm);
+                emailForm.submit();
+            }
         });
         
-        // Also send email via FormSubmit
-        var emailForm = document.createElement('form');
-        emailForm.method = 'POST';
-        emailForm.action = 'https://formsubmit.co/carolinacleaningboys@gmail.com';
-        
-        for (var key in data) {
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = key;
-            input.value = data[key];
-            emailForm.appendChild(input);
-        }
-        
-        // FormSubmit settings
-        var subject = document.createElement('input');
-        subject.type = 'hidden';
-        subject.name = '_subject';
-        subject.value = 'New Estimate Request from Website';
-        emailForm.appendChild(subject);
-        
-        var template = document.createElement('input');
-        template.type = 'hidden';
-        template.name = '_template';
-        template.value = 'table';
-        emailForm.appendChild(template);
-        
-        var captcha = document.createElement('input');
-        captcha.type = 'hidden';
-        captcha.name = '_captcha';
-        captcha.value = 'false';
-        emailForm.appendChild(captcha);
-        
-        document.body.appendChild(emailForm);
-        emailForm.submit();
+        // Failsafe: submit after 1 second if callback doesn't fire
+        setTimeout(function() {
+            if (document.querySelector('form[action*="formsubmit"]') === null) {
+                var emailForm = document.createElement('form');
+                emailForm.method = 'POST';
+                emailForm.action = 'https://formsubmit.co/carolinacleaningboys@gmail.com';
+                
+                for (var key in data) {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = data[key];
+                    emailForm.appendChild(input);
+                }
+                
+                var subject = document.createElement('input');
+                subject.type = 'hidden';
+                subject.name = '_subject';
+                subject.value = 'New Estimate Request from Website';
+                emailForm.appendChild(subject);
+                
+                var template = document.createElement('input');
+                template.type = 'hidden';
+                template.name = '_template';
+                template.value = 'table';
+                emailForm.appendChild(template);
+                
+                var captcha = document.createElement('input');
+                captcha.type = 'hidden';
+                captcha.name = '_captcha';
+                captcha.value = 'false';
+                emailForm.appendChild(captcha);
+                
+                document.body.appendChild(emailForm);
+                emailForm.submit();
+            }
+        }, 1000);
     })
     .catch(function(error) {
         console.error('Error:', error);
@@ -780,15 +819,4 @@ function initAutocomplete() {
                 city = component.long_name;
             }
             if (type === 'administrative_area_level_1') {
-                state = component.short_name;
-            }
-        }
-        
-        // Fill in the form fields
-        document.getElementById('street_address').value = streetNumber + ' ' + route;
-        document.getElementById('city').value = city;
-        document.getElementById('state').value = state;
-    });
-}
-
-window.addEventListener
+                state = co
