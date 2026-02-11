@@ -1,0 +1,22 @@
+# robots.txt for Carolina Cleaning Boys
+# https://carolinacleaningboys.com
+
+# Allow all search engines to crawl everything
+User-agent: *
+Allow: /
+
+# Sitemap location - tells Google where to find your sitemap
+Sitemap: https://carolinacleaningboys.com/sitemap.xml
+
+# Crawl-delay (optional - gives server breathing room)
+Crawl-delay: 1
+
+# Block common non-content paths (if they exist)
+Disallow: /cdn-cgi/
+Disallow: /*.json$
+Disallow: /api/
+
+# Specifically allow important pages for search engines
+Allow: /index.html
+Allow: /services/
+Allow: /images/
