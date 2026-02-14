@@ -37,6 +37,7 @@
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@CarolinaCleaning">
     <meta name="twitter:title" content="Pressure Washing Greenville NC | Carolina Cleaning Boys">
     <meta name="twitter:description" content="Professional pressure washing, house washing & driveway cleaning in Greenville NC. Free quotes!">
     <meta name="twitter:image" content="https://carolinacleaningboys.com/images/logo1.webp">
@@ -110,78 +111,9 @@
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "5",
-            "reviewCount": "98",
-            "bestRating": "5",
-            "worstRating": "1"
+            "reviewCount": "50"
         },
-        "review": [
-            {
-                "@type": "Review",
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": "5",
-                    "bestRating": "5"
-                },
-                "author": {
-                    "@type": "Person",
-                    "name": "Sarah M."
-                },
-                "reviewBody": "Amazing work! They made our driveway look brand new. Very professional and thorough. Highly recommend!"
-            },
-            {
-                "@type": "Review",
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": "5",
-                    "bestRating": "5"
-                },
-                "author": {
-                    "@type": "Person",
-                    "name": "Michael T."
-                },
-                "reviewBody": "Best pressure washing service in Greenville! They were on time, friendly, and did an incredible job on our deck and patio."
-            },
-            {
-                "@type": "Review",
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": "5",
-                    "bestRating": "5"
-                },
-                "author": {
-                    "@type": "Person",
-                    "name": "Jennifer L."
-                },
-                "reviewBody": "Carolina Cleaning Boys transformed our home's exterior. The soft washing made our siding look like new without any damage. Will definitely use again!"
-            },
-            {
-                "@type": "Review",
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": "5",
-                    "bestRating": "5"
-                },
-                "author": {
-                    "@type": "Person",
-                    "name": "David R."
-                },
-                "reviewBody": "Great communication, fair pricing, and excellent results. They cleaned years of grime off our brick walkway. Highly recommend to anyone in the Greenville area!"
-            },
-            {
-                "@type": "Review",
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": "5",
-                    "bestRating": "5"
-                },
-                "author": {
-                    "@type": "Person",
-                    "name": "Amanda K."
-                },
-                "reviewBody": "These guys are the real deal. Professional, punctual, and the results speak for themselves. Our roof looks amazing after their soft wash treatment."
-            }
-        ],
-        "sameAs": ["https://www.facebook.com/profile.php?id=61558735994193", "https://g.co/kgs/ZoyM0YL4S3j2lV89Z"]
+        "sameAs": []
     }
     </script>
     
@@ -260,6 +192,31 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bevan&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+        /* SEO Fixes - Contrast improvement for accessibility */
+        .section-subtitle {
+            color: #555 !important; /* Darker color for better contrast - was ~#777 */
+        }
+        /* Ensure images have explicit dimensions for CLS */
+        .logo-img {
+            width: 120px;
+            height: auto;
+        }
+        .service-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .review-card {
+            min-height: 200px;
+        }
+        @media (max-width: 768px) {
+            .logo-img {
+                max-height: 60px !important;
+                width: auto !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="water-bg" aria-hidden="true">
@@ -457,7 +414,7 @@
                     
                     <a href="services/gutter-cleaning.html" class="service-card animate-on-scroll">
                         <div class="service-card-image">
-                            <img src="images/G2.webp" alt="Gutter cleaning" loading="lazy">
+                            <img src="images/g2.webp" alt="Gutter cleaning" loading="lazy">
                             <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
                         </div>
                         <div class="service-card-content">
@@ -524,7 +481,16 @@
                 <h2 id="reviews-heading" class="section-title animate-on-scroll">What Our Customers Say</h2>
                 <p class="section-subtitle animate-on-scroll">Real reviews from satisfied customers</p>
                 
-                
+                <div class="review-platforms animate-on-scroll">
+                    <a href="https://www.facebook.com/profile.php?id=61558735994193" target="_blank" rel="noopener noreferrer" class="platform-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.79-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796v8.437C19.612 23.091 24 18.099 24 12.073z"/></svg>
+                        <span>Facebook</span>
+                    </a>
+                    <a href="https://share.google/ZoyM0YL4S3j2lV89Z" target="_blank" rel="noopener noreferrer" class="platform-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        <span>Google</span>
+                    </a>
+                </div>
                 
                 <div class="carousel-wrapper animate-on-scroll">
                     <button class="carousel-arrow carousel-arrow-left" id="reviewsPrev" aria-label="Previous reviews">
@@ -570,41 +536,6 @@
                             <div class="review-stars">★★★★★</div>
                             <p class="review-text">"Quick response time and even quicker results. Our concrete looks brand new. Definitely worth every penny!"</p>
                             <div class="review-author"><span class="author-name">Lisa M.</span><span class="review-source">Google</span></div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"Called them for a roof cleaning quote and they came out same day. Super impressed with their customer service and results!"</p>
-                            <div class="review-author"><span class="author-name">Chris P.</span><span class="review-source">Google</span></div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"They pressure washed our entire patio and pool deck. Looks better than the day we moved in! Highly recommend."</p>
-                            <div class="review-author"><span class="author-name">Karen W.</span><span class="review-source">Facebook</span></div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"Third time using Carolina Cleaning Boys. Consistent quality every single time. They're my go-to for exterior cleaning."</p>
-                            <div class="review-author"><span class="author-name">James F.</span><span class="review-source">Google</span></div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"My neighbors asked who cleaned my house because it looked so good. Now half the street uses these guys!"</p>
-                            <div class="review-author"><span class="author-name">Melissa D.</span><span class="review-source">Facebook</span></div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"The black streaks on my roof are completely gone. They used a gentle soft wash method that didn't damage anything. 10/10!"</p>
-                            <div class="review-author"><span class="author-name">Brian S.</span><span class="review-source">Google</span></div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"Very reasonable prices compared to other companies I called. Plus, they showed up when they said they would. Rare these days!"</p>
-                            <div class="review-author"><span class="author-name">Nancy T.</span><span class="review-source">Facebook</span></div>
-                        </div>
-                        <div class="review-card">
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-text">"Hired them to clean up before selling our house. Buyers commented on how great everything looked. Worth every dollar!"</p>
-                            <div class="review-author"><span class="author-name">Mark J.</span><span class="review-source">Google</span></div>
                         </div>
                     </div>
                     <button class="carousel-arrow carousel-arrow-right" id="reviewsNext" aria-label="Next reviews">
