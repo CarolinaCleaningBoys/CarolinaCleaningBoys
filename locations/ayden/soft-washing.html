@@ -73,9 +73,18 @@
         .gallery-section { padding: 60px 0; background: white; }
         .gallery-section .section-title { text-align: center; margin-bottom: 0.5rem; }
         .gallery-section .section-subtitle { text-align: center; color: #666; margin-bottom: 2rem; }
-        .slideshow-container { display: flex; overflow-x: auto; gap: 1rem; padding: 1rem; max-width: 1000px; margin: 0 auto; scroll-snap-type: x mandatory; }
+        .gallery-wrapper { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 50px; }
+        .slideshow-container { display: flex; overflow-x: auto; gap: 1rem; padding: 1rem 0; scroll-snap-type: x mandatory; scrollbar-width: none; -ms-overflow-style: none; }
+        .slideshow-container::-webkit-scrollbar { display: none; }
         .slideshow-slide { flex: 0 0 300px; scroll-snap-align: start; }
-        .slideshow-slide img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .slideshow-slide img { width: 100%; height: 220px; object-fit: cover; object-position: center; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .gallery-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: white; border: none; border-radius: 50%; box-shadow: 0 2px 10px rgba(0,0,0,0.15); cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.3s ease; }
+        .gallery-arrow:hover { background: #f8f9fa; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .gallery-arrow-left { left: 5px; }
+        .gallery-arrow-right { right: 5px; }
+        .gallery-dots { display: flex; justify-content: center; gap: 8px; margin-top: 1rem; }
+        .gallery-dot { width: 8px; height: 8px; border-radius: 50%; background: #ddd; border: none; cursor: pointer; transition: background 0.3s ease; }
+        .gallery-dot.active { background: #6FAFD8; }
         
         /* FAQ Section */
         .faq-section { padding: 60px 0; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); }
@@ -110,6 +119,8 @@
             .city-hero { padding: 60px 20px; }
             .faq-question { font-size: 1rem; padding: 15px 20px; }
             .slideshow-slide { flex: 0 0 250px; }
+            .gallery-wrapper { padding: 0 40px; }
+            .gallery-arrow { width: 35px; height: 35px; }
         }
     </style>
 </head>
@@ -179,8 +190,12 @@
             <div class="container">
                 <h2 class="section-title">Our Soft Washing Work</h2>
                 <p class="section-subtitle">See the Carolina Cleaning Boys difference</p>
-                <div class="slideshow-container">
-                    <div class="slideshow-slide"><img src="../../images/SW1.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW2.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW4.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW5.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw6.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW7.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw8.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw11.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw12.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw13.webp" alt="Soft Washing in Ayden" loading="lazy"></div>
+                <div class="gallery-wrapper">
+                    <button class="gallery-arrow gallery-arrow-left" onclick="scrollGallery(-1)">❮</button>
+                    <div class="slideshow-container" id="gallerySlider">
+                        <div class="slideshow-slide"><img src="../../images/SW1.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW2.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW4.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW5.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw6.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/SW7.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw8.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw11.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw12.webp" alt="Soft Washing in Ayden" loading="lazy"></div><div class="slideshow-slide"><img src="../../images/sw13.webp" alt="Soft Washing in Ayden" loading="lazy"></div>
+                    </div>
+                    <button class="gallery-arrow gallery-arrow-right" onclick="scrollGallery(1)">❯</button>
                 </div>
             </div>
         </section>
@@ -332,6 +347,12 @@
             if (!isActive) {
                 faqItem.classList.add('active');
             }
+        }
+        
+        function scrollGallery(direction) {
+            var slider = document.getElementById('gallerySlider');
+            var scrollAmount = 320;
+            slider.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
         }
         
         function submitForm(e) {
