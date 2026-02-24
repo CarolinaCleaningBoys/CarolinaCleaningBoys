@@ -51,6 +51,23 @@
         /* Fix header overlap */
         body { padding-top: 80px; }
         
+        /* Hamburger Menu & Sidebar */
+        .hamburger { background: none; border: none; cursor: pointer; padding: 10px; display: flex; flex-direction: column; gap: 5px; z-index: 1001; }
+        .hamburger-line { width: 25px; height: 3px; background: #2c3e50; border-radius: 3px; transition: all 0.3s ease; }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: white; z-index: 999; transition: left 0.3s ease; box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+        .sidebar.active { left: 0; }
+        .sidebar-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #666; }
+        .sidebar-content { padding: 60px 20px 20px; }
+        .sidebar-link { display: block; padding: 12px 15px; color: #2c3e50; text-decoration: none; border-radius: 8px; margin-bottom: 5px; transition: background 0.3s ease; }
+        .sidebar-link:hover { background: #f8f9fa; }
+        .sidebar-link.active { background: #6FAFD8; color: white; }
+        .sidebar-divider { height: 1px; background: #eee; margin: 15px 0; }
+        .sidebar-label { display: block; padding: 10px 15px; color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .sidebar-cta { background: #6FAFD8; color: white !important; text-align: center; margin-top: 10px; }
+        .sidebar-cta:hover { background: #6FAFD8dd; }
+        
         .city-hero { background: linear-gradient(135deg, #6FAFD8 0%, #6FAFD8dd 100%); padding: 80px 0; color: white; text-align: center; }
         .city-hero h1 { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 1rem; }
         .city-hero p { font-size: 1.2rem; max-width: 600px; margin: 0 auto 2rem; opacity: 0.95; }
@@ -125,8 +142,31 @@
     </style>
 </head>
 <body>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <nav class="sidebar" id="sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+        <div class="sidebar-content">
+            <a href="../../index.html" class="sidebar-link">🏠 Home</a>
+            <div class="sidebar-divider"></div>
+            <span class="sidebar-label">Our Services</span>
+            <a href="../../services/pressure-washing.html" class="sidebar-link">💧 Pressure Washing</a>
+            <a href="../../services/soft-washing.html" class="sidebar-link">🧼 Soft-Washing</a>
+            <a href="../../services/surface-cleaning.html" class="sidebar-link">🧱 Surface Cleaning</a>
+            <a href="../../services/roof-cleaning.html" class="sidebar-link">🔝 Roof Cleaning</a>
+            <a href="../../services/gutter-cleaning.html" class="sidebar-link">🍂 Gutter Cleaning</a>
+            <div class="sidebar-divider"></div>
+            <a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">📋 Get a FREE Quote</a>
+            <a href="tel:919-717-4653" class="sidebar-link">📞 919-717-4653</a>
+        </div>
+    </nav>
+    
     <header class="header">
         <nav class="nav container">
+            <button class="hamburger" onclick="toggleSidebar()">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             <a href="../../index.html" class="logo">
                 <img src="../../images/logo1.webp" alt="Carolina Cleaning Boys" class="logo-img">
             </a>
@@ -338,6 +378,18 @@
     </footer>
 
     <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+            document.body.style.overflow = document.getElementById('sidebar').classList.contains('active') ? 'hidden' : '';
+        }
+        
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
         function toggleFaq(button) {
             var faqItem = button.parentElement;
             var isActive = faqItem.classList.contains('active');
