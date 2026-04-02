@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(git:*)",
+      "Bash(powershell:*)",
+      "Bash(sed:*)",
+      "Bash(find \"C:/Users/ZachW/OneDrive/Documents/CarolinaCleaningBoys/Website/locations\" -name \"*.html\" -exec sed -i 's/\\\\.city-hero { background: linear-gradient\\(135deg, #E07A38 0%, #E07A38dd 100%\\); padding: 80px 0;/.city-hero { background: linear-gradient\\(135deg, #E07A38 0%, #E07A38dd 100%\\); padding: 140px 0 80px;/g' {} \\\\;)"
+    ]
+  }
+}
