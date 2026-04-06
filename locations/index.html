@@ -61,12 +61,25 @@
         a { text-decoration: none; color: inherit; }
 
         /* Header */
-        .header { background: var(--primary); padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        .nav { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; }
+        .header { background: #F4EFE9; padding: 0; position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid #6FAFD8; }
+        .nav { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 80px; }
         .logo { display: inline-block; line-height: 0; }
-        .logo-img { height: 50px; width: auto; display: block; }
-        .nav-cta { background: #fff; color: var(--primary); font-weight: 700; padding: 10px 20px; border-radius: 25px; font-size: 0.9rem; }
-        .nav-cta:hover { background: var(--accent); color: #fff; }
+        .logo-img { height: 70px; width: auto; display: block; }
+        .nav-cta { background: #e8823a; color: #fff; font-weight: 700; padding: 10px 20px; border-radius: 25px; font-size: 0.9rem; }
+        .nav-cta:hover { background: #c96e28; color: #fff; }
+        .hamburger { background: none; border: none; cursor: pointer; padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+        .hamburger-line { width: 24px; height: 2px; background: #2E4F66; border-radius: 2px; display: block; }
+        .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1100; display: none; }
+        .sidebar-overlay.active { display: block; }
+        .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; background: #2E4F66; z-index: 1200; transition: left 0.3s ease; overflow-y: auto; }
+        .sidebar.active { left: 0; }
+        .sidebar-close { background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; padding: 16px 20px; display: block; }
+        .sidebar-content { padding: 0 20px 20px; }
+        .sidebar-link { display: block; color: #F4EFE9; padding: 12px 0; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); text-decoration: none; }
+        .sidebar-link:hover { color: #6FAFD8; }
+        .sidebar-label { display: block; color: rgba(255,255,255,0.5); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; padding: 16px 0 4px; }
+        .sidebar-divider { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 8px 0; }
+        .sidebar-cta { background: #e8823a; color: #fff !important; border-radius: 6px; padding: 12px 16px; margin-top: 12px; text-align: center; border-bottom: none !important; }
 
         /* Hero */
         .hero { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent) 100%); color: #fff; text-align: center; padding: 70px 20px; }
@@ -118,12 +131,35 @@
 </head>
 <body>
 
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <nav class="sidebar" id="sidebar">
+        <button class="sidebar-close" onclick="closeSidebar()">&times;</button>
+        <div class="sidebar-content">
+            <a href="../index.html" class="sidebar-link">🏠 Home</a>
+            <hr class="sidebar-divider">
+            <span class="sidebar-label">Our Services</span>
+            <a href="../services/pressure-washing.html" class="sidebar-link">💧 Pressure Washing</a>
+            <a href="../services/soft-washing.html" class="sidebar-link">🧼 Soft-Washing</a>
+            <a href="../services/surface-cleaning.html" class="sidebar-link">🧱 Surface Cleaning</a>
+            <a href="../services/roof-cleaning.html" class="sidebar-link">🔝 Roof Cleaning</a>
+            <a href="../services/gutter-cleaning.html" class="sidebar-link">🍂 Gutter Cleaning</a>
+            <hr class="sidebar-divider">
+            <a href="../index.html#estimate-form" class="sidebar-link sidebar-cta">📋 Get a FREE Quote</a>
+            <a href="tel:919-717-4653" class="sidebar-link">📞 919-717-4653</a>
+        </div>
+    </nav>
+
     <header class="header">
         <nav class="nav">
+            <button class="hamburger" onclick="toggleSidebar()">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
             <a href="../index.html" class="logo">
                 <img src="../images/logo-256.png" alt="Carolina Cleaning Boys Logo" class="logo-img">
             </a>
-            <a href="../index.html#estimate-form" class="nav-cta">Get a FREE Quote</a>
+            <a href="../index.html#estimate-form" class="nav-cta">✨ FREE Quote</a>
         </nav>
     </header>
 
@@ -486,15 +522,59 @@
         </div>
     </section>
 
-    <section class="cta-section">
-        <h2>Ready for a Free Quote?</h2>
-        <p>Call us at <strong>919-717-4653</strong> or fill out our quick online form.</p>
-        <a href="../index.html#estimate-form" class="cta-btn">Get My Free Quote</a>
-    </section>
-
     <footer class="footer">
-        <p>&copy; 2025 Carolina Cleaning Boys &bull; Greenville, NC &bull; <a href="tel:919-717-4653">919-717-4653</a> &bull; <a href="../index.html">Home</a></p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../index.html" class="footer-logo">
+                        <img src="../images/logo-256.png" alt="Carolina Cleaning Boys Logo" class="footer-logo-img" style="height:100px;width:auto;object-fit:contain;display:block;">
+                    </a>
+                    <p class="footer-desc">Professional pressure washing, soft-washing, and exterior cleaning services. Proudly student-owned and operated by ECU students. "Turning Dirt into Degrees"</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/profile.php?id=61558735994193" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.79-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796v8.437C19.612 23.091 24 18.099 24 12.073z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <address>
+                        <p>📍 Greenville, North Carolina</p>
+                        <p><a href="tel:919-717-4653" class="footer-link">📞 919-717-4653</a></p>
+                        <p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link">✉️ carolinacleaningboys@gmail.com</a></p>
+                    </address>
+                </div>
+                <div class="footer-services">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="../services/pressure-washing.html" class="footer-link">Pressure Washing</a></li>
+                        <li><a href="../services/soft-washing.html" class="footer-link">Soft-Washing</a></li>
+                        <li><a href="../services/surface-cleaning.html" class="footer-link">Surface Cleaning</a></li>
+                        <li><a href="../services/roof-cleaning.html" class="footer-link">Roof Cleaning</a></li>
+                        <li><a href="../services/gutter-cleaning.html" class="footer-link">Gutter Cleaning</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-partners"><span class="footer-partners-label">Partners</span><a href="https://campuscribsrentals.com" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/campus-cribs-logo.png" alt="Campus Cribs Rentals" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;"><span class="footer-partner-name">Campus Cribs Rentals</span></a></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Carolina Cleaning Boys. All rights reserved.</p>
+                <p>Proudly serving Eastern NC and surrounding areas.</p>
+                <p><a href="../privacy-policy.html" class="footer-link">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms-and-conditions.html" class="footer-link">Terms &amp; Conditions</a></p>
+            </div>
+        </div>
     </footer>
 
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebarOverlay').classList.toggle('active');
+            document.body.style.overflow = document.getElementById('sidebar').classList.contains('active') ? 'hidden' : '';
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('active');
+            document.getElementById('sidebarOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
 </body>
 </html>
