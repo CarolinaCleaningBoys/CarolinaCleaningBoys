@@ -24,7 +24,7 @@ Static HTML/CSS marketing site for Carolina Cleaning Boys, a pressure washing bu
 │       ├── surface-cleaning.html
 │       ├── roof-cleaning.html
 │       └── gutter-cleaning.html
-└── images/                ← all .webp images
+└── images/                ← logos (.png) and photos (.webp)
 ```
 
 ## Design System
@@ -90,7 +90,7 @@ Every page includes:
             <span class="hamburger-line"></span>
         </button>
         <a href="index.html" class="logo">
-            <img src="images/logo1.webp" alt="Carolina Cleaning Boys Logo" class="logo-img" style="width:120px;height:auto;">
+            <img src="images/logo-256.png" alt="Carolina Cleaning Boys Logo" class="logo-img" style="width:120px;height:auto;">
         </a>
         <div class="nav-contact">
             <a href="mailto:carolinacleaningboys@gmail.com" class="nav-email">
@@ -131,7 +131,7 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
         <div class="footer-content">
             <div class="footer-brand">
                 <a href="../index.html" class="footer-logo">
-                    <img src="../images/logo1.webp" alt="Carolina Cleaning Boys Logo" class="footer-logo-img">
+                    <img src="../images/logo-256-white.png" alt="Carolina Cleaning Boys Logo" class="footer-logo-img" style="height:100px!important;width:100px!important;max-width:none!important;object-fit:contain!important;display:block!important;">
                 </a>
                 <p class="footer-desc">Professional pressure washing, soft-washing, and exterior cleaning services. Proudly student-owned and operated by ECU students. "Turning Dirt into Degrees"</p>
                 <div class="footer-social">
@@ -157,6 +157,18 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
                 </ul>
             </div>
         </div>
+        </div>
+        <div class="footer-partners">
+            <span class="footer-partners-label">Partners</span>
+            <a href="https://campuscribsrentals.com" target="_blank" rel="noopener noreferrer" class="footer-partner-badge">
+                <img src="../images/campus-cribs-logo.png" alt="Campus Cribs Rentals" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;">
+                <span class="footer-partner-name">Campus Cribs Rentals</span>
+            </a>
+            <a href="https://www.justiceleadership.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge">
+                <img src="../images/justice-leadership-logo.png" alt="Justice Leadership" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;">
+                <span class="footer-partner-name">Justice Leadership</span>
+            </a>
+        </div>
         <div class="footer-bottom">
             <p>&copy; 2024 Carolina Cleaning Boys. All rights reserved.</p>
             <p><a href="../privacy-policy.html" class="footer-link">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms-and-conditions.html" class="footer-link">Terms &amp; Conditions</a></p>
@@ -164,6 +176,8 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
     </div>
 </footer>
 ```
+
+**Note:** Root pages (`index.html`, `privacy-policy.html`, `terms-and-conditions.html`) use `images/` (no `../`). Service pages use `../images/`. Location pages use `../../images/`.
 
 ## Business Info
 
@@ -182,8 +196,17 @@ These pages had the `</style>` tag closing the style block after the SEO fix CSS
 **Cloudflare email obfuscation:**
 Email addresses in deployed HTML are replaced with Cloudflare-obfuscated spans. Write plain `mailto:` links in source — Cloudflare handles obfuscation on the CDN side.
 
+**Logo files:**
+- `images/logo-256.png` — colored logo on transparent bg, used in **nav** (120px wide)
+- `images/logo-256-white.png` — white logo on transparent bg, used in **footer** (100px, needs `!important` overrides)
+- `images/logo-512.png` — colored, used for PWA/site manifest icons
+- `images/logo-1200.png` — colored, used for OG/social meta images (1200×629)
+- `images/logo-1236.png` — high-res colored version (1236×1077)
+- `images/campus-cribs-logo.png` — Campus Cribs Rentals partner logo (footer)
+- `images/justice-leadership-logo.png` — Justice Leadership partner logo, white on transparent (footer)
+
 **Path conventions:**
-- Pages in `services/` reference root assets with `../` (e.g., `../style.css`, `../images/logo1.webp`)
+- Pages in `services/` reference root assets with `../` (e.g., `../style.css`, `../images/logo-256.png`)
 - Pages in `locations/[city]/` use `../../` for root assets
 - Root pages (`index.html`, `privacy-policy.html`, etc.) use no prefix
 
