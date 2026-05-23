@@ -694,7 +694,17 @@
                         <label for="additional_info" class="form-label">Questions or Additional Information</label>
                         <textarea id="additional_info" name="additional_info" rows="4" class="form-textarea" placeholder="Tell us more about your project..."></textarea>
                     </div>
-                    
+
+                    <div class="form-group">
+                        <label for="sms_consent" style="display: flex; align-items: flex-start; gap: 0.6rem; padding: 1rem 1.25rem; background: #f9f5ee; border: 1px solid #e0d8c8; border-radius: 8px; cursor: pointer;">
+                            <input type="checkbox" id="sms_consent" name="sms_consent" value="yes" style="margin-top: 0.3rem; width: 18px; height: 18px; flex-shrink: 0; cursor: pointer;">
+                            <span style="font-size: 0.9rem; line-height: 1.5; color: #3a3a3a;">
+                                <strong style="color: #1a2b3c;">Yes, text me about my request.</strong><br>
+                                I agree to receive SMS messages from Carolina Cleaning Boys about my service request, including quotes, appointment confirmations, and job reminders. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to unsubscribe at any time, HELP for help. See our <a href="/privacy-policy.html" target="_blank" style="color: #2c4a6e; text-decoration: underline;">Privacy Policy</a>. SMS consent is not required to receive service.
+                            </span>
+                        </label>
+                    </div>
+
                     <button type="submit" class="btn btn-primary btn-large btn-full" id="submitBtn">📧 Submit Request</button>
                 </form>
             </div>
