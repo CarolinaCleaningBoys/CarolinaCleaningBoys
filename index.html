@@ -906,7 +906,13 @@ function submitForm(e) {
         state: form.querySelector('#state').value,
         services: services.join(', '),
         referral_source: form.querySelector('#referral_source').value,
-        additional_info: form.querySelector('#additional_info').value
+        additional_info: form.querySelector('#additional_info').value,
+        sms_consent: form.querySelector('#sms_consent') ? form.querySelector('#sms_consent').checked : false,
+        consent_evidence: {
+            form_url: window.location.href,
+            user_agent: navigator.userAgent,
+            submitted_at: new Date().toISOString()
+        }
     };
     
     // Send to Google Sheets
