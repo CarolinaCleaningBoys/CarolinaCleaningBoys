@@ -170,6 +170,15 @@
         ]
     }
     </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17822819353"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17822819353');
+</script>
+<!-- End Google tag -->
 </head>
 <body>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -464,6 +473,12 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             }).then(function() {
+                // Google Ads conversion tracking
+                gtag('event', 'conversion', {
+                    'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
+                    'value': 150.0,
+                    'currency': 'USD'
+                });
                 var emailForm = document.createElement('form');
                 emailForm.method = 'POST';
                 emailForm.action = 'https://formsubmit.co/carolinacleaningboys@gmail.com';
