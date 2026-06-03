@@ -17,3 +17,6 @@ Thumbs.db
 
 # Node (if applicable)
 node_modules
+
+# Claude agent memory (local only — repo is public)
+.claude/agent-memory/
