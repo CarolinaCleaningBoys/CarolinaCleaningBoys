@@ -387,42 +387,31 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 additional_info: form.querySelector('[name="additional_info"]').value || ''
             };
             
+            // Fire tracking immediately (before network — no-cors fetch cannot reliably resolve)
+            if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
+                'value': 150.0,
+                'currency': 'USD'
+            });
+
+            // Send lead to Google Apps Script — fire and forget
             fetch('https://script.google.com/macros/s/AKfycbxlVq2f7rbyxu6yB1xIpoIYIzYEBuZM85_YzteLuLmZk304cCFw8qBgxde_3DT38Z0w/exec', {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(data)
-            }).then(function() {
-                // Google Ads conversion tracking
-                gtag('event', 'conversion', {
-                    'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
-                    'value': 150.0,
-                    'currency': 'USD'
-                });
-                if (typeof fbq === 'function') { fbq('track', 'Lead'); }
-                // Send email via FormSubmit AJAX (no page navigation)
-                fetch('https://formsubmit.co/ajax/carolinacleaningboys@gmail.com', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                    body: JSON.stringify(Object.assign({}, data, {
-                        _subject: 'New Estimate - Roof Cleaning - Smithfield',
-                        _template: 'table',
-                        _captcha: 'false'
-                    }))
-                }).catch(function(err) { console.error('FormSubmit email failed:', err); });
-                // Show in-page success -- stay on this page
-                btn.textContent = 'Request Sent!';
-                btn.disabled = true;
-                var successMsg = document.createElement('p');
-                successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
-                successMsg.textContent = 'Thanks! We\u2019ll be in touch within 24 hours.';
-                document.getElementById('leadForm').appendChild(successMsg);
-            }).catch(function(err) {
-                console.error('Error:', err);
-                btn.textContent = '🚀 Get My Free Smithfield Quote';
-                btn.disabled = false;
-                alert('There was an error. Please try again.');
-            });
+            }).catch(function(err) { console.error('Lead submit error:', err); });
+
+            // Show in-page success immediately
+            btn.textContent = 'Request Sent!';
+            btn.disabled = true;
+            var successMsg = document.createElement('p');
+            successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
+            successMsg.textContent = ‘Thanks! We’ll be in touch within 24 hours.’;
+            document.getElementById('leadForm').appendChild(successMsg);
         }
     </script>
 </body>
