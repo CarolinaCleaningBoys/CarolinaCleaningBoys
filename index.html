@@ -258,6 +258,27 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<script>
+(function() {
+    var params = ['gclid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+    var existing = sessionStorage.getItem('ccb_attribution');
+    var qs = new URLSearchParams(window.location.search);
+    var hasParams = false;
+    for (var i = 0; i < params.length; i++) {
+        if (qs.get(params[i])) { hasParams = true; break; }
+    }
+    if (!existing) {
+        if (hasParams) {
+            var bundle = { landing_page: window.location.href, referrer: document.referrer };
+            for (var j = 0; j < params.length; j++) {
+                var val = qs.get(params[j]);
+                if (val) { bundle[params[j]] = val; }
+            }
+            sessionStorage.setItem('ccb_attribution', JSON.stringify(bundle));
+        }
+    }
+})();
+</script>
 </head>
 <body>
     <div class="water-bg" aria-hidden="true">
@@ -935,6 +956,8 @@ function submitForm(e) {
         }
     };
     
+    try { data.attribution = JSON.parse(sessionStorage.getItem('ccb_attribution')) || {}; } catch (e) { data.attribution = {}; }
+
     // Fire tracking immediately (before network — no-cors fetch cannot reliably resolve)
     if (typeof fbq === 'function') { fbq('track', 'Lead'); }
     gtag('event', 'conversion', {
