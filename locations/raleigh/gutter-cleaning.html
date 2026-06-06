@@ -400,39 +400,23 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                     'currency': 'USD'
                 });
                 if (typeof fbq === 'function') { fbq('track', 'Lead'); }
-                // Also send via FormSubmit as backup
-                var emailForm = document.createElement('form');
-                emailForm.method = 'POST';
-                emailForm.action = 'https://formsubmit.co/carolinacleaningboys@gmail.com';
-                
-                for (var key in data) {
-                    var input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key;
-                    input.value = data[key];
-                    emailForm.appendChild(input);
-                }
-                
-                var subject = document.createElement('input');
-                subject.type = 'hidden';
-                subject.name = '_subject';
-                subject.value = 'New Estimate - Gutter Cleaning - Raleigh';
-                emailForm.appendChild(subject);
-                
-                var template = document.createElement('input');
-                template.type = 'hidden';
-                template.name = '_template';
-                template.value = 'table';
-                emailForm.appendChild(template);
-                
-                var captcha = document.createElement('input');
-                captcha.type = 'hidden';
-                captcha.name = '_captcha';
-                captcha.value = 'false';
-                emailForm.appendChild(captcha);
-                
-                document.body.appendChild(emailForm);
-                emailForm.submit();
+                // Send email via FormSubmit AJAX (no page navigation)
+                fetch('https://formsubmit.co/ajax/carolinacleaningboys@gmail.com', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(Object.assign({}, data, {
+                        _subject: 'New Estimate - Gutter Cleaning - Raleigh',
+                        _template: 'table',
+                        _captcha: 'false'
+                    }))
+                }).catch(function(err) { console.error('FormSubmit email failed:', err); });
+                // Show in-page success -- stay on this page
+                btn.textContent = 'Request Sent!';
+                btn.disabled = true;
+                var successMsg = document.createElement('p');
+                successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
+                successMsg.textContent = 'Thanks! We\u2019ll be in touch within 24 hours.';
+                document.getElementById('leadForm').appendChild(successMsg);
             }).catch(function(err) {
                 console.error('Error:', err);
                 btn.textContent = '🚀 Get My Free Raleigh Quote';
