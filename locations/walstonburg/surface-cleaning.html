@@ -409,8 +409,16 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             };
             
             // Fire tracking immediately (before network — no-cors fetch cannot reliably resolve)
-            var __ccbEid = ((data.email || '').trim().toLowerCase()) || ((data.phone || '').replace(/\D/g, '')) || '';
-    if (typeof fbq === 'function') { fbq('track', 'Lead', {}, __ccbEid ? { eventID: __ccbEid } : {}); }
+    (function () {
+      var __ccbRaw = ((data.email || '').trim().toLowerCase()) || ((data.phone || '').replace(/\D/g, '')) || '';
+      function __ccbFireLead(eid) { if (typeof fbq === 'function') { fbq('track', 'Lead', {}, eid ? { eventID: eid } : {}); } }
+      if (__ccbRaw && window.crypto && window.crypto.subtle) {
+        window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(__ccbRaw)).then(function (buf) {
+          var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+          __ccbFireLead(hex);
+        }).catch(function () { __ccbFireLead(''); });
+      } else { __ccbFireLead(''); }
+    })();
             gtag('event', 'conversion', {
                 'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
                 'value': 150.0,
