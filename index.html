@@ -959,7 +959,8 @@ function submitForm(e) {
     try { data.attribution = JSON.parse(sessionStorage.getItem('ccb_attribution')) || {}; } catch (e) { data.attribution = {}; }
 
     // Fire tracking immediately (before network — no-cors fetch cannot reliably resolve)
-    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
+    var __ccbEid = ((data.email || '').trim().toLowerCase()) || ((data.phone || '').replace(/\D/g, '')) || '';
+    if (typeof fbq === 'function') { fbq('track', 'Lead', {}, __ccbEid ? { eventID: __ccbEid } : {}); }
     gtag('event', 'conversion', {
         'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
         'value': 150.0,
