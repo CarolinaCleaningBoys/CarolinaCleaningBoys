@@ -168,6 +168,10 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
                 <img src="../images/justice-leadership-logo.png" alt="Justice Leadership" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;">
                 <span class="footer-partner-name">Justice Leadership</span>
             </a>
+            <a href="https://radiateprints.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge">
+                <img src="../images/radiate-prints-logo.png" alt="Radiate Prints &amp; Promo" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;background:#fff;padding:3px;border-radius:4px;">
+                <span class="footer-partner-name">Radiate Prints &amp; Promo</span>
+            </a>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2024 Carolina Cleaning Boys. All rights reserved.</p>
@@ -204,6 +208,7 @@ Email addresses in deployed HTML are replaced with Cloudflare-obfuscated spans. 
 - `images/logo-1236.png` — high-res colored version (1236×1077)
 - `images/campus-cribs-logo.png` — Campus Cribs Rentals partner logo (footer)
 - `images/justice-leadership-logo.png` — Justice Leadership partner logo, white on transparent (footer)
+- `images/radiate-prints-logo.png` — Radiate Prints & Promo partner logo (footer; full-color with black text, needs white background chip on dark footer)
 
 **Path conventions:**
 - Pages in `services/` reference root assets with `../` (e.g., `../style.css`, `../images/logo-256.png`)
