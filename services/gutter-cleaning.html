@@ -204,7 +204,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <script>
 (function() {
-    var params = ['gclid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+    var params = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
     var existing = sessionStorage.getItem('ccb_attribution');
     var qs = new URLSearchParams(window.location.search);
     var hasParams = false;
@@ -212,12 +212,24 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         if (qs.get(params[i])) { hasParams = true; break; }
     }
     if (!existing) {
-        if (hasParams) {
-            var bundle = { landing_page: window.location.href, referrer: document.referrer };
-            for (var j = 0; j < params.length; j++) {
-                var val = qs.get(params[j]);
-                if (val) { bundle[params[j]] = val; }
+        var bundle = { landing_page: window.location.href, referrer: document.referrer };
+        for (var j = 0; j < params.length; j++) {
+            var val = qs.get(params[j]);
+            if (val) { bundle[params[j]] = val; }
+        }
+        // _gcl_aw cookie fallback: recover gclid when URL param was lost
+        // Cookie format: GCL.<timestamp>.<gclid>
+        if (!bundle.gclid) {
+            var cookieMatch = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+            if (cookieMatch) {
+                var parts = cookieMatch[1].split('.');
+                if (parts.length >= 3) {
+                    bundle.gclid = parts.slice(2).join('.');
+                    hasParams = true;
+                }
             }
+        }
+        if (hasParams) {
             sessionStorage.setItem('ccb_attribution', JSON.stringify(bundle));
         }
     }
@@ -272,5 +284,5 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();closeSidebar();var t=document.querySelector(this.getAttribute('href'));if(t){window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-100,behavior:'smooth'})}})});
         var currentFormStep=1;function nextStep(step){document.querySelector('.form-section[data-section="'+currentFormStep+'"]').classList.remove('active');document.querySelector('.form-section[data-section="'+step+'"]').classList.add('active');document.querySelector('.form-progress-step[data-step="'+currentFormStep+'"]').classList.remove('active');document.querySelector('.form-progress-step[data-step="'+currentFormStep+'"]').classList.add('completed');document.querySelector('.form-progress-step[data-step="'+step+'"]').classList.add('active');if(step>1)document.querySelectorAll('.form-progress-connector')[step-2].classList.add('active');currentFormStep=step}function prevStep(step){document.querySelector('.form-section[data-section="'+currentFormStep+'"]').classList.remove('active');document.querySelector('.form-section[data-section="'+step+'"]').classList.add('active');document.querySelector('.form-progress-step[data-step="'+currentFormStep+'"]').classList.remove('active');document.querySelector('.form-progress-step[data-step="'+step+'"]').classList.remove('completed');document.querySelector('.form-progress-step[data-step="'+step+'"]').classList.add('active');document.querySelectorAll('.form-progress-connector')[step-1].classList.remove('active');currentFormStep=step}
     </script>
-    <script>function submitForm(e){e.preventDefault();var t=document.getElementById('submitBtn');t.textContent='Sending...';t.disabled=true;var n=document.getElementById('leadForm');var o=[];n.querySelectorAll('input[name="services"]:checked').forEach(function(e){o.push(e.value)});var s=n.querySelector('input[name="property_type"]:checked');var a={property_type:s?s.value:'',first_name:n.querySelector('#first_name').value,last_name:n.querySelector('#last_name').value,email:n.querySelector('#email').value,phone:n.querySelector('#phone').value,street_address:n.querySelector('#street_address').value,city:n.querySelector('#city').value,state:n.querySelector('#state').value,services:o.join(', '),referral_source:n.querySelector('#referral_source').value,additional_info:n.querySelector('#additional_info').value};(function(){var __ccbSvcRaw=((a.email||'').trim().toLowerCase())||((a.phone||'').replace(/\D/g,''))||'';function __ccbSvcFireLead(eid){if(typeof fbq==='function'){fbq('track','Lead',{},eid?{eventID:eid}:{});}}if(__ccbSvcRaw&&window.crypto&&window.crypto.subtle){window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(__ccbSvcRaw)).then(function(buf){var hex=Array.prototype.map.call(new Uint8Array(buf),function(b){return('0'+b.toString(16)).slice(-2);}).join('');__ccbSvcFireLead(hex);}).catch(function(){__ccbSvcFireLead('');});}else{__ccbSvcFireLead('');}})();gtag('event','conversion',{'send_to':'AW-17822819353/JIJRCJvpxuwbEJnIyrJC','value':150.0,'currency':'USD'});try{data.attribution=JSON.parse(sessionStorage.getItem('ccb_attribution'))||{};}catch(e){data.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(a)}).catch(function(err){console.error('Lead submit error:',err);});t.textContent='Request Sent!';t.disabled=true;var msg=document.createElement('p');msg.style.cssText='margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';msg.textContent='Thanks! We’ll be in touch within 24 hours.';document.getElementById('leadForm').appendChild(msg);}</script>
+    <script>function submitForm(e){e.preventDefault();var t=document.getElementById('submitBtn');t.textContent='Sending...';t.disabled=true;var n=document.getElementById('leadForm');var o=[];n.querySelectorAll('input[name="services"]:checked').forEach(function(e){o.push(e.value)});var s=n.querySelector('input[name="property_type"]:checked');var a={property_type:s?s.value:'',first_name:n.querySelector('#first_name').value,last_name:n.querySelector('#last_name').value,email:n.querySelector('#email').value,phone:n.querySelector('#phone').value,street_address:n.querySelector('#street_address').value,city:n.querySelector('#city').value,state:n.querySelector('#state').value,services:o.join(', '),referral_source:n.querySelector('#referral_source').value,additional_info:n.querySelector('#additional_info').value};(function(){var __ccbSvcRaw=((a.email||'').trim().toLowerCase())||((a.phone||'').replace(/\D/g,''))||'';function __ccbSvcFireLead(eid){if(typeof fbq==='function'){fbq('track','Lead',{},eid?{eventID:eid}:{});}}if(__ccbSvcRaw&&window.crypto&&window.crypto.subtle){window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(__ccbSvcRaw)).then(function(buf){var hex=Array.prototype.map.call(new Uint8Array(buf),function(b){return('0'+b.toString(16)).slice(-2);}).join('');__ccbSvcFireLead(hex);}).catch(function(){__ccbSvcFireLead('');});}else{__ccbSvcFireLead('');}})();gtag('event','conversion',{'send_to':'AW-17822819353/JIJRCJvpxuwbEJnIyrJC','value':150.0,'currency':'USD'});try{a.attribution=JSON.parse(sessionStorage.getItem('ccb_attribution'))||{};}catch(e){a.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(a)}).catch(function(err){console.error('Lead submit error:',err);});t.textContent='Request Sent!';t.disabled=true;var msg=document.createElement('p');msg.style.cssText='margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';msg.textContent='Thanks! We’ll be in touch within 24 hours.';document.getElementById('leadForm').appendChild(msg);}</script>
     <script>function initAutocomplete(){var e=document.getElementById('street_address');var t=new google.maps.places.Autocomplete(e,{types:['address'],componentRestrictions:{country:'us'}});t.addListener('place_changed',function(){var e=t.getPlace();if(!e.address_components)return;var n='',o='',s='',a='';for(var r=0;r<e.address_components.length;r++){var i=e.address_components[r].types[0];if(i==='street_number')n=e.address_components[r].long_name;if(i==='route')o=e.address_components[r].long_name;if(i==='locality')s=e.ad

@@ -198,7 +198,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <script>
 (function() {
-    var params = ['gclid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+    var params = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
     var existing = sessionStorage.getItem('ccb_attribution');
     var qs = new URLSearchParams(window.location.search);
     var hasParams = false;
@@ -206,12 +206,24 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         if (qs.get(params[i])) { hasParams = true; break; }
     }
     if (!existing) {
-        if (hasParams) {
-            var bundle = { landing_page: window.location.href, referrer: document.referrer };
-            for (var j = 0; j < params.length; j++) {
-                var val = qs.get(params[j]);
-                if (val) { bundle[params[j]] = val; }
+        var bundle = { landing_page: window.location.href, referrer: document.referrer };
+        for (var j = 0; j < params.length; j++) {
+            var val = qs.get(params[j]);
+            if (val) { bundle[params[j]] = val; }
+        }
+        // _gcl_aw cookie fallback: recover gclid when URL param was lost
+        // Cookie format: GCL.<timestamp>.<gclid>
+        if (!bundle.gclid) {
+            var cookieMatch = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+            if (cookieMatch) {
+                var parts = cookieMatch[1].split('.');
+                if (parts.length >= 3) {
+                    bundle.gclid = parts.slice(2).join('.');
+                    hasParams = true;
+                }
             }
+        }
+        if (hasParams) {
             sessionStorage.setItem('ccb_attribution', JSON.stringify(bundle));
         }
     }
