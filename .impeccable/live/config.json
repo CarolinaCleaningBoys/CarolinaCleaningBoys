@@ -1,0 +1,6 @@
+{
+  "files": ["index.html", "services/**/*.html", "locations/**/*.html", "privacy-policy.html", "terms-and-conditions.html"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}
