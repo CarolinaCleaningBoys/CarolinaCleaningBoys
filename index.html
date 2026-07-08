@@ -193,8 +193,9 @@
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
     <link rel="manifest" href="site.webmanifest">
 <!-- Google Maps Address Autocomplete -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMgQPLJlz8BrHJ7T6WJuJf54KU2JcwqN8&libraries=places"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMgQPLJlz8BrHJ7T6WJuJf54KU2JcwqN8&libraries=places&callback=initAutocomplete&loading=async" async></script>
     
+    <link rel="preload" as="image" href="images/img_10000.webp" fetchpriority="high">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -294,35 +295,14 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 </script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <div class="water-bg" aria-hidden="true">
         <div class="bubble bubble-1"></div>
-        <div class="bubble bubble-2"></div>
         <div class="bubble bubble-3"></div>
-        <div class="bubble bubble-4"></div>
         <div class="bubble bubble-5"></div>
-        <div class="bubble bubble-6"></div>
-        <div class="bubble bubble-7"></div>
         <div class="bubble bubble-8"></div>
-        <div class="bubble bubble-9"></div>
-        <div class="bubble bubble-10"></div>
-        <div class="soap-sud sud-1"></div>
         <div class="soap-sud sud-2"></div>
-        <div class="soap-sud sud-3"></div>
-        <div class="soap-sud sud-4"></div>
         <div class="soap-sud sud-5"></div>
-        <div class="soap-sud sud-6"></div>
-        <div class="soap-sud sud-7"></div>
-        <div class="soap-sud sud-8"></div>
-        <div class="water-drop drop-1"></div>
-        <div class="water-drop drop-2"></div>
-        <div class="water-drop drop-3"></div>
-        <div class="water-drop drop-4"></div>
-        <div class="water-drop drop-5"></div>
-        <div class="water-drop drop-6"></div>
-        <div class="water-drop drop-7"></div>
-        <div class="water-drop drop-8"></div>
-        <div class="water-drop drop-9"></div>
-        <div class="water-drop drop-10"></div>
     </div>
 
     <!-- Sidebar Navigation -->
@@ -369,7 +349,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         </nav>
     </header>
 
-    <main>
+    <main id="main-content">
         <section class="hero" aria-labelledby="hero-heading">
             <div class="hero-background" style="background-image: url('images/img_10000.webp');"></div>
             <div class="hero-overlay"></div>
@@ -766,7 +746,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             </div>
             <div class="footer-partners"><span class="footer-partners-label">Partners</span><a href="https://campuscribsrentals.com" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="images/campus-cribs-logo.png" alt="Campus Cribs Rentals" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;"><span class="footer-partner-name">Campus Cribs Rentals</span></a><a href="https://www.justiceleadership.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="images/justice-leadership-logo.png" alt="Justice Leadership" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;"><span class="footer-partner-name">Justice Leadership</span></a><a href="https://radiateprints.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="images/radiate-prints-logo.png" alt="Radiate Prints &amp; Promo" class="footer-partner-logo" style="height:30px;width:auto;max-height:30px;object-fit:contain;display:block;background:#fff;padding:3px;border-radius:4px;"><span class="footer-partner-name">Radiate Prints &amp; Promo</span></a></div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Carolina Cleaning Boys. All rights reserved.</p>
+                <p>&copy; 2024-2026 Carolina Cleaning Boys. All rights reserved.</p>
                 <p>Proudly serving Eastern NC and surrounding areas.</p>
                 <p><a href="privacy-policy.html" class="footer-link">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms-and-conditions.html" class="footer-link">Terms &amp; Conditions</a></p>
             </div>
@@ -999,4 +979,19 @@ function initAutocomplete() {
                 city = component.long_name;
             }
             if (type === 'administrative_area_level_1') {
-                state = co
+                state = component.short_name;
+            }
+        }
+
+        if (streetNumber || route) {
+            addressInput.value = (streetNumber + ' ' + route).trim();
+        }
+        var cityField = document.getElementById('city');
+        var stateField = document.getElementById('state');
+        if (cityField && city) { cityField.value = city; }
+        if (stateField && state) { stateField.value = state; }
+    });
+}
+</script>
+</body>
+</html>
