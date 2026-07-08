@@ -49,3 +49,10 @@
 /* portrait crop utility for landscape-framed videos outside the hero */
 .vid-portrait { display: block; aspect-ratio: 9 / 16; object-fit: cover; object-position: center; height: 58vh; max-height: 520px; width: auto; max-width: 100%; }
 @media (max-width: 600px){ .vid-portrait { height: auto; max-width: 280px; } }
+
+/* ===== Nearby areas internal links ===== */
+.nearby-section { padding: 44px 0; background: #f8f9fa; text-align: center; }
+.nearby-section h2 { margin-bottom: 1rem; }
+.nearby-links { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; max-width: 820px; margin: 0 auto; }
+.nearby-links a { background: #fff; border: 1px solid #e0d8cc; border-radius: 20px; padding: .5rem 1.1rem; color: #1a2b3c; text-decoration: none; font-size: .95rem; transition: background .2s, color .2s, border-color .2s; }
+.nearby-links a:hover { background: #e8823a; color: #fff; border-color: #e8823a; }
