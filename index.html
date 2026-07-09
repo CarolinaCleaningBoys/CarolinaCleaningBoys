@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.classList.add("js")</script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17822819353"></script>
 <script>
@@ -198,6 +197,57 @@
     
     <link rel="preload" as="image" href="images/img_10000.webp" fetchpriority="high">
     <link rel="stylesheet" href="style.css">
+<script>
+// Multi-step hero form navigation (in head so available before form renders)
+function nextFormStep(targetStep) {
+    var currentStep = targetStep - 1;
+    var errorEl = document.getElementById('formStep' + currentStep + 'Error');
+    if (errorEl) errorEl.textContent = '';
+
+    if (currentStep === 1) {
+        var propertyType = document.querySelector('input[name="property_type"]:checked');
+        var firstName = document.getElementById('first_name').value.trim();
+        var lastName = document.getElementById('last_name').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var phone = document.getElementById('phone').value.replace(/\D/g, '');
+        if (!propertyType) { errorEl.textContent = 'Please select a property type.'; return; }
+        if (!firstName) { errorEl.textContent = 'Please enter your first name.'; document.getElementById('first_name').focus(); return; }
+        if (!lastName) { errorEl.textContent = 'Please enter your last name.'; document.getElementById('last_name').focus(); return; }
+        if (!email) { errorEl.textContent = 'Please enter your email address.'; document.getElementById('email').focus(); return; }
+        if (phone.length < 10) { errorEl.textContent = 'Please enter a valid phone number (at least 10 digits).'; document.getElementById('phone').focus(); return; }
+    }
+    if (currentStep === 2) {
+        var streetAddress = document.getElementById('street_address').value.trim();
+        var city = document.getElementById('city').value.trim();
+        var checkedServices = document.querySelectorAll('input[name="services"]:checked');
+        if (!streetAddress) { errorEl.textContent = 'Please enter your street address.'; document.getElementById('street_address').focus(); return; }
+        if (!city) { errorEl.textContent = 'Please enter your city.'; document.getElementById('city').focus(); return; }
+        if (checkedServices.length === 0) { errorEl.textContent = 'Please select at least one service.'; return; }
+    }
+
+    document.getElementById('formStep' + currentStep).classList.remove('active');
+    document.getElementById('formStep' + targetStep).classList.add('active');
+    document.getElementById('progressStep' + currentStep).classList.remove('active');
+    document.getElementById('progressStep' + currentStep).classList.add('completed');
+    document.getElementById('progressStep' + targetStep).classList.add('active');
+    var connectors = document.querySelectorAll('#hero-quote-form .form-progress-connector');
+    if (connectors[currentStep - 1]) connectors[currentStep - 1].classList.add('active');
+    var card = document.getElementById('hero-quote-form');
+    if (card) card.scrollTop = 0;
+}
+function prevFormStep(targetStep) {
+    var currentStep = targetStep + 1;
+    document.getElementById('formStep' + currentStep).classList.remove('active');
+    document.getElementById('formStep' + targetStep).classList.add('active');
+    document.getElementById('progressStep' + currentStep).classList.remove('active');
+    document.getElementById('progressStep' + targetStep).classList.remove('completed');
+    document.getElementById('progressStep' + targetStep).classList.add('active');
+    var connectors = document.querySelectorAll('#hero-quote-form .form-progress-connector');
+    if (connectors[targetStep - 1]) connectors[targetStep - 1].classList.remove('active');
+    var card = document.getElementById('hero-quote-form');
+    if (card) card.scrollTop = 0;
+}
+</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bevan&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -320,7 +370,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             <a href="services/roof-cleaning.html" class="sidebar-link">Roof Cleaning</a>
             <a href="services/gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a>
             <div class="sidebar-divider"></div>
-            <a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a>
+            <a href="#hero-quote-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a>
             <a href="tel:919-717-4653" class="sidebar-link">919-717-4653</a>
         </div>
     </nav>
@@ -342,8 +392,8 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </a>
-                <a href="#estimate-form" class="nav-cta nav-cta-upgraded">
-                    
+                <a href="#hero-quote-form" class="nav-cta nav-cta-upgraded">
+                    <span class="cta-icon">✨</span>
                     <span class="cta-text">FREE Quote<span class="cta-subtext"> - 24hr Response!</span></span>
                 </a>
             </div>
@@ -355,37 +405,162 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             <div class="hero-background" style="background-image: url('images/img_10000.webp');"></div>
             <div class="hero-overlay"></div>
             <div class="hero-content container">
-                <div class="hero-badge animate-on-scroll">
-                    <span class="badge-dot"></span>
-                    Serving Eastern NC &amp; Surrounding Areas
-                </div>
-                <h1 id="hero-heading" class="hero-title animate-on-scroll">
-                    <span class="title-line">Carolina</span>
-                    <span class="title-line accent">Cleaning Boys</span>
-                </h1>
-                <p class="hero-tagline animate-on-scroll">"Turning Dirt into Degrees"</p>
-                
-                <div class="hero-cta animate-on-scroll">
-                    <a href="#estimate-form" class="btn btn-primary btn-large">Click Here to Get a FREE Estimate</a>
-                </div>
-                
-                <div class="services-highlight animate-on-scroll">
-                    <h2 class="services-title">Our Services</h2>
-                    <ul class="services-list">
-                        <li><a href="services/pressure-washing.html"><span class="service-emoji" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C9.38 2 7.25 4.13 7.25 6.75c0 3.72 4.75 9.5 4.75 9.5s4.75-5.78 4.75-9.5C16.75 4.13 14.62 2 12 2zm0 6.25a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-8 11.5h16v2H4v-2z"/></svg></span> Pressure Washing</a></li>
-                        <li><a href="services/soft-washing.html"><span class="service-emoji" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4.99L19 9.28V11c0 4.52-3.02 8.76-7 9.93C8.02 19.76 5 15.52 5 11V9.28L12 5.99z"/></svg></span> Soft-Washing</a></li>
-                        <li><a href="services/surface-cleaning.html"><span class="service-emoji" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg></span> Surface Cleaning</a></li>
-                        <li><a href="services/roof-cleaning.html"><span class="service-emoji" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg></span> Roof Cleaning</a></li>
-                        <li><a href="services/gutter-cleaning.html"><span class="service-emoji" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20c4 0 4-2 8-2s4 2 8 2v-2c-4 0-4-2-8-2-1.17 0-2.01.16-2.74.33C14.15 12.55 16 9.73 17 8z"/></svg></span> Gutter Cleaning</a></li>
-                    </ul>
-                </div>
-                
-                <p class="hero-promise animate-on-scroll">Trust us to exceed expectations in residential and commercial spaces</p>
-                
-                <div class="trust-badges animate-on-scroll">
-                    <div class="trust-item"><span class="trust-icon">✓</span><span>Licensed &amp; Insured</span></div>
-                    <div class="trust-item"><span class="trust-icon">✓</span><span>Free Estimates</span></div>
-                    <div class="trust-item"><span class="trust-icon">✓</span><span>100% Satisfaction</span></div>
+                <div class="hero-split-layout">
+                    <!-- Left: brand copy -->
+                    <div class="hero-left">
+                        <div class="hero-badge">
+                            <span class="badge-dot"></span>
+                            Serving Eastern NC &amp; Surrounding Areas
+                        </div>
+                        <h1 id="hero-heading" class="hero-title">
+                            <span class="title-line">Carolina</span>
+                            <span class="title-line accent">Cleaning Boys</span>
+                        </h1>
+                        <p class="hero-tagline">"Turning Dirt into Degrees"</p>
+                        <div class="trust-badges hero-trust-badges">
+                            <div class="trust-item"><span class="trust-icon">✓</span><span>Licensed &amp; Insured</span></div>
+                            <div class="trust-item"><span class="trust-icon">✓</span><span>Free Estimates</span></div>
+                            <div class="trust-item"><span class="trust-icon">✓</span><span>100% Satisfaction</span></div>
+                        </div>
+                        <p class="hero-call-link">Or call us: <a href="tel:919-717-4653">919-717-4653</a></p>
+                    </div>
+
+                    <!-- Right: full quote form -->
+                    <div class="hero-form-card" id="hero-quote-form">
+                        <h2 class="hero-form-title">Get Your FREE Quote</h2>
+                        <p class="hero-form-subtitle">24-hour response guaranteed</p>
+                        <div class="form-progress">
+                            <div class="form-progress-step active" id="progressStep1">
+                                <div class="form-progress-number">1</div>
+                                <span class="form-progress-label">Contact</span>
+                            </div>
+                            <div class="form-progress-connector"></div>
+                            <div class="form-progress-step" id="progressStep2">
+                                <div class="form-progress-number">2</div>
+                                <span class="form-progress-label">Service</span>
+                            </div>
+                            <div class="form-progress-connector"></div>
+                            <div class="form-progress-step" id="progressStep3">
+                                <div class="form-progress-number">3</div>
+                                <span class="form-progress-label">Details</span>
+                            </div>
+                        </div>
+
+                        <form class="estimate-form" id="leadForm" onsubmit="submitForm(event)" novalidate>
+                            <input type="hidden" name="_subject" value="New Estimate Request from Website">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
+
+                            <!-- Step 1: Contact Info -->
+                            <div class="form-section active" id="formStep1">
+                                <div class="form-group">
+                                    <label class="form-label">Property Type <span class="required">*</span></label>
+                                    <div class="radio-group">
+                                        <label class="radio-label"><input type="radio" name="property_type" value="Residential" required><span class="radio-custom"></span>Residential</label>
+                                        <label class="radio-label"><input type="radio" name="property_type" value="Commercial"><span class="radio-custom"></span>Commercial</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="first_name" class="form-label">First Name <span class="required">*</span></label>
+                                        <input type="text" id="first_name" name="first_name" class="form-input" placeholder="John">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="last_name" class="form-label">Last Name <span class="required">*</span></label>
+                                        <input type="text" id="last_name" name="last_name" class="form-input" placeholder="Smith">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="email" class="form-label">Email <span class="required">*</span></label>
+                                        <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone" class="form-label">Phone Number <span class="required">*</span></label>
+                                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="(919) 555-1234">
+                                    </div>
+                                </div>
+                                <div id="formStep1Error" class="hero-form-error" aria-live="polite"></div>
+                                <div class="form-nav-buttons">
+                                    <button type="button" class="btn btn-hero-submit btn-full" onclick="nextFormStep(2)">Next &#8594;</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Service Details -->
+                            <div class="form-section" id="formStep2">
+                                <div class="form-group">
+                                    <label for="street_address" class="form-label">Street Address <span class="required">*</span></label>
+                                    <input type="text" id="street_address" name="street_address" class="form-input" placeholder="123 Main Street">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city" class="form-label">City <span class="required">*</span></label>
+                                        <input type="text" id="city" name="city" class="form-input" placeholder="Greenville">
+                                    </div>
+                                    <div class="form-group form-group-small">
+                                        <label for="state" class="form-label">State <span class="required">*</span></label>
+                                        <input type="text" id="state" name="state" class="form-input" value="NC">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Type of Service <span class="required">*</span></label>
+                                    <p class="form-help">Select all that apply</p>
+                                    <div class="checkbox-grid">
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="House"><span class="checkbox-custom"></span>House</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Driveway"><span class="checkbox-custom"></span>Driveway</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Deck"><span class="checkbox-custom"></span>Deck</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Fence"><span class="checkbox-custom"></span>Fence</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Patio"><span class="checkbox-custom"></span>Patio</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Sidewalk"><span class="checkbox-custom"></span>Sidewalk</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Gutters"><span class="checkbox-custom"></span>Gutters</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Roof"><span class="checkbox-custom"></span>Roof</label>
+                                        <label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label>
+                                    </div>
+                                </div>
+                                <div id="formStep2Error" class="hero-form-error" aria-live="polite"></div>
+                                <div class="form-nav-buttons">
+                                    <button type="button" class="btn btn-secondary" onclick="prevFormStep(1)">&#8592; Back</button>
+                                    <button type="button" class="btn btn-hero-submit" onclick="nextFormStep(3)">Next &#8594;</button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Almost Done -->
+                            <div class="form-section" id="formStep3">
+                                <div class="form-group">
+                                    <label for="referral_source" class="form-label">How did you hear about us?</label>
+                                    <select id="referral_source" name="referral_source" class="form-select">
+                                        <option value="">Select an option...</option>
+                                        <option value="Google Search">Google Search</option>
+                                        <option value="Facebook">Facebook</option>
+                                        <option value="Instagram">Instagram</option>
+                                        <option value="Referral from Friend/Family">Referral from Friend/Family</option>
+                                        <option value="Yard Sign">Yard Sign</option>
+                                        <option value="Door to Door">Door to Door</option>
+                                        <option value="Nextdoor">Nextdoor</option>
+                                        <option value="ECU Campus">ECU Campus</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="additional_info" class="form-label">Questions or Additional Information</label>
+                                    <textarea id="additional_info" name="additional_info" rows="3" class="form-textarea" placeholder="Tell us more about your project..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sms_consent" class="sms-consent-label">
+                                        <input type="checkbox" id="sms_consent" name="sms_consent" value="yes" class="sms-consent-checkbox">
+                                        <span class="sms-consent-text">
+                                            <strong>Yes, text me about my request.</strong><br>
+                                            I agree to receive SMS messages from Carolina Cleaning Boys about my service request, including quotes, appointment confirmations, and job reminders. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to unsubscribe at any time, HELP for help. See our <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>. SMS consent is not required to receive service.
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="form-nav-buttons">
+                                    <button type="button" class="btn btn-secondary" onclick="prevFormStep(2)">&#8592; Back</button>
+                                    <button type="submit" class="btn btn-hero-submit" id="submitBtn">Submit Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -448,7 +623,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                     
                     <a href="services/surface-cleaning.html" class="service-card animate-on-scroll">
                         <div class="service-card-image">
-                            <img src="images/pw1.webp" width="1536" height="2048" alt="Surface cleaning" loading="lazy">
+                            <img src="images/d5.webp" width="1536" height="2048" alt="Surface cleaning" loading="lazy">
                             <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
                         </div>
                         <div class="service-card-content">
@@ -482,23 +657,6 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             </div>
         </section>
 
-        <div class="modal-overlay" id="serviceModal">
-            <div class="modal-content">
-                <button class="modal-close" onclick="closeServiceGallery()" aria-label="Close gallery">&times;</button>
-                <h3 class="modal-title" id="modalTitle">Service Gallery</h3>
-                <div class="modal-gallery-wrapper">
-                    <button class="carousel-arrow carousel-arrow-left modal-arrow" id="modalPrev" aria-label="Previous image">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-                    </button>
-                    <div class="modal-gallery" id="modalGallery"></div>
-                    <button class="carousel-arrow carousel-arrow-right modal-arrow" id="modalNext" aria-label="Next image">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                    </button>
-                </div>
-                <p class="modal-hint">Use arrows to browse • Click outside to close</p>
-            </div>
-        </div>
-
         <section class="team-member-section" aria-labelledby="team-heading">
             <div class="container">
                 <h2 id="team-heading" class="section-title animate-on-scroll">Meet Our Team</h2>
@@ -511,22 +669,25 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         </div>
                         <h3>Zach</h3>
                         <p class="team-role">Co-Founder</p>
+                        <p class="team-bio"><!-- TODO: Add bio - e.g. "ECU Senior, Business major. Started CCB to fund his degree and give back to the Greenville community." --></p>
                     </div>
-                    
+
                     <div class="team-member">
                         <div class="team-photo">
                             <img src="images/sam.webp" width="1600" height="2400" alt="Sam - Co-Founder" loading="lazy">
                         </div>
                         <h3>Sam</h3>
                         <p class="team-role">Co-Founder</p>
+                        <p class="team-bio"><!-- TODO: Add bio --></p>
                     </div>
-                    
+
                     <div class="team-member">
                         <div class="team-photo">
                             <img src="images/nick.webp" width="1023" height="1140" alt="Nick - Co-Founder" loading="lazy">
                         </div>
                         <h3>Nick</h3>
                         <p class="team-role">Co-Founder</p>
+                        <p class="team-bio"><!-- TODO: Add bio --></p>
                     </div>
                 </div>
             </div>
@@ -597,114 +758,6 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             </div>
         </section>
 
-        <section class="estimate-section" id="estimate-form" aria-labelledby="estimate-heading">
-            <div class="container">
-                <h2 id="estimate-heading" class="section-title animate-on-scroll">Get your FREE Estimate</h2>
-                <p class="section-subtitle animate-on-scroll">Fill out the form below and we'll get back to you within 24 hours</p>
-                
-                <form class="estimate-form animate-on-scroll" id="leadForm" onsubmit="submitForm(event)">
-                    <input type="hidden" name="_subject" value="New Estimate Request from Website">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-                    
-                    <div class="form-group">
-                        <label class="form-label">Property Type <span class="required">*</span></label>
-                        <div class="radio-group">
-                            <label class="radio-label"><input type="radio" name="property_type" value="Residential" required><span class="radio-custom"></span>Residential</label>
-                            <label class="radio-label"><input type="radio" name="property_type" value="Commercial"><span class="radio-custom"></span>Commercial</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="first_name" class="form-label">First Name <span class="required">*</span></label>
-                            <input type="text" id="first_name" name="first_name" required class="form-input" placeholder="John">
-                        </div>
-                        <div class="form-group">
-                            <label for="last_name" class="form-label">Last Name <span class="required">*</span></label>
-                            <input type="text" id="last_name" name="last_name" required class="form-input" placeholder="Smith">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email <span class="required">*</span></label>
-                            <input type="email" id="email" name="email" required class="form-input" placeholder="john@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone" class="form-label">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="phone" name="phone" required class="form-input" placeholder="(919) 555-1234">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="street_address" class="form-label">Street Address <span class="required">*</span></label>
-                        <input type="text" id="street_address" name="street_address" required class="form-input" placeholder="123 Main Street">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city" class="form-label">City <span class="required">*</span></label>
-                            <input type="text" id="city" name="city" required class="form-input" placeholder="Greenville">
-                        </div>
-                        <div class="form-group form-group-small">
-                            <label for="state" class="form-label">State <span class="required">*</span></label>
-                            <input type="text" id="state" name="state" required class="form-input" value="NC">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Type of Service <span class="required">*</span></label>
-                        <p class="form-help">Select all that apply</p>
-                        <div class="checkbox-grid">
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="House"><span class="checkbox-custom"></span>House</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Driveway"><span class="checkbox-custom"></span>Driveway</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Deck"><span class="checkbox-custom"></span>Deck</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Fence"><span class="checkbox-custom"></span>Fence</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Patio"><span class="checkbox-custom"></span>Patio</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Sidewalk"><span class="checkbox-custom"></span>Sidewalk</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Gutters"><span class="checkbox-custom"></span>Gutters</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Roof"><span class="checkbox-custom"></span>Roof</label>
-                            <label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="referral_source" class="form-label">How did you hear about us?</label>
-                        <select id="referral_source" name="referral_source" class="form-select">
-                            <option value="">Select an option...</option>
-                            <option value="Google Search">Google Search</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="Referral from Friend/Family">Referral from Friend/Family</option>
-                            <option value="Yard Sign">Yard Sign</option>
-                            <option value="Door to Door">Door to Door</option>
-                            <option value="Nextdoor">Nextdoor</option>
-                            <option value="ECU Campus">ECU Campus</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="additional_info" class="form-label">Questions or Additional Information</label>
-                        <textarea id="additional_info" name="additional_info" rows="4" class="form-textarea" placeholder="Tell us more about your project..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sms_consent" class="sms-consent-label">
-                            <input type="checkbox" id="sms_consent" name="sms_consent" value="yes" class="sms-consent-checkbox">
-                            <span class="sms-consent-text">
-                                <strong>Yes, text me about my request.</strong><br>
-                                I agree to receive SMS messages from Carolina Cleaning Boys about my service request, including quotes, appointment confirmations, and job reminders. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to unsubscribe at any time, HELP for help. See our <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>. SMS consent is not required to receive service.
-                            </span>
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-large btn-full" id="submitBtn">Submit Request</button>
-                </form>
-            </div>
-        </section>
-
     </main>
 
     <footer class="footer">
@@ -761,78 +814,12 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             document.getElementById('sidebarOverlay').classList.toggle('active');
             document.body.style.overflow = document.getElementById('sidebar').classList.contains('active') ? 'hidden' : '';
         }
-        
+
         function closeSidebar() {
             document.getElementById('sidebar').classList.remove('active');
             document.getElementById('sidebarOverlay').classList.remove('active');
             document.body.style.overflow = '';
         }
-
-        var serviceGalleries = {
-            'pressure-washing': {
-                title: 'Pressure Washing Gallery',
-                images: ['pw1.webp', 'pw3.webp', 'pw4.webp', 'pw7.webp', 'pw8.webp', 'pw9.webp', 'pw10.webp', 'pw11.webp', 'pw13.webp', 'pw14.webp', 'pw15.webp']
-            },
-            'soft-washing': {
-                title: 'Soft-Washing Gallery',
-                images: ['sw3.webp', 'sw24.webp', 'sw6.webp', 'sw8.webp', 'sw11.webp', 'sw12.webp', 'sw13.webp', 'sw14.webp', 'sw15.webp', 'sw16.webp', 'sw18.webp', 'sw19.webp', 'sw21.webp', 'sw22.webp']
-            },
-            'gutter-cleaning': {
-                title: 'Gutter Cleaning Gallery',
-                images: ['G2.webp', 'G3.webp', 'G4.webp', 'G5.webp', 'G6.webp', 'G7.webp', 'G8.webp']
-            },
-            'roof-washing': {
-                title: 'Roof Washing Gallery',
-                images: ['rf1.webp', 'rf2.webp', 'rf3.webp', 'rf4.webp', 'R5.webp']
-            },
-            'fence-cleaning': {
-                title: 'Fence Cleaning Gallery',
-                images: ['f1.webp', 'f2.webp', 'f4.webp', 'f3.webp', 'f5.webp', 'f7.webp', 'f6.webp', 'f8.webp', 'f9.webp']
-            },
-            'deck-cleaning': {
-                title: 'Deck Cleaning Gallery',
-                images: ['d1.webp', 'd8.webp', 'd2.webp', 'd3.webp', 'd4.webp', 'd5.webp', 'd6.webp', 'd7.webp', 'd10.webp', 'd9.webp']
-            }
-        };
-
-        function openServiceGallery(service) {
-            var modal = document.getElementById('serviceModal');
-            var modalTitle = document.getElementById('modalTitle');
-            var modalGallery = document.getElementById('modalGallery');
-            var gallery = serviceGalleries[service];
-            if (!gallery) return;
-            modalTitle.textContent = gallery.title;
-            var html = '';
-            for (var i = 0; i < gallery.images.length; i++) {
-                html += '<div class="modal-slide"><img src="images/' + gallery.images[i] + '" alt="' + gallery.title + '" loading="lazy"></div>';
-            }
-            modalGallery.innerHTML = html;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            modalGallery.scrollLeft = 0;
-        }
-
-        function closeServiceGallery() {
-            var modal = document.getElementById('serviceModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        document.getElementById('serviceModal').addEventListener('click', function(e) {
-            if (e.target === this) closeServiceGallery();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeServiceGallery();
-        });
-
-        document.getElementById('modalPrev').addEventListener('click', function() {
-            document.getElementById('modalGallery').scrollBy({ left: -350, behavior: 'smooth' });
-        });
-
-        document.getElementById('modalNext').addEventListener('click', function() {
-            document.getElementById('modalGallery').scrollBy({ left: 350, behavior: 'smooth' });
-        });
 
         document.documentElement.classList.add('js-loaded');
         var observer = new IntersectionObserver(function(entries) {
@@ -872,127 +859,129 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         });
     </script>
     <script>
+var CCB_ENDPOINT = ‘https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec’;
+
+function ccbFireTracking(phone, email) {
+    var raw = ((email || ‘’).trim().toLowerCase()) || ((phone || ‘’).replace(/\D/g, ‘’)) || ‘’;
+    function fireLead(eid) { if (typeof fbq === ‘function’) { fbq(‘track’, ‘Lead’, {}, eid ? { eventID: eid } : {}); } }
+    if (raw && window.crypto && window.crypto.subtle) {
+        window.crypto.subtle.digest(‘SHA-256’, new TextEncoder().encode(raw)).then(function(buf) {
+            var hex = Array.prototype.map.call(new Uint8Array(buf), function(b) { return (‘0’ + b.toString(16)).slice(-2); }).join(‘’);
+            fireLead(hex);
+        }).catch(function() { fireLead(‘’); });
+    } else { fireLead(‘’); }
+    gtag(‘event’, ‘conversion’, { ‘send_to’: ‘AW-17822819353/JIJRCJvpxuwbEJnIyrJC’, ‘value’: 150.0, ‘currency’: ‘USD’ });
+}
+
+function ccbSendLead(data) {
+    fetch(CCB_ENDPOINT, {
+        method: ‘POST’,
+        mode: ‘no-cors’,
+        headers: { ‘Content-Type’: ‘application/json’ },
+        body: JSON.stringify(data)
+    }).catch(function(err) { console.error(‘Lead submit error:’, err); });
+}
+
+function ccbGetAttribution() {
+    try { return JSON.parse(sessionStorage.getItem(‘ccb_attribution’)) || {}; } catch(e) { return {}; }
+}
+
 function submitForm(e) {
     e.preventDefault();
-    
-    var btn = document.getElementById('submitBtn');
-    btn.textContent = 'Sending...';
+
+    var form = document.getElementById(‘leadForm’);
+
+    // Phone validation
+    var phoneVal = form.querySelector(‘#phone’).value.replace(/\D/g, ‘’);
+    if (phoneVal.length < 10) {
+        alert(‘Please enter a valid phone number (at least 10 digits).’);
+        form.querySelector(‘#phone’).focus();
+        return;
+    }
+
+    // Service checkbox validation
+    var checkedServices = form.querySelectorAll(‘input[name="services"]:checked’);
+    if (checkedServices.length === 0) {
+        alert(‘Please select at least one service.’);
+        return;
+    }
+
+    var btn = document.getElementById(‘submitBtn’);
+    btn.textContent = ‘Sending...’;
     btn.disabled = true;
-    
-    var form = document.getElementById('leadForm');
-    
-    // Gather checkbox values
+
     var services = [];
-    var checkboxes = form.querySelectorAll('input[name="services"]:checked');
-    checkboxes.forEach(function(cb) {
-        services.push(cb.value);
-    });
-    
-    // Get radio value
-    var propertyType = form.querySelector('input[name="property_type"]:checked');
-    
+    checkedServices.forEach(function(cb) { services.push(cb.value); });
+
+    var propertyType = form.querySelector(‘input[name="property_type"]:checked’);
+
     var data = {
-        property_type: propertyType ? propertyType.value : '',
-        first_name: form.querySelector('#first_name').value,
-        last_name: form.querySelector('#last_name').value,
-        email: form.querySelector('#email').value,
-        phone: form.querySelector('#phone').value,
-        street_address: form.querySelector('#street_address').value,
-        city: form.querySelector('#city').value,
-        state: form.querySelector('#state').value,
-        services: services.join(', '),
-        referral_source: form.querySelector('#referral_source').value,
-        additional_info: form.querySelector('#additional_info').value,
-        sms_consent: form.querySelector('#sms_consent') ? form.querySelector('#sms_consent').checked : false,
-        consent_evidence: {
-            form_url: window.location.href,
-            user_agent: navigator.userAgent,
-            submitted_at: new Date().toISOString()
-        }
+        property_type: propertyType ? propertyType.value : ‘’,
+        first_name: form.querySelector(‘#first_name’).value,
+        last_name: form.querySelector(‘#last_name’).value,
+        email: form.querySelector(‘#email’).value,
+        phone: form.querySelector(‘#phone’).value,
+        street_address: form.querySelector(‘#street_address’).value,
+        city: form.querySelector(‘#city’).value,
+        state: form.querySelector(‘#state’).value,
+        services: services.join(‘, ‘),
+        referral_source: form.querySelector(‘#referral_source’).value,
+        additional_info: form.querySelector(‘#additional_info’).value,
+        sms_consent: form.querySelector(‘#sms_consent’) ? form.querySelector(‘#sms_consent’).checked : false,
+        consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
+        form_source: ‘full_form’,
+        attribution: ccbGetAttribution()
     };
-    
-    try { data.attribution = JSON.parse(sessionStorage.getItem('ccb_attribution')) || {}; } catch (e) { data.attribution = {}; }
 
-    // Fire tracking immediately (before network — no-cors fetch cannot reliably resolve)
-    (function () {
-      var __ccbRaw = ((data.email || '').trim().toLowerCase()) || ((data.phone || '').replace(/\D/g, '')) || '';
-      function __ccbFireLead(eid) { if (typeof fbq === 'function') { fbq('track', 'Lead', {}, eid ? { eventID: eid } : {}); } }
-      if (__ccbRaw && window.crypto && window.crypto.subtle) {
-        window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(__ccbRaw)).then(function (buf) {
-          var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
-          __ccbFireLead(hex);
-        }).catch(function () { __ccbFireLead(''); });
-      } else { __ccbFireLead(''); }
-    })();
-    gtag('event', 'conversion', {
-        'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
-        'value': 150.0,
-        'currency': 'USD'
-    });
+    ccbFireTracking(data.phone, data.email);
+    ccbSendLead(data);
 
-    // Send lead to Google Apps Script — fire and forget
-    fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    }).catch(function(err) { console.error('Lead submit error:', err); });
-
-    // Show in-page success immediately
-    btn.textContent = 'Request Sent!';
+    btn.textContent = ‘Request Sent!’;
     btn.disabled = true;
-    var successMsg = document.createElement('p');
-    successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
-    successMsg.textContent = 'Thanks! We’ll be in touch within 24 hours.';
-    document.getElementById('leadForm').appendChild(successMsg);
+    var successMsg = document.createElement(‘p’);
+    successMsg.style.cssText = ‘margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;’;
+    successMsg.textContent = ‘Thanks! We\u2019ll be in touch within 24 hours.’;
+    form.appendChild(successMsg);
+
+    // 10-second fallback notice
+    setTimeout(function() {
+        var fallback = document.createElement(‘p’);
+        fallback.style.cssText = ‘margin-top:8px;font-size:0.95rem;color:#555;text-align:center;’;
+        fallback.innerHTML = ‘If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653" style="color:#3F647F;font-weight:700;">919-717-4653</a>.’;
+        form.appendChild(fallback);
+    }, 10000);
 }
 </script>
     <script>
 function initAutocomplete() {
-    const addressInput = document.getElementById('street_address');
-    
-    const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        types: ['address'],
-        componentRestrictions: { country: 'us' }
-    });
-    
-    autocomplete.addListener('place_changed', function() {
-        const place = autocomplete.getPlace();
-        
-        if (!place.address_components) return;
-        
-        let streetNumber = '';
-        let route = '';
-        let city = '';
-        let state = '';
-        
-        for (const component of place.address_components) {
-            const type = component.types[0];
-            
-            if (type === 'street_number') {
-                streetNumber = component.long_name;
+    // Full form autocomplete
+    var addressInput = document.getElementById('street_address');
+    if (addressInput) {
+        var autocomplete = new google.maps.places.Autocomplete(addressInput, {
+            types: ['address'],
+            componentRestrictions: { country: 'us' }
+        });
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (!place.address_components) return;
+            var streetNumber = '', route = '', city = '', state = '';
+            for (var i = 0; i < place.address_components.length; i++) {
+                var c = place.address_components[i];
+                var type = c.types[0];
+                if (type === 'street_number') streetNumber = c.long_name;
+                if (type === 'route') route = c.long_name;
+                if (type === 'locality') city = c.long_name;
+                if (type === 'administrative_area_level_1') state = c.short_name;
             }
-            if (type === 'route') {
-                route = component.long_name;
-            }
-            if (type === 'locality') {
-                city = component.long_name;
-            }
-            if (type === 'administrative_area_level_1') {
-                state = component.short_name;
-            }
-        }
+            if (streetNumber || route) addressInput.value = (streetNumber + ' ' + route).trim();
+            var cityField = document.getElementById('city');
+            var stateField = document.getElementById('state');
+            if (cityField && city) cityField.value = city;
+            if (stateField && state) stateField.value = state;
+        });
+    }
 
-        if (streetNumber || route) {
-            addressInput.value = (streetNumber + ' ' + route).trim();
-        }
-        var cityField = document.getElementById('city');
-        var stateField = document.getElementById('state');
-        if (cityField && city) { cityField.value = city; }
-        if (stateField && state) { stateField.value = state; }
-    });
+
 }
 </script>
 </body>

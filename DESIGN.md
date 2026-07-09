@@ -19,26 +19,29 @@ Design-system reference for the Carolina Cleaning Boys marketing site (static HT
 - Keep the two-font system; don't introduce new families.
 
 ## Color palette
-| Role | Hex |
-|---|---|
-| Background (warm tan) | `#f5f0e8` |
-| Dark navy (headers, hero scrims, headings) | `#1a2b3c` |
-| Orange accent (CTAs, highlights, borders, hover) | `#e8823a` |
-| Secondary orange (hero gradient) | `#E07A38` |
-| Body text | `#444` / `#555` |
-| Muted / captions | `#888` |
-- Orange is the action color (buttons, links-on-hover, accents). Navy anchors headings and photo scrims. Tan is the page canvas.
+| Role | CSS variable | Hex |
+|---|---|---|
+| Primary (headings, body text, anchors) | `--primary` | `#3F647F` |
+| Primary light (accents, borders, badges) | `--primary-light` | `#6FAFD8` |
+| Primary dark (footer bg, deep accents) | `--primary-dark` | `#2E4F66` |
+| Background (warm off-white) | `--off-white` | `#F4EFE9` |
+| CTA gradient start (orange) | — | `#FF6B35` |
+| CTA gradient end (gold) | — | `#F7C531` |
+| Placeholder text | — | `#4A6A80` |
+- Orange-to-gold gradient is the action color (nav CTA, hero form submit, sidebar CTA). Blue-gray (`--primary`) anchors headings and body text. Off-white is the page canvas.
+- Service-specific accent colors: `--accent-pressure: #E85D04`, `--accent-soft: #48CAE4`, `--accent-surface: #6C757D`, `--accent-roof: #1D3557`, `--accent-gutter: #BC6C25`.
 
 ## Layout & components
 - **Container:** `.container` — max-width centered wrapper.
 - **Nav:** sticky `.header`/`.nav`; hamburger `.sidebar` slide-out on the homepage.
 - **Hero (location pages):** photo backdrop + dark navy→orange scrim (`.city-hero`), split layout (`.city-hero-inner`) — copy left, framed job photo right.
+- **Homepage hero:** split layout (`.hero-split-layout`) — copy left (H1, tagline, trust badges, phone), compact inline quote form right. Stacks vertically on mobile.
 - **Service hero:** gradient + animated text (`.service-hero`).
 - **Before/After:** `.ba-pair` — two images side-by-side in one bound unit, BEFORE (left/dirty) + AFTER (right/clean) badges. Always side-by-side, never stacked.
 - **Galleries:** `.work-grid` (responsive photo grid, no JS).
 - **Buttons:** `.btn .btn-primary` (orange) / `.btn-secondary`; pill CTAs.
 - **Cards:** rounded 12–16px corners, soft shadow (`0 4px 18px rgba(0,0,0,.08)`).
-- **Reveal animation:** `.animate-on-scroll` (opacity:0 → `.animated` via IntersectionObserver — every page needs the observer script or content stays hidden).
+- **Reveal animation:** `.animate-on-scroll` scoped to `.js-loaded` (progressive enhancement — content visible without JS, animation layered on top). IntersectionObserver adds `.animated` class.
 
 ## Imagery
 - **Use real job photos** (in `images/work/`), organized by service. Before/after pairs and "split" (half-dirty/half-clean) shots are the highest-trust assets.
