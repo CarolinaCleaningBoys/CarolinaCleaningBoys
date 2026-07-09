@@ -192,8 +192,7 @@
     <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="android-chrome-512x512.png">
     <link rel="manifest" href="site.webmanifest">
-<!-- Google Maps Address Autocomplete -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMgQPLJlz8BrHJ7T6WJuJf54KU2JcwqN8&libraries=places&callback=initAutocomplete&loading=async" async></script>
+<!-- Google Maps Address Autocomplete (loaded lazily when step 2 is reached) -->
     
     <link rel="preload" as="image" href="images/img_10000.webp" fetchpriority="high">
     <link rel="stylesheet" href="style.css">
@@ -234,6 +233,14 @@ function nextFormStep(targetStep) {
     if (connectors[currentStep - 1]) connectors[currentStep - 1].classList.add('active');
     var card = document.getElementById('hero-quote-form');
     if (card) card.scrollTop = 0;
+    // Lazy-load Google Maps when reaching step 2
+    if (targetStep === 2 && !window._mapsLoaded) {
+        window._mapsLoaded = true;
+        var s = document.createElement('script');
+        s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBMgQPLJlz8BrHJ7T6WJuJf54KU2JcwqN8&libraries=places&callback=initAutocomplete&loading=async';
+        s.async = true;
+        document.head.appendChild(s);
+    }
 }
 function prevFormStep(targetStep) {
     var currentStep = targetStep + 1;
@@ -250,7 +257,8 @@ function prevFormStep(targetStep) {
 </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bevan&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bevan&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Bevan&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"></noscript>
 <style>
         /* SEO Fixes - Contrast improvement for accessibility */
         .section-subtitle {
@@ -313,35 +321,37 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <script>
 (function() {
-    var params = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
-    var existing = sessionStorage.getItem('ccb_attribution');
-    var qs = new URLSearchParams(window.location.search);
-    var hasParams = false;
-    for (var i = 0; i < params.length; i++) {
-        if (qs.get(params[i])) { hasParams = true; break; }
-    }
-    if (!existing) {
-        var bundle = { landing_page: window.location.href, referrer: document.referrer };
-        for (var j = 0; j < params.length; j++) {
-            var val = qs.get(params[j]);
-            if (val) { bundle[params[j]] = val; }
+    try {
+        var params = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+        var existing = sessionStorage.getItem('ccb_attribution');
+        var qs = new URLSearchParams(window.location.search);
+        var hasParams = false;
+        for (var i = 0; i < params.length; i++) {
+            if (qs.get(params[i])) { hasParams = true; break; }
         }
-        // _gcl_aw cookie fallback: recover gclid when URL param was lost
-        // Cookie format: GCL.<timestamp>.<gclid>
-        if (!bundle.gclid) {
-            var cookieMatch = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
-            if (cookieMatch) {
-                var parts = cookieMatch[1].split('.');
-                if (parts.length >= 3) {
-                    bundle.gclid = parts.slice(2).join('.');
-                    hasParams = true;
+        if (!existing) {
+            var bundle = { landing_page: window.location.href, referrer: document.referrer };
+            for (var j = 0; j < params.length; j++) {
+                var val = qs.get(params[j]);
+                if (val) { bundle[params[j]] = val; }
+            }
+            // _gcl_aw cookie fallback: recover gclid when URL param was lost
+            // Cookie format: GCL.<timestamp>.<gclid>
+            if (!bundle.gclid) {
+                var cookieMatch = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+                if (cookieMatch) {
+                    var parts = cookieMatch[1].split('.');
+                    if (parts.length >= 3) {
+                        bundle.gclid = parts.slice(2).join('.');
+                        hasParams = true;
+                    }
                 }
             }
+            if (hasParams) {
+                sessionStorage.setItem('ccb_attribution', JSON.stringify(bundle));
+            }
         }
-        if (hasParams) {
-            sessionStorage.setItem('ccb_attribution', JSON.stringify(bundle));
-        }
-    }
+    } catch(e) {}
 })();
 </script>
 </head>
@@ -665,7 +675,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 <div class="team-grid animate-on-scroll">
                     <div class="team-member">
                         <div class="team-photo">
-                            <img src="images/zach1.PNG" alt="Zach - Co-Founder" loading="lazy">
+                            <img src="images/zach1.PNG" alt="Zach - Co-Founder" loading="lazy" width="1024" height="1024">
                         </div>
                         <h3>Zach</h3>
                         <p class="team-role">Co-Founder</p>
