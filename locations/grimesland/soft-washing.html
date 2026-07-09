@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>document.documentElement.classList.add("js-loaded")</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soft Washing Grimesland NC | Carolina Cleaning Boys</title>
@@ -217,10 +217,11 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 </script>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <header class="header">
         <nav class="nav container">
             <a href="../../index.html" class="logo">
-                <img src="../../images/logo-1200.png" alt="Carolina Cleaning Boys" class="logo-img">
+                <img src="../../images/logo-1200.png" alt="Carolina Cleaning Boys" class="logo-img" width="256" height="256">
             </a>
             <div class="nav-contact">
                 <a href="mailto:carolinacleaningboys@gmail.com" class="nav-email">
@@ -234,7 +235,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         </nav>
     </header>
 
-    <main>
+    <main id="main-content">
         <section class="city-hero">
             <div class="container">
                 <h1>Soft Washing in Grimesland, NC</h1>
@@ -246,6 +247,55 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 <a href="#estimate-form" class="cta-btn cta-btn-primary">Get Your Free Grimesland Quote</a>
             </div>
         </section>
+
+<section class="estimate-section" id="estimate-form"><div class="container"><h2 class="section-title animate-on-scroll">Get your FREE Estimate</h2><p class="section-subtitle animate-on-scroll">Fill out the form below and we'll get back to you within 24 hours</p>
+
+            <!-- Form Progress Indicator -->
+            <div class="form-progress animate-on-scroll">
+                <div class="form-progress-step active" data-step="1"><span class="form-progress-number">1</span><span class="form-progress-label">Property</span></div>
+                <div class="form-progress-connector"></div>
+                <div class="form-progress-step" data-step="2"><span class="form-progress-number">2</span><span class="form-progress-label">Contact</span></div>
+                <div class="form-progress-connector"></div>
+                <div class="form-progress-step" data-step="3"><span class="form-progress-number">3</span><span class="form-progress-label">Services</span></div>
+            </div>
+
+            <form class="estimate-form animate-on-scroll" id="leadForm" onsubmit="submitForm(event)" novalidate>
+                <input type="hidden" name="_subject" value="New Estimate - Soft Washing - Grimesland">
+
+                <!-- Step 1: Property Info -->
+                <div class="form-section active" data-section="1">
+                    <div class="form-group"><label class="form-label">Property Type <span class="required">*</span></label><div class="radio-group"><label class="radio-label"><input type="radio" name="property_type" value="Residential" required><span class="radio-custom"></span>Residential</label><label class="radio-label"><input type="radio" name="property_type" value="Commercial"><span class="radio-custom"></span>Commercial</label></div></div>
+                    <div class="form-group"><label for="street_address" class="form-label">Street Address <span class="required">*</span></label><input type="text" id="street_address" name="street_address" required class="form-input" placeholder="123 Main Street"></div>
+                    <div class="form-row"><div class="form-group"><label for="city" class="form-label">City <span class="required">*</span></label><input type="text" id="city" name="city" required class="form-input" value="Grimesland"></div><div class="form-group form-group-small"><label for="state" class="form-label">State <span class="required">*</span></label><input type="text" id="state" name="state" required class="form-input" value="NC"></div></div>
+                    <div class="form-nav-buttons"><button type="button" class="btn btn-primary btn-large btn-full" onclick="nextStep(2)">Next: Contact Info →</button></div>
+                </div>
+
+                <!-- Step 2: Contact Info -->
+                <div class="form-section" data-section="2">
+                    <div class="form-row"><div class="form-group"><label for="first_name" class="form-label">First Name <span class="required">*</span></label><input type="text" id="first_name" name="first_name" required class="form-input" placeholder="John"></div><div class="form-group"><label for="last_name" class="form-label">Last Name <span class="required">*</span></label><input type="text" id="last_name" name="last_name" required class="form-input" placeholder="Smith"></div></div>
+                    <div class="form-row"><div class="form-group"><label for="email" class="form-label">Email <span class="required">*</span></label><input type="email" id="email" name="email" required class="form-input" placeholder="john@example.com"></div><div class="form-group"><label for="phone" class="form-label">Phone Number <span class="required">*</span></label><input type="tel" id="phone" name="phone" required class="form-input" placeholder="(919) 555-1234"></div></div>
+                    <div class="form-nav-buttons"><button type="button" class="btn btn-secondary btn-large" onclick="prevStep(1)">← Back</button><button type="button" class="btn btn-primary btn-large" onclick="nextStep(3)">Next: Services →</button></div>
+                </div>
+
+                <!-- Step 3: Services -->
+                <div class="form-section" data-section="3">
+                    <div class="form-group"><label class="form-label">Type of Service <span class="required">*</span></label><p class="form-help">Select all that apply</p><div class="checkbox-grid"><label class="checkbox-label"><input type="checkbox" name="services" value="House" checked><span class="checkbox-custom"></span>House</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Driveway"><span class="checkbox-custom"></span>Driveway</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Deck"><span class="checkbox-custom"></span>Deck</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Fence"><span class="checkbox-custom"></span>Fence</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Patio"><span class="checkbox-custom"></span>Patio</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Sidewalk"><span class="checkbox-custom"></span>Sidewalk</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Gutters"><span class="checkbox-custom"></span>Gutters</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Roof"><span class="checkbox-custom"></span>Roof</label>
+<label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label></div></div>
+                    <div class="form-group"><label for="referral_source" class="form-label">How did you hear about us?</label><select id="referral_source" name="referral_source" class="form-select"><option value="">Select an option...</option><option value="Google Search">Google Search</option><option value="Facebook">Facebook</option><option value="Instagram">Instagram</option><option value="Referral from Friend/Family">Referral from Friend/Family</option><option value="Yard Sign">Yard Sign</option><option value="Door to Door">Door to Door</option><option value="Nextdoor">Nextdoor</option><option value="ECU Campus">ECU Campus</option><option value="Other">Other</option></select></div>
+                    <div class="form-group"><label for="additional_info" class="form-label">Questions or Additional Information</label><textarea id="additional_info" name="additional_info" rows="3" class="form-textarea" placeholder="Tell us more about your project..."></textarea></div>
+                    <div class="form-group"><label for="sms_consent" class="sms-consent-label"><input type="checkbox" id="sms_consent" name="sms_consent" value="yes" class="sms-consent-checkbox"><span class="sms-consent-text"><strong>Yes, text me about my request.</strong><br>I agree to receive SMS messages from Carolina Cleaning Boys about my service request. Msg &amp; data rates may apply. Reply STOP to unsubscribe. <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>.</span></label></div>
+                    <div class="form-nav-buttons"><button type="button" class="btn btn-secondary btn-large" onclick="prevStep(2)">← Back</button><button type="submit" class="btn btn-primary btn-large" id="submitBtn">Get My Free Quote</button></div>
+                </div>
+            </form>
+        </div></section>
+
 
         <section class="service-intro">
             <div class="container">
@@ -311,95 +361,13 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 <h2>Ready to Transform Your Grimesland Property?</h2>
                 <p>Join hundreds of satisfied customers in Pitt County. Get your free quote today!</p>
                 <div class="cta-buttons">
-                    <a href="tel:919-717-4653" class="cta-btn cta-btn-primary">📞 Call 919-717-4653</a>
+                    <a href="tel:919-717-4653" class="cta-btn cta-btn-primary"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>Call 919-717-4653</a>
                     <a href="#estimate-form" class="cta-btn cta-btn-secondary">Get Free Quote</a>
                 </div>
             </div>
         </section>
 
-        <section class="estimate-section" id="estimate-form">
-            <div class="container">
-                <h2 class="section-title">Get Your Free Grimesland Estimate</h2>
-                <p class="section-subtitle">Fill out the form below and we'll get back to you within 24 hours</p>
-                
-                <form class="estimate-form" id="leadForm" onsubmit="submitForm(event)" style="max-width: 600px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 12px;">
-                    <input type="hidden" name="_subject" value="New Estimate - Soft Washing - Grimesland">
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">First Name *</label>
-                            <input type="text" name="first_name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Last Name *</label>
-                            <input type="text" name="last_name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email *</label>
-                            <input type="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Phone *</label>
-                            <input type="tel" name="phone" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 1rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Street Address *</label>
-                        <input type="text" name="street_address" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                    </div>
-                    
-                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">City *</label>
-                            <input type="text" name="city" value="Grimesland" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">State *</label>
-                            <input type="text" name="state" value="NC" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                    </div>
-                    
-                    <div style="margin-bottom: 1rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Service Needed *</label>
-                        <select name="services" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                            <option value="Soft Washing" selected>Soft Washing</option>
-                            <option value="Pressure Washing">Pressure Washing</option>
-                            <option value="Soft Washing">Soft Washing / House Washing</option>
-                            <option value="Surface Cleaning">Driveway / Surface Cleaning</option>
-                            <option value="Roof Cleaning">Roof Cleaning</option>
-                            <option value="Gutter Cleaning">Gutter Cleaning</option>
-                            <option value="Multiple Services">Multiple Services</option>
-                        </select>
-                    </div>
-                    
-                    <div style="margin-bottom: 1rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">How did you hear about us?</label>
-                        <select name="referral_source" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-                            <option value="">Select an option...</option>
-                            <option value="Google Search">Google Search</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Referral">Referral from Friend/Family</option>
-                            <option value="Yard Sign">Yard Sign</option>
-                            <option value="Door to Door">Door to Door</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div style="margin-bottom: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Additional Information</label>
-                        <textarea name="additional_info" rows="3" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;" placeholder="Tell us about your project..."></textarea>
-                    </div>
-                    
-                    <button type="submit" id="submitBtn" style="width: 100%; padding: 1rem; background: #6FAFD8; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer;">
-                        🚀 Get My Free Grimesland Quote
-                    </button>
-                </form>
-            </div>
-        </section>
+        
     </main>
 
     <footer class="footer">
@@ -411,8 +379,8 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 </div>
                 <div class="footer-contact">
                     <h4>Contact Us</h4>
-                    <p><a href="tel:919-717-4653" class="footer-link">📞 919-717-4653</a></p>
-                    <p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link">✉️ carolinacleaningboys@gmail.com</a></p>
+                    <p><a href="tel:919-717-4653" class="footer-link">919-717-4653</a></p>
+                    <p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>carolinacleaningboys@gmail.com</a></p>
                 </div>
                 <div class="footer-services">
                     <h4>Our Services</h4>
@@ -421,17 +389,57 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         <li><a href="../../services/soft-washing.html">Soft Washing</a></li>
                         <li><a href="../../services/surface-cleaning.html">Surface Cleaning</a></li>
                         <li><a href="../../services/roof-cleaning.html">Roof Cleaning</a></li>
-                        <li><a href="../../services/gutter-cleaning.html">Gutter Cleaning</a></li><li><a href="../index.html">Areas We Serve</a></li>
+                        <li><a href="../../services/gutter-cleaning.html">Gutter Cleaning</a></li>
                     </ul>
                 </div>
             </div>
+            <div class="footer-areas"><h3>Areas We Serve</h3><p>Proudly serving Greenville, Winterville, Ayden, Farmville &amp; 20+ cities across Pitt County &amp; Eastern NC.</p><a href="../index.html" class="footer-areas-btn">View All Locations &rarr;</a></div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Carolina Cleaning Boys. All rights reserved. | Proudly serving Grimesland, NC</p>
+                <p>&copy; 2024-2026 Carolina Cleaning Boys. All rights reserved. | Proudly serving Grimesland, NC</p>
             </div>
         </div>
     </footer>
 
     <script>
+        var currentFormStep = 1;
+        function nextStep(step) {
+            var prev = step - 1;
+            if (prev === 1) {
+                var pt = document.querySelector('input[name="property_type"]:checked');
+                var addr = document.getElementById('street_address').value.trim();
+                var city = document.getElementById('city').value.trim();
+                if (!pt) { alert('Please select a property type.'); return; }
+                if (!addr) { alert('Please enter your street address.'); return; }
+                if (!city) { alert('Please enter your city.'); return; }
+            }
+            if (prev === 2) {
+                var fn = document.getElementById('first_name').value.trim();
+                var ln = document.getElementById('last_name').value.trim();
+                var em = document.getElementById('email').value.trim();
+                var ph = document.getElementById('phone').value.replace(/\D/g, '');
+                if (!fn) { alert('Please enter your first name.'); return; }
+                if (!ln) { alert('Please enter your last name.'); return; }
+                if (!em) { alert('Please enter your email.'); return; }
+                if (ph.length < 10) { alert('Please enter a valid phone number (at least 10 digits).'); return; }
+            }
+            document.querySelector('.form-section[data-section="' + prev + '"]').classList.remove('active');
+            document.querySelector('.form-section[data-section="' + step + '"]').classList.add('active');
+            document.querySelector('.form-progress-step[data-step="' + prev + '"]').classList.remove('active');
+            document.querySelector('.form-progress-step[data-step="' + prev + '"]').classList.add('completed');
+            document.querySelector('.form-progress-step[data-step="' + step + '"]').classList.add('active');
+            if (step > 1) document.querySelectorAll('.form-progress-connector')[step - 2].classList.add('active');
+            currentFormStep = step;
+        }
+        function prevStep(step) {
+            document.querySelector('.form-section[data-section="' + currentFormStep + '"]').classList.remove('active');
+            document.querySelector('.form-section[data-section="' + step + '"]').classList.add('active');
+            document.querySelector('.form-progress-step[data-step="' + currentFormStep + '"]').classList.remove('active');
+            document.querySelector('.form-progress-step[data-step="' + step + '"]').classList.remove('completed');
+            document.querySelector('.form-progress-step[data-step="' + step + '"]').classList.add('active');
+            document.querySelectorAll('.form-progress-connector')[step - 1].classList.remove('active');
+            currentFormStep = step;
+        }
+        
         function toggleFaq(button) { var faqItem = button.parentElement; var isActive = faqItem.classList.contains('active'); document.querySelectorAll('.faq-item').forEach(function(item) { item.classList.remove('active'); }); if (!isActive) { faqItem.classList.add('active'); } }
         
         function submitForm(e) {
@@ -493,4 +501,4 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
     </script>
 </body>
 </html>
-<script>document.addEventListener("DOMContentLoaded",function(){var els=document.querySelectorAll(".animate-on-scroll");if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("animated");});return;}var o=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("animated");o.unobserve(x.target);}});},{threshold:0.06,rootMargin:"0px 0px -40px 0px"});els.forEach(function(e){o.observe(e);});});</script>
+<script>document.addEventListener("DOMContentLoaded",function(){document.documentElement.classList.add("js-loaded");var els=document.querySelectorAll(".animate-on-scroll");if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("animated");});return;}var o=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("animated");o.unobserve(x.target);}});},{threshold:0.06,rootMargin:"0px 0px -40px 0px"});els.forEach(function(e){o.observe(e);});});</script>

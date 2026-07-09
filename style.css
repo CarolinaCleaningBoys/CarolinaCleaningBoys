@@ -285,3 +285,10 @@
 .team-bio { font-size: 0.85rem; line-height: 1.6; color: var(--primary); margin-top: 0.5rem; max-width: 240px; margin-left: auto; margin-right: auto; }
 .hero-form-disclosure { font-size: 0.75rem; line-height: 1.4; color: var(--primary); opacity: 0.7; margin-top: 0.75rem; text-align: center; }
 .hero-form-disclosure a { color: var(--primary-dark); text-decoration: underline; }
+
+/* Footer Areas We Serve — prominent block */
+.footer-areas { border-top: 2px solid var(--primary-light); padding: var(--space-lg) 0; margin-top: var(--space-lg); text-align: center; }
+.footer-areas h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--white); margin-bottom: 0.5rem; }
+.footer-areas p { font-size: 1rem; color: var(--off-white); margin: 0.5rem auto 1.25rem; max-width: 500px; line-height: 1.6; }
+.footer-areas-btn { display: inline-block; padding: 0.75rem 2rem; background: linear-gradient(135deg, #FF6B35 0%, #F7C531 100%); color: #1a1a1a; font-weight: 700; font-size: 1rem; border-radius: 50px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3); }
+.footer-areas-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255, 107, 53, 0.5); background: linear-gradient(135deg, #FF8555 0%, #FFD54F 100%); }
