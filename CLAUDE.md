@@ -194,6 +194,9 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
 
 ## Known Patterns & Gotchas
 
+**Smart quotes break the lead form (CRITICAL — caused days of lost leads once):**
+The lead-submit `<script>` block in `index.html` (the `submitForm` / `ccbSendLead` / `ccbFireTracking` functions) must use straight ASCII quotes (`'` `"`) only. If edited through Word, Google Docs, or pasted from a chat/AI, quotes can be auto-converted to curly/smart quotes (`‘ ’ “ ”`), which are invalid JS delimiters and cause the whole block to fail to parse. Symptom: Submit button does nothing, no rows in the Google Sheet, no Meta/Google conversions fire — all at once. Check with: `grep -n $'‘\|’\|“\|”' index.html`.
+
 **Service page `<style>` bug (already fixed in surface-cleaning, roof-cleaning, gutter-cleaning):**
 These pages had the `</style>` tag closing the style block after the SEO fix CSS, leaving the FAQ accordion CSS rendered as raw text on the page. The fix is to keep the `</style>` after the FAQ CSS, not before it.
 

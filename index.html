@@ -869,95 +869,95 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         });
     </script>
     <script>
-var CCB_ENDPOINT = ‘https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec’;
+var CCB_ENDPOINT = 'https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec';
 
 function ccbFireTracking(phone, email) {
-    var raw = ((email || ‘’).trim().toLowerCase()) || ((phone || ‘’).replace(/\D/g, ‘’)) || ‘’;
-    function fireLead(eid) { if (typeof fbq === ‘function’) { fbq(‘track’, ‘Lead’, {}, eid ? { eventID: eid } : {}); } }
+    var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
+    function fireLead(eid) { if (typeof fbq === 'function') { fbq('track', 'Lead', {}, eid ? { eventID: eid } : {}); } }
     if (raw && window.crypto && window.crypto.subtle) {
-        window.crypto.subtle.digest(‘SHA-256’, new TextEncoder().encode(raw)).then(function(buf) {
-            var hex = Array.prototype.map.call(new Uint8Array(buf), function(b) { return (‘0’ + b.toString(16)).slice(-2); }).join(‘’);
+        window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw)).then(function(buf) {
+            var hex = Array.prototype.map.call(new Uint8Array(buf), function(b) { return ('0' + b.toString(16)).slice(-2); }).join('');
             fireLead(hex);
-        }).catch(function() { fireLead(‘’); });
-    } else { fireLead(‘’); }
-    gtag(‘event’, ‘conversion’, { ‘send_to’: ‘AW-17822819353/JIJRCJvpxuwbEJnIyrJC’, ‘value’: 150.0, ‘currency’: ‘USD’ });
+        }).catch(function() { fireLead(''); });
+    } else { fireLead(''); }
+    gtag('event', 'conversion', { 'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC', 'value': 150.0, 'currency': 'USD' });
 }
 
 function ccbSendLead(data) {
     fetch(CCB_ENDPOINT, {
-        method: ‘POST’,
-        mode: ‘no-cors’,
-        headers: { ‘Content-Type’: ‘application/json’ },
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-    }).catch(function(err) { console.error(‘Lead submit error:’, err); });
+    }).catch(function(err) { console.error('Lead submit error:', err); });
 }
 
 function ccbGetAttribution() {
-    try { return JSON.parse(sessionStorage.getItem(‘ccb_attribution’)) || {}; } catch(e) { return {}; }
+    try { return JSON.parse(sessionStorage.getItem('ccb_attribution')) || {}; } catch(e) { return {}; }
 }
 
 function submitForm(e) {
     e.preventDefault();
 
-    var form = document.getElementById(‘leadForm’);
+    var form = document.getElementById('leadForm');
 
     // Phone validation
-    var phoneVal = form.querySelector(‘#phone’).value.replace(/\D/g, ‘’);
+    var phoneVal = form.querySelector('#phone').value.replace(/\D/g, '');
     if (phoneVal.length < 10) {
-        alert(‘Please enter a valid phone number (at least 10 digits).’);
-        form.querySelector(‘#phone’).focus();
+        alert('Please enter a valid phone number (at least 10 digits).');
+        form.querySelector('#phone').focus();
         return;
     }
 
     // Service checkbox validation
-    var checkedServices = form.querySelectorAll(‘input[name="services"]:checked’);
+    var checkedServices = form.querySelectorAll('input[name="services"]:checked');
     if (checkedServices.length === 0) {
-        alert(‘Please select at least one service.’);
+        alert('Please select at least one service.');
         return;
     }
 
-    var btn = document.getElementById(‘submitBtn’);
-    btn.textContent = ‘Sending...’;
+    var btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending...';
     btn.disabled = true;
 
     var services = [];
     checkedServices.forEach(function(cb) { services.push(cb.value); });
 
-    var propertyType = form.querySelector(‘input[name="property_type"]:checked’);
+    var propertyType = form.querySelector('input[name="property_type"]:checked');
 
     var data = {
-        property_type: propertyType ? propertyType.value : ‘’,
-        first_name: form.querySelector(‘#first_name’).value,
-        last_name: form.querySelector(‘#last_name’).value,
-        email: form.querySelector(‘#email’).value,
-        phone: form.querySelector(‘#phone’).value,
-        street_address: form.querySelector(‘#street_address’).value,
-        city: form.querySelector(‘#city’).value,
-        state: form.querySelector(‘#state’).value,
-        services: services.join(‘, ‘),
-        referral_source: form.querySelector(‘#referral_source’).value,
-        additional_info: form.querySelector(‘#additional_info’).value,
-        sms_consent: form.querySelector(‘#sms_consent’) ? form.querySelector(‘#sms_consent’).checked : false,
+        property_type: propertyType ? propertyType.value : '',
+        first_name: form.querySelector('#first_name').value,
+        last_name: form.querySelector('#last_name').value,
+        email: form.querySelector('#email').value,
+        phone: form.querySelector('#phone').value,
+        street_address: form.querySelector('#street_address').value,
+        city: form.querySelector('#city').value,
+        state: form.querySelector('#state').value,
+        services: services.join(', '),
+        referral_source: form.querySelector('#referral_source').value,
+        additional_info: form.querySelector('#additional_info').value,
+        sms_consent: form.querySelector('#sms_consent') ? form.querySelector('#sms_consent').checked : false,
         consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
-        form_source: ‘full_form’,
+        form_source: 'full_form',
         attribution: ccbGetAttribution()
     };
 
     ccbFireTracking(data.phone, data.email);
     ccbSendLead(data);
 
-    btn.textContent = ‘Request Sent!’;
+    btn.textContent = 'Request Sent!';
     btn.disabled = true;
-    var successMsg = document.createElement(‘p’);
-    successMsg.style.cssText = ‘margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;’;
-    successMsg.textContent = ‘Thanks! We\u2019ll be in touch within 24 hours.’;
+    var successMsg = document.createElement('p');
+    successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
+    successMsg.textContent = 'Thanks! We\u2019ll be in touch within 24 hours.';
     form.appendChild(successMsg);
 
     // 10-second fallback notice
     setTimeout(function() {
-        var fallback = document.createElement(‘p’);
-        fallback.style.cssText = ‘margin-top:8px;font-size:0.95rem;color:#555;text-align:center;’;
-        fallback.innerHTML = ‘If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653" style="color:#3F647F;font-weight:700;">919-717-4653</a>.’;
+        var fallback = document.createElement('p');
+        fallback.style.cssText = 'margin-top:8px;font-size:0.95rem;color:#555;text-align:center;';
+        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653" style="color:#3F647F;font-weight:700;">919-717-4653</a>.';
         form.appendChild(fallback);
     }, 10000);
 }
