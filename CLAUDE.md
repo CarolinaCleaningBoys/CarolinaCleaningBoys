@@ -194,8 +194,20 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
 
 ## Known Patterns & Gotchas
 
-**Smart quotes break the lead form (CRITICAL — caused days of lost leads once):**
-The lead-submit `<script>` block in `index.html` (the `submitForm` / `ccbSendLead` / `ccbFireTracking` functions) must use straight ASCII quotes (`'` `"`) only. If edited through Word, Google Docs, or pasted from a chat/AI, quotes can be auto-converted to curly/smart quotes (`‘ ’ “ ”`), which are invalid JS delimiters and cause the whole block to fail to parse. Symptom: Submit button does nothing, no rows in the Google Sheet, no Meta/Google conversions fire — all at once. Check with: `grep -n $'‘\|’\|“\|”' index.html`.
+**The lead form silently breaks when its JavaScript won't parse (CRITICAL — the #1 recurring cause of lost leads):**
+
+The `<script>` block holding `submitForm` posts leads to the Google Apps Script → Google Sheet → CRM/Gmail, and fires the Meta Pixel + Google Ads conversions. If that script has *any* syntax error, the whole block fails to load, `submitForm` never exists, and the Submit button silently does nothing: **no rows in the Sheet, no CRM, no Gmail, no conversions — all at once, with no visible error.** This has broken real lead capture at least three times (2026-06-05, 2026-07-08, and 14 location pages + soft-washing found 2026-07-12).
+
+Two failure modes seen so far:
+1. **Smart/curly quotes** (`‘ ’ “ ”`) replacing straight quotes (`'` `"`) as string delimiters — happens automatically when code is pasted through Word, Google Docs, a chat window, or some AI tools. Curly quotes are invalid JS delimiters. (Curly quotes *inside* a string, e.g. `'We'll be in touch'`, are harmless — only delimiters break it.)
+2. **Leftover dead code** from a bad find/replace during a form rewrite (e.g. an orphaned `function () {` fragment after the real `submitForm`).
+
+**Guardrails (already installed — keep them):**
+- `scripts/check-form-scripts.js` — extracts every inline `<script>` and verifies it parses. Run manually: `node scripts/check-form-scripts.js`.
+- `.githooks/pre-commit` — runs the checker on staged HTML and blocks the commit if anything is broken. **Activate once per clone:** `git config core.hooksPath .githooks`.
+- `.github/workflows/check-forms.yml` — runs the checker on every push/PR, so a broken form is caught before Cloudflare deploys it.
+
+After ANY edit to a form or its script, run `node scripts/check-form-scripts.js` and confirm it prints `OK`.
 
 **Service page `<style>` bug (already fixed in surface-cleaning, roof-cleaning, gutter-cleaning):**
 These pages had the `</style>` tag closing the style block after the SEO fix CSS, leaving the FAQ accordion CSS rendered as raw text on the page. The fix is to keep the `</style>` after the FAQ CSS, not before it.

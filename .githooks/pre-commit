@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+#
+# pre-commit hook — blocks a commit if any staged HTML file has an inline
+# <script> that won't parse (the exact failure mode that silently kills the
+# lead form when curly/"smart" quotes replace straight quotes).
+#
+# Activate once per clone with:
+#   git config core.hooksPath .githooks
+#
+# See scripts/check-form-scripts.js and the "Lead form" section of CLAUDE.md.
+
+# Only the HTML files staged for this commit.
+staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.html')
+[ -z "$staged" ] && exit 0
+
+# Locate a Node runtime. On this project node.exe lives one level above the
+# repo; also try PATH and the repo root.
+NODE=""
+for cand in node "$(git rev-parse --show-toplevel)/../node.exe" "$(git rev-parse --show-toplevel)/node.exe"; do
+    if command -v "$cand" >/dev/null 2>&1 || [ -x "$cand" ]; then
+        NODE="$cand"; break
+    fi
+done
+
+if [ -z "$NODE" ]; then
+    echo "pre-commit: WARNING — Node not found, skipping form-script check."
+    echo "            (GitHub Actions will still check on push.)"
+    exit 0
+fi
+
+"$NODE" "$(git rev-parse --show-toplevel)/scripts/check-form-scripts.js" $staged || {
+    echo ""
+    echo "pre-commit: commit blocked — fix the broken script above and re-commit."
+    echo "            To bypass in an emergency: git commit --no-verify"
+    exit 1
+}
+exit 0

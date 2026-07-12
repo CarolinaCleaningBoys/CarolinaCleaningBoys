@@ -1,0 +1,22 @@
+name: Check lead-form scripts
+
+# Fails the build if any inline <script> in the site's HTML doesn't parse as
+# JavaScript — the failure mode that silently breaks the lead form (curly /
+# "smart" quotes, leftover dead code, etc.). Runs on every push and PR so a
+# broken form is caught before it reaches Cloudflare.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check-forms:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verify all inline scripts parse
+        run: node scripts/check-form-scripts.js

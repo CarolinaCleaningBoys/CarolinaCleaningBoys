@@ -402,36 +402,6 @@ function prevStep(step) {
     currentFormStep = step;
 }
         function submitForm(e){e.preventDefault();var t=document.getElementById('submitBtn');t.textContent='Sending...';t.disabled=true;var n=document.getElementById('leadForm');var o=[];n.querySelectorAll('input[name="services"]:checked').forEach(function(e){o.push(e.value)});var s=n.querySelector('input[name="property_type"]:checked');var a={property_type:s?s.value:'',first_name:n.querySelector('#first_name').value,last_name:n.querySelector('#last_name').value,email:n.querySelector('#email').value,phone:n.querySelector('#phone').value,street_address:n.querySelector('#street_address').value,city:n.querySelector('#city').value,state:n.querySelector('#state').value,services:o.join(', '),referral_source:n.querySelector('#referral_source').value,additional_info:n.querySelector('#additional_info').value};(function(){var __ccbRaw=((a.email||'').trim().toLowerCase())||((a.phone||'').replace(/\D/g,''))||'';function __ccbFireLead(eid){if(typeof fbq==='function'){fbq('track','Lead',{},eid?{eventID:eid}:{});}}if(__ccbRaw&&window.crypto&&window.crypto.subtle){window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(__ccbRaw)).then(function(buf){var hex=Array.prototype.map.call(new Uint8Array(buf),function(b){return('0'+b.toString(16)).slice(-2);}).join('');__ccbFireLead(hex);}).catch(function(){__ccbFireLead('');});}else{__ccbFireLead('');}})();gtag('event','conversion',{'send_to':'AW-17822819353/JIJRCJvpxuwbEJnIyrJC','value':150.0,'currency':'USD'});try{a.attribution=JSON.parse(sessionStorage.getItem('ccb_attribution'))||{};}catch(e){a.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(a)}).catch(function(err){console.error('Lead submit error:',err);});t.textContent='Request Sent!';t.disabled=true;var msg=document.createElement('p');msg.style.cssText='margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';msg.textContent='Thanks! We’ll be in touch within 24 hours.';document.getElementById('leadForm').appendChild(msg);}
-        function () {
-              var __ccbRaw = ((data.email || '').trim().toLowerCase()) || ((data.phone || '').replace(/\D/g, '')) || '';
-              function __ccbFireLead(eid) { if (typeof fbq === 'function') { fbq('track', 'Lead', {}, eid ? { eventID: eid } : {}); } }
-              if (__ccbRaw && window.crypto && window.crypto.subtle) {
-                window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(__ccbRaw)).then(function (buf) {
-                  var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
-                  __ccbFireLead(hex);
-                }).catch(function () { __ccbFireLead(''); });
-              } else { __ccbFireLead(''); }
-            })();
-            gtag('event', 'conversion', {
-                'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
-                'value': 150.0,
-                'currency': 'USD'
-            });
-
-            try{data.attribution=JSON.parse(sessionStorage.getItem('ccb_attribution'))||{};}catch(e){data.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec', {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            }).catch(function(err) { console.error('Lead submit error:', err); });
-
-            btn.textContent = 'Request Sent!';
-            btn.disabled = true;
-            var successMsg = document.createElement('p');
-            successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
-            successMsg.textContent = 'Thanks! We’ll be in touch within 24 hours.';
-            document.getElementById('leadForm').appendChild(successMsg);
-        }
     </script>
 </body>
 </html>
