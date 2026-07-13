@@ -461,21 +461,21 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             };
             
             // Fire tracking immediately (before network — no-cors fetch cannot reliably resolve)
-    (function () {
+    try{(function () {
       var __ccbRaw = ((data.email || '').trim().toLowerCase()) || ((data.phone || '').replace(/\D/g, '')) || '';
-      function __ccbFireLead(eid) { if (typeof fbq === 'function') { fbq('track', 'Lead', {}, eid ? { eventID: eid } : {}); } }
+      function __ccbFireLead(eid){if(typeof fbq==='function'){fbq('track','Lead',{},eid?{eventID:eid}:{});}else{console.warn('[CCB] Meta pixel (fbq) unavailable - Lead event NOT sent. Likely blocked by an ad blocker or tracking protection.');}}
       if (__ccbRaw && window.crypto && window.crypto.subtle) {
         window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(__ccbRaw)).then(function (buf) {
           var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
           __ccbFireLead(hex);
         }).catch(function () { __ccbFireLead(''); });
       } else { __ccbFireLead(''); }
-    })();
-            gtag('event', 'conversion', {
+    })();}catch(err){console.error('[CCB] Meta Lead tracking failed:',err);}
+            try{if(typeof gtag==='function'){gtag('event', 'conversion', {
                 'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC',
                 'value': 150.0,
                 'currency': 'USD'
-            });
+            });}else{console.warn('[CCB] gtag unavailable - Google Ads conversion NOT sent.');}}catch(err){console.error('[CCB] Google Ads conversion failed:',err);}
 
             // Send lead to Google Apps Script — fire and forget
             try{data.attribution=JSON.parse(sessionStorage.getItem('ccb_attribution'))||{};}catch(e){data.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec', {

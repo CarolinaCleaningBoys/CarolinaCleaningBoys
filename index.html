@@ -872,15 +872,32 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 var CCB_ENDPOINT = 'https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec';
 
 function ccbFireTracking(phone, email) {
-    var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
-    function fireLead(eid) { if (typeof fbq === 'function') { fbq('track', 'Lead', {}, eid ? { eventID: eid } : {}); } }
-    if (raw && window.crypto && window.crypto.subtle) {
-        window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw)).then(function(buf) {
-            var hex = Array.prototype.map.call(new Uint8Array(buf), function(b) { return ('0' + b.toString(16)).slice(-2); }).join('');
-            fireLead(hex);
-        }).catch(function() { fireLead(''); });
-    } else { fireLead(''); }
-    gtag('event', 'conversion', { 'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC', 'value': 150.0, 'currency': 'USD' });
+    // Meta Lead. Isolated: a tracking failure must NEVER block lead capture.
+    try {
+        var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
+        function fireLead(eid) {
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead', {}, eid ? { eventID: eid } : {});
+            } else {
+                console.warn('[CCB] Meta pixel (fbq) unavailable - Lead event NOT sent. Likely blocked by an ad blocker or tracking protection.');
+            }
+        }
+        if (raw && window.crypto && window.crypto.subtle) {
+            window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw)).then(function(buf) {
+                var hex = Array.prototype.map.call(new Uint8Array(buf), function(b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+                fireLead(hex);
+            }).catch(function() { fireLead(''); });
+        } else { fireLead(''); }
+    } catch (err) { console.error('[CCB] Meta Lead tracking failed:', err); }
+
+    // Google Ads conversion. Also isolated.
+    try {
+        if (typeof gtag === 'function') {
+            gtag('event', 'conversion', { 'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC', 'value': 150.0, 'currency': 'USD' });
+        } else {
+            console.warn('[CCB] gtag unavailable - Google Ads conversion NOT sent.');
+        }
+    } catch (err) { console.error('[CCB] Google Ads conversion failed:', err); }
 }
 
 function ccbSendLead(data) {
@@ -943,8 +960,9 @@ function submitForm(e) {
         attribution: ccbGetAttribution()
     };
 
-    ccbFireTracking(data.phone, data.email);
+    // Send the lead FIRST. Tracking must never be able to block lead capture.
     ccbSendLead(data);
+    ccbFireTracking(data.phone, data.email);
 
     btn.textContent = 'Request Sent!';
     btn.disabled = true;
