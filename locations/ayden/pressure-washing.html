@@ -586,7 +586,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             // Fire tracking immediately (before network — no-cors fetch cannot reliably resolve)
     try{(function () {
       var __ccbRaw = ((data.email || '').trim().toLowerCase()) || ((data.phone || '').replace(/\D/g, '')) || '';
-      function __ccbFireLead(eid){if(typeof fbq==='function'){fbq('track','Lead',{},eid?{eventID:eid}:{});}else{console.warn('[CCB] Meta pixel (fbq) unavailable - Lead event NOT sent. Likely blocked by an ad blocker or tracking protection.');}}
+      function __ccbFireLead(eid){if(typeof fbq==='function'){fbq('track','Lead',{ value: 150.00, currency: 'USD' },eid?{eventID:eid}:{});}else{console.warn('[CCB] Meta pixel (fbq) unavailable - Lead event NOT sent. Likely blocked by an ad blocker or tracking protection.');}}
       if (__ccbRaw && window.crypto && window.crypto.subtle) {
         window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(__ccbRaw)).then(function (buf) {
           var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');

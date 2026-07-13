@@ -877,7 +877,7 @@ function ccbFireTracking(phone, email) {
         var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
         function fireLead(eid) {
             if (typeof fbq === 'function') {
-                fbq('track', 'Lead', {}, eid ? { eventID: eid } : {});
+                fbq('track', 'Lead', { value: 150.00, currency: 'USD' }, eid ? { eventID: eid } : {});
             } else {
                 console.warn('[CCB] Meta pixel (fbq) unavailable - Lead event NOT sent. Likely blocked by an ad blocker or tracking protection.');
             }
@@ -975,42 +975,4 @@ function submitForm(e) {
     setTimeout(function() {
         var fallback = document.createElement('p');
         fallback.style.cssText = 'margin-top:8px;font-size:0.95rem;color:#555;text-align:center;';
-        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653" style="color:#3F647F;font-weight:700;">919-717-4653</a>.';
-        form.appendChild(fallback);
-    }, 10000);
-}
-</script>
-    <script>
-function initAutocomplete() {
-    // Full form autocomplete
-    var addressInput = document.getElementById('street_address');
-    if (addressInput) {
-        var autocomplete = new google.maps.places.Autocomplete(addressInput, {
-            types: ['address'],
-            componentRestrictions: { country: 'us' }
-        });
-        autocomplete.addListener('place_changed', function() {
-            var place = autocomplete.getPlace();
-            if (!place.address_components) return;
-            var streetNumber = '', route = '', city = '', state = '';
-            for (var i = 0; i < place.address_components.length; i++) {
-                var c = place.address_components[i];
-                var type = c.types[0];
-                if (type === 'street_number') streetNumber = c.long_name;
-                if (type === 'route') route = c.long_name;
-                if (type === 'locality') city = c.long_name;
-                if (type === 'administrative_area_level_1') state = c.short_name;
-            }
-            if (streetNumber || route) addressInput.value = (streetNumber + ' ' + route).trim();
-            var cityField = document.getElementById('city');
-            var stateField = document.getElementById('state');
-            if (cityField && city) cityField.value = city;
-            if (stateField && state) stateField.value = state;
-        });
-    }
-
-
-}
-</script>
-</body>
-</html>
+        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653
