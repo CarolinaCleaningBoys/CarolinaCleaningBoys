@@ -247,13 +247,13 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 <script>
 (function() {
     var params = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
-    var existing = sessionStorage.getItem('ccb_attribution');
+    var existing = localStorage.getItem('ccb_attribution');
     var qs = new URLSearchParams(window.location.search);
     var hasParams = false;
     for (var i = 0; i < params.length; i++) {
         if (qs.get(params[i])) { hasParams = true; break; }
     }
-    if (!existing) {
+    if (true) {
         var bundle = { landing_page: window.location.href, referrer: document.referrer };
         for (var j = 0; j < params.length; j++) {
             var val = qs.get(params[j]);
@@ -272,7 +272,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             }
         }
         if (hasParams) {
-            sessionStorage.setItem('ccb_attribution', JSON.stringify(bundle));
+            bundle.captured_at = Date.now(); localStorage.setItem('ccb_attribution', JSON.stringify(bundle));
         }
     }
 })();
@@ -604,7 +604,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             });}else{console.warn('[CCB] gtag unavailable - Google Ads conversion NOT sent.');}}catch(err){console.error('[CCB] Google Ads conversion failed:',err);}
 
             // Send lead to Google Apps Script — fire and forget
-            try{data.attribution=JSON.parse(sessionStorage.getItem('ccb_attribution'))||{};}catch(e){data.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec', {
+            try{data.attribution=(function(){try{var _a=JSON.parse(localStorage.getItem('ccb_attribution'))||{};if(!_a.captured_at||(Date.now()-_a.captured_at)>2592000000){return {};}return _a;}catch(_e){return {};}})()||{};}catch(e){data.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec', {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: {
