@@ -2,33 +2,32 @@
 /*
  * check-form-scripts.js
  * ---------------------------------------------------------------------------
- * Verifies that every inline <script> in the site's HTML actually PARSES as
- * valid JavaScript. Run by the git pre-commit hook and by GitHub Actions.
+ * Guards the lead forms against the two ways they have silently broken before.
+ * Run by the git pre-commit hook (.githooks/pre-commit) and safe to run by hand:
  *
- * WHY THIS EXISTS
- *   The lead form's JavaScript (submitForm / ccbSendLead / ccbFireTracking in
- *   index.html) uses ordinary straight quotes ( ' and " ) as string
- *   delimiters. If those get replaced by curly / "smart" quotes ( ' ' " " ) --
- *   which happens automatically when code is pasted through Word, Google Docs,
- *   a chat window, or some AI tools -- the whole <script> block fails to parse.
- *   When that happens the Submit button silently does nothing: no leads reach
- *   the Google Sheet / CRM / Gmail, and Meta + Google Ads conversions stop
- *   firing. This has already broken the form TWICE (2026-06-05 and 2026-07-08),
- *   each time costing days of leads before anyone noticed.
+ *     node scripts/check-form-scripts.js               # scan all tracked .html
+ *     node scripts/check-form-scripts.js a.html b.html # scan only these files
  *
- *   A plain "ban all curly quotes" check gives false positives, because curly
- *   apostrophes are legitimate INSIDE strings (e.g. 'We'll be in touch'). So
- *   instead we test the real failure condition directly: we extract each inline
- *   script and try to compile it. A curly apostrophe inside a string compiles
- *   fine; a curly quote used as a delimiter does not -- which is exactly the
- *   bug we want to catch.
+ * It fails (exit 1) if either problem is present:
  *
- * USAGE
- *   node scripts/check-form-scripts.js               # scan all tracked .html
- *   node scripts/check-form-scripts.js a.html b.html # scan only these files
+ *   1) An inline <script> does not PARSE as JavaScript. This is how curly /
+ *      "smart" quotes ( ' ' " " ) break the form: when code is pasted through
+ *      Word, Google Docs, a chat window, or some AI tools, straight quote
+ *      delimiters get swapped for curly ones and the whole <script> block
+ *      fails to parse -- the Submit button then silently does nothing, no lead
+ *      reaches the Google Sheet / CRM / Gmail, and Meta + Google Ads
+ *      conversions stop firing. (Broke the form on 2026-06-05 and 2026-07-08.)
+ *      A curly apostrophe INSIDE a string (e.g. 'We'll be in touch') is fine
+ *      and correctly ignored -- we test real parseability, not raw characters.
  *
- * Exit 0 = all inline scripts parse. Exit 1 = a script is broken (details
- * printed, with file and line number).
+ *   2) A file contains NUL bytes. HTML is text and never legitimately contains
+ *      NUL (0x00). Their presence means the file was corrupted -- e.g. a
+ *      OneDrive sync/write race appending a block of NUL padding (which
+ *      happened on 2026-07-12 to 15 files and made git treat them as binary).
+ *
+ * NOTE: this repo currently lives inside a OneDrive-synced folder, which is
+ * the root cause of the NUL corruption. Moving the working copy outside
+ * OneDrive is the real fix; this check is the safety net until then.
  * ---------------------------------------------------------------------------
  */
 'use strict';
@@ -49,11 +48,11 @@ function filesToScan() {
       .split('\n')
       .filter(Boolean);
   } catch (e) {
-    return []; // not a git tree / git unavailable; nothing to do
+    return []; // not a git tree / git unavailable
   }
 }
 
-// Returns array of { line, type, code } for each inline <script> with a body.
+// Returns array of { line, code } for each inline <script> that has a body.
 function extractScripts(html) {
   const out = [];
   const re = /<script\b([^>]*)>([\s\S]*?)<\/script>/gi;
@@ -67,45 +66,49 @@ function extractScripts(html) {
     if (!JS_TYPES.has(type)) continue; // e.g. application/ld+json
     if (!code.trim()) continue;
     const line = html.slice(0, m.index).split('\n').length;
-    out.push({ line, type, code });
+    out.push({ line, code });
   }
   return out;
 }
 
-let broken = 0;
+let problems = 0;
 const files = filesToScan();
 
 for (const file of files) {
-  let html;
+  let buf;
   try {
-    html = fs.readFileSync(file, 'utf8');
+    buf = fs.readFileSync(file);
   } catch (e) {
     continue;
   }
+
+  // (2) NUL-byte corruption check.
+  if (buf.indexOf(0) !== -1) {
+    if (problems === 0) console.error('ERROR: lead-form / HTML integrity check failed.\n');
+    console.error(`  ${file}: contains NUL bytes (file is corrupted -- likely a OneDrive sync race).`);
+    console.error('    Fix: restore the file or strip the NUL padding before committing.\n');
+    problems++;
+    continue; // don't try to parse a corrupted file
+  }
+
+  // (1) Inline-script parse check.
+  const html = buf.toString('utf8');
   for (const s of extractScripts(html)) {
     try {
-      // Compiles (parses) without executing. Throws SyntaxError on bad code.
-      new vm.Script(s.code, { filename: file });
+      new vm.Script(s.code, { filename: file }); // parses without executing
     } catch (err) {
-      if (broken === 0) {
-        console.error('ERROR: an inline <script> does not parse as JavaScript.');
-        console.error('This is exactly how curly/"smart" quotes silently break the lead form.');
-        console.error('Fix the syntax (straight quotes only for delimiters) before committing.\n');
-      }
-      console.error(`  ${file}: <script> starting at line ${s.line}`);
-      console.error(`    ${err.message}`);
-      // Show the offending snippet if we can pinpoint it.
-      const lc = err.stack && err.stack.match(/:(\d+)\)?\s*$/m);
-      console.error('');
-      broken++;
+      if (problems === 0) console.error('ERROR: lead-form / HTML integrity check failed.\n');
+      console.error(`  ${file}: <script> at line ${s.line} does not parse -- ${err.message}`);
+      console.error('    This is how curly/"smart" quotes silently break the form. Use straight quotes.\n');
+      problems++;
     }
   }
 }
 
-if (broken > 0) {
-  console.error(`Found ${broken} broken inline script(s). Commit blocked.`);
+if (problems > 0) {
+  console.error(`Found ${problems} problem(s). Commit blocked.`);
   process.exit(1);
 }
 
-console.log(`OK: all inline scripts parse (${files.length} HTML file(s) checked).`);
+console.log(`OK: ${files.length} HTML file(s) clean -- all inline scripts parse, no NUL bytes.`);
 process.exit(0);
