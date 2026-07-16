@@ -247,6 +247,12 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             </div>
 
             <form class="estimate-form animate-on-scroll" id="leadForm" onsubmit="submitForm(event)" novalidate>
+                <!-- Honeypot: hidden from sighted users and screen readers; only a bot fills this in -->
+                <div style="display:none" aria-hidden="true">
+                    <label>Company Website
+                        <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                    </label>
+                </div>
                 <input type="hidden" name="_subject" value="New Estimate - Bailey (All Services)">
 
                 <div class="form-section active" data-section="1">
@@ -401,7 +407,146 @@ function prevStep(step) {
     document.querySelectorAll('.form-progress-connector')[step - 1].classList.remove('active');
     currentFormStep = step;
 }
-        function submitForm(e){e.preventDefault();var t=document.getElementById('submitBtn');t.textContent='Sending...';t.disabled=true;var n=document.getElementById('leadForm');var o=[];n.querySelectorAll('input[name="services"]:checked').forEach(function(e){o.push(e.value)});var s=n.querySelector('input[name="property_type"]:checked');var a={property_type:s?s.value:'',first_name:n.querySelector('#first_name').value,last_name:n.querySelector('#last_name').value,email:n.querySelector('#email').value,phone:n.querySelector('#phone').value,street_address:n.querySelector('#street_address').value,city:n.querySelector('#city').value,state:n.querySelector('#state').value,services:o.join(', '),referral_source:n.querySelector('#referral_source').value,additional_info:n.querySelector('#additional_info').value};try{(function(){var __ccbRaw=((a.email||'').trim().toLowerCase())||((a.phone||'').replace(/\D/g,''))||'';function __ccbFireLead(eid){if(typeof fbq==='function'){fbq('track','Lead',{ value: 150.00, currency: 'USD' },eid?{eventID:eid}:{});}else{console.warn('[CCB] Meta pixel (fbq) unavailable - Lead event NOT sent. Likely blocked by an ad blocker or tracking protection.');}}if(__ccbRaw&&window.crypto&&window.crypto.subtle){window.crypto.subtle.digest('SHA-256',new TextEncoder().encode(__ccbRaw)).then(function(buf){var hex=Array.prototype.map.call(new Uint8Array(buf),function(b){return('0'+b.toString(16)).slice(-2);}).join('');__ccbFireLead(hex);}).catch(function(){__ccbFireLead('');});}else{__ccbFireLead('');}})();}catch(err){console.error('[CCB] Meta Lead tracking failed:',err);}try{if(typeof gtag==='function'){gtag('event','conversion',{'send_to':'AW-17822819353/JIJRCJvpxuwbEJnIyrJC','value':150.0,'currency':'USD'});}else{console.warn('[CCB] gtag unavailable - Google Ads conversion NOT sent.');}}catch(err){console.error('[CCB] Google Ads conversion failed:',err);}try{a.attribution=(function(){try{var _a=JSON.parse(localStorage.getItem('ccb_attribution'))||{};if(!_a.captured_at||(Date.now()-_a.captured_at)>2592000000){return {};}return _a;}catch(_e){return {};}})()||{};}catch(e){a.attribution={};}fetch('https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(a)}).catch(function(err){console.error('Lead submit error:',err);});t.textContent='Request Sent!';t.disabled=true;var msg=document.createElement('p');msg.style.cssText='margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';msg.textContent='Thanks! We’ll be in touch within 24 hours.';document.getElementById('leadForm').appendChild(msg);}
+        
+function ccbFireTracking(phone, email) {
+    // Meta Lead. Isolated: a tracking failure must NEVER block lead capture.
+    try {
+        var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
+        function fireLead(eid) {
+            if (typeof fbq === 'function') {
+                fbq('track', 'Lead', { value: 150.00, currency: 'USD' }, eid ? { eventID: eid } : {});
+            } else {
+                console.warn('[CCB] Meta pixel (fbq) unavailable - Lead event NOT sent. Likely blocked by an ad blocker or tracking protection.');
+            }
+        }
+        if (raw && window.crypto && window.crypto.subtle) {
+            window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw)).then(function(buf) {
+                var hex = Array.prototype.map.call(new Uint8Array(buf), function(b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+                fireLead(hex);
+            }).catch(function() { fireLead(''); });
+        } else { fireLead(''); }
+    } catch (err) { console.error('[CCB] Meta Lead tracking failed:', err); }
+
+    // Google Ads conversion. Also isolated.
+    try {
+        if (typeof gtag === 'function') {
+            gtag('event', 'conversion', { 'send_to': 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC', 'value': 150.0, 'currency': 'USD' });
+        } else {
+            console.warn('[CCB] gtag unavailable - Google Ads conversion NOT sent.');
+        }
+    } catch (err) { console.error('[CCB] Google Ads conversion failed:', err); }
+}
+
+function ccbSendLead(data, form, btn, originalBtnLabel) {
+    fetch('https://pressure-wash-crm.vercel.app/api/leads/web', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(function(res) {
+        if (!res.ok) { throw new Error('Request failed with status ' + res.status); }
+        return res.json();
+    }).then(function(d) {
+        if (d && d.success === false) { throw new Error(d.error || 'Submission failed'); }
+        ccbShowSuccess(form, btn);
+        ccbFireTracking(data.phone, data.email);
+    }).catch(function(err) {
+        console.error('[CCB] Lead submit failed:', err);
+        ccbShowError(form, btn, originalBtnLabel);
+    });
+}
+
+function ccbShowSuccess(form, btn) {
+    btn.textContent = 'Request Sent!';
+    btn.disabled = true;
+    var successMsg = document.createElement('p');
+    successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
+    successMsg.textContent = 'Thanks! We\u2019ll be in touch within 24 hours.';
+    form.appendChild(successMsg);
+
+    // 10-second fallback notice
+    setTimeout(function() {
+        var fallback = document.createElement('p');
+        fallback.style.cssText = 'margin-top:8px;font-size:0.95rem;color:#555;text-align:center;';
+        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653" style="color:#3F647F;font-weight:700;">919-717-4653</a>.';
+        form.appendChild(fallback);
+    }, 10000);
+}
+
+function ccbShowError(form, btn, originalBtnLabel) {
+    btn.disabled = false;
+    btn.textContent = originalBtnLabel || 'Submit Request';
+    var errorMsg = document.getElementById('leadFormSubmitError');
+    if (!errorMsg) {
+        errorMsg = document.createElement('p');
+        errorMsg.id = 'leadFormSubmitError';
+        errorMsg.setAttribute('role', 'alert');
+        errorMsg.style.cssText = 'margin-top:12px;font-size:0.95rem;color:#dc2626;font-weight:600;text-align:center;';
+        form.appendChild(errorMsg);
+    }
+    errorMsg.innerHTML = 'Something went wrong sending your request \u2014 please try again, or call <a href="tel:919-717-4653" style="color:#dc2626;text-decoration:underline;">919-717-4653</a>.';
+}
+
+function ccbGetAttribution() {
+    try { return (function(){try{var _a=JSON.parse(localStorage.getItem('ccb_attribution'))||{};if(!_a.captured_at||(Date.now()-_a.captured_at)>2592000000){return {};}return _a;}catch(_e){return {};}})() || {}; } catch(e) { return {}; }
+}
+
+function submitForm(e) {
+    e.preventDefault();
+    var form = document.getElementById('leadForm');
+
+    // Honeypot: a real visitor never fills this in. Silently drop bot submissions.
+    var hp = form.querySelector('#company_website');
+    if (hp && hp.value) { return; }
+
+    // Phone validation
+    var phoneVal = form.querySelector('#phone').value.replace(/\D/g, '');
+    if (phoneVal.length < 10) {
+        alert('Please enter a valid phone number (at least 10 digits).');
+        form.querySelector('#phone').focus();
+        return;
+    }
+
+    // Service checkbox validation
+    var checkedServices = form.querySelectorAll('input[name="services"]:checked');
+    if (checkedServices.length === 0) {
+        alert('Please select at least one service.');
+        return;
+    }
+
+    var btn = document.getElementById('submitBtn');
+    var originalBtnLabel = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    var services = [];
+    checkedServices.forEach(function(cb) { services.push(cb.value); });
+
+    var propertyType = form.querySelector('input[name="property_type"]:checked');
+    var smsConsentEl = form.querySelector('#sms_consent');
+
+    var data = {
+        property_type: propertyType ? propertyType.value : '',
+        first_name: form.querySelector('#first_name').value,
+        last_name: form.querySelector('#last_name').value,
+        email: form.querySelector('#email').value,
+        phone: form.querySelector('#phone').value,
+        street_address: form.querySelector('#street_address').value,
+        city: form.querySelector('#city').value,
+        state: form.querySelector('#state').value,
+        services: services.join(', '),
+        referral_source: form.querySelector('#referral_source').value,
+        additional_info: form.querySelector('#additional_info').value,
+        sms_consent: smsConsentEl ? smsConsentEl.checked : false,
+        consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
+        form_source: 'location_hub',
+        attribution: ccbGetAttribution(),
+        company_website: hp ? hp.value : ''
+    };
+
+    // Send the lead. Success message + tracking only fire once the CRM
+    // confirms it actually received the lead (see ccbSendLead).
+    ccbSendLead(data, form, btn, originalBtnLabel);
+}
     </script>
 </body>
 </html>
