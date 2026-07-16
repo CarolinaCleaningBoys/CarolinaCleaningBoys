@@ -24,6 +24,13 @@ Static HTML/CSS marketing site for Carolina Cleaning Boys, a pressure washing bu
 │       ├── surface-cleaning.html
 │       ├── roof-cleaning.html
 │       └── gutter-cleaning.html
+├── lp/                     ← standalone paid-traffic landing pages (Claude Design exports turned production)
+│   ├── pressure-washing/index.html   ← served at carolinacleaningboys.com/lp/pressure-washing
+│   ├── soft-washing/index.html
+│   ├── surface-cleaning/index.html
+│   ├── roof-washing/index.html
+│   ├── gutter-cleaning/index.html
+│   └── brand-awareness/index.html
 └── images/                ← logos (.png) and photos (.webp)
 ```
 
@@ -239,3 +246,21 @@ function toggleFaq(btn) {
     btn.parentElement.classList.toggle('active');
 }
 ```
+
+## Landing Pages (`lp/`)
+
+Standalone, self-contained pages for paid traffic (Google/Meta ads) — not part of the standard site nav/footer template. Built from Claude Design HTML exports (`Landing Pages/_extracted/`), kept as their own premium visual style rather than flattened into the old site template.
+
+**URL structure:** each page lives at `lp/<name>/index.html` (2 levels deep), so GitHub Pages serves it at the clean, extension-less URL `carolinacleaningboys.com/lp/<name>` — no `.html` in the address bar. Because these files are 2 levels deep (not 1, like the old `landing/<name>.html`), every root-relative asset reference uses `../../` (e.g. `../../style.css`, `../../images/...`, `../../index.html`, `../../privacy-policy.html`), not `../`. The `<link rel="canonical">` and `og:url` tags point to the clean URL (`https://carolinacleaningboys.com/lp/<name>`, no `.html`), matching what's actually in the address bar.
+
+Each page:
+
+- Inlines its own `<style>` block (own color tokens matching the exported design, e.g. `pressure-washing` uses `#3F647F` / `#6FAFD8` / `#2E4F66` / `#F4EFE9` / `#FF6B35`→`#F7C531`) — does not link `style.css`.
+- Still uses real brand assets: Bevan + Libre Baskerville fonts, real logo files from `images/`, and real job photos from `images/work/<category>/` (not the export's placeholder `<image-slot>` blocks).
+- Real before/after pairs exist in `images/work/`: alt text says "Before ... " / "After ...", e.g. `pressure-washing/pressure-washing-16.webp` + `-17.webp`, `driveway-concrete/driveway-concrete-06.webp` + `-07.webp`. Check alt text sitewide before picking a pair — most `work/` images are single shots, not matched pairs.
+- Reviews are pulled verbatim (text + first name + last initial) from `index.html`'s `.reviews-carousel` block — never invent review copy.
+- Form field `name`s match the CRM's `/api/leads/web` zod schema exactly: `first_name, last_name, email, phone, address, city, state, zip, service_type, message, sms_consent, company_website` (honeypot), plus hidden `utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid, gbraid, wbraid`.
+- Submits with a normal (not `no-cors`) `fetch()` POST so the real success/error JSON can be read and shown to the user. **This requires the CRM's `/api/leads/web` route to send CORS headers** (`Access-Control-Allow-Origin` for `carolinacleaningboys.com`, plus an `OPTIONS` handler) since the static site and the CRM are different origins — see `CRM/src/app/api/leads/web/route.ts`.
+- On success, fires the same Meta Pixel `Lead` (SHA-256-hashed email/phone eventID) + Google Ads conversion (`AW-17822819353/JIJRCJvpxuwbEJnIyrJC`) that `index.html` fires.
+- Attribution capture IIFE fills hidden UTM/click-ID inputs directly from the URL query string (falls back to the `_gcl_aw` cookie for `gclid`, then to the `ccb_attribution` localStorage bundle other pages already write) — a different, simpler contract than `index.html`'s `ccbGetAttribution()` object, chosen because the CRM endpoint expects flat top-level fields, not a nested `attribution` object.
+- Always run `node scripts/check-form-scripts.js` after editing — same silent-form-death risk as every other page (see above).
