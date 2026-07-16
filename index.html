@@ -461,6 +461,13 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                             <input type="hidden" name="_captcha" value="false">
                             <input type="hidden" name="_template" value="table">
 
+                            <!-- Honeypot: hidden from sighted users and screen readers; only a bot fills this in -->
+                            <div style="position:absolute;left:-9999px" aria-hidden="true">
+                                <label>Company Website
+                                    <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+                                </label>
+                            </div>
+
                             <!-- Step 1: Contact Info -->
                             <div class="form-section active" id="formStep1">
                                 <div class="form-group">
@@ -869,8 +876,6 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         });
     </script>
     <script>
-var CCB_ENDPOINT = 'https://script.google.com/macros/s/AKfycbylNB7pcU84roIexh8lq0vL_QePvmYkEIC1lVM-k2kdrswSi9LuzrQ13Dhrs0HNBsV4/exec';
-
 function ccbFireTracking(phone, email) {
     // Meta Lead. Isolated: a tracking failure must NEVER block lead capture.
     try {
@@ -900,13 +905,53 @@ function ccbFireTracking(phone, email) {
     } catch (err) { console.error('[CCB] Google Ads conversion failed:', err); }
 }
 
-function ccbSendLead(data) {
-    fetch(CCB_ENDPOINT, {
+function ccbSendLead(data, form, btn) {
+    fetch('https://pressure-wash-crm.vercel.app/api/leads/web', {
         method: 'POST',
-        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-    }).catch(function(err) { console.error('Lead submit error:', err); });
+    }).then(function(res) {
+        if (!res.ok) { throw new Error('Request failed with status ' + res.status); }
+        return res.json();
+    }).then(function(d) {
+        if (d && d.success === false) { throw new Error(d.error || 'Submission failed'); }
+        ccbShowSuccess(form, btn);
+        ccbFireTracking(data.phone, data.email);
+    }).catch(function(err) {
+        console.error('[CCB] Lead submit failed:', err);
+        ccbShowError(form, btn);
+    });
+}
+
+function ccbShowSuccess(form, btn) {
+    btn.textContent = 'Request Sent!';
+    btn.disabled = true;
+    var successMsg = document.createElement('p');
+    successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
+    successMsg.textContent = 'Thanks! We\u2019ll be in touch within 24 hours.';
+    form.appendChild(successMsg);
+
+    // 10-second fallback notice
+    setTimeout(function() {
+        var fallback = document.createElement('p');
+        fallback.style.cssText = 'margin-top:8px;font-size:0.95rem;color:#555;text-align:center;';
+        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653" style="color:#3F647F;font-weight:700;">919-717-4653</a>.';
+        form.appendChild(fallback);
+    }, 10000);
+}
+
+function ccbShowError(form, btn) {
+    btn.disabled = false;
+    btn.textContent = 'Submit Request';
+    var errorMsg = document.getElementById('leadFormSubmitError');
+    if (!errorMsg) {
+        errorMsg = document.createElement('p');
+        errorMsg.id = 'leadFormSubmitError';
+        errorMsg.setAttribute('role', 'alert');
+        errorMsg.style.cssText = 'margin-top:12px;font-size:0.95rem;color:#dc2626;font-weight:600;text-align:center;';
+        form.appendChild(errorMsg);
+    }
+    errorMsg.innerHTML = 'Something went wrong sending your request \u2014 please try again, or call <a href="tel:919-717-4653" style="color:#dc2626;text-decoration:underline;">919-717-4653</a>.';
 }
 
 function ccbGetAttribution() {
@@ -917,6 +962,10 @@ function submitForm(e) {
     e.preventDefault();
 
     var form = document.getElementById('leadForm');
+
+    // Honeypot: a real visitor never fills this in. Silently drop bot submissions.
+    var hp = form.querySelector('#company_website');
+    if (hp && hp.value) { return; }
 
     // Phone validation
     var phoneVal = form.querySelector('#phone').value.replace(/\D/g, '');
@@ -957,22 +1006,46 @@ function submitForm(e) {
         sms_consent: form.querySelector('#sms_consent') ? form.querySelector('#sms_consent').checked : false,
         consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
         form_source: 'full_form',
-        attribution: ccbGetAttribution()
+        attribution: ccbGetAttribution(),
+        company_website: hp ? hp.value : ''
     };
 
-    // Send the lead FIRST. Tracking must never be able to block lead capture.
-    ccbSendLead(data);
-    ccbFireTracking(data.phone, data.email);
+    // Send the lead. Success message + tracking only fire once the CRM
+    // confirms it actually received the lead (see ccbSendLead).
+    ccbSendLead(data, form, btn);
+}
+</script>
+    <script>
+function initAutocomplete() {
+    // Full form autocomplete
+    var addressInput = document.getElementById('street_address');
+    if (addressInput) {
+        var autocomplete = new google.maps.places.Autocomplete(addressInput, {
+            types: ['address'],
+            componentRestrictions: { country: 'us' }
+        });
+        autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (!place.address_components) return;
+            var streetNumber = '', route = '', city = '', state = '';
+            for (var i = 0; i < place.address_components.length; i++) {
+                var c = place.address_components[i];
+                var type = c.types[0];
+                if (type === 'street_number') streetNumber = c.long_name;
+                if (type === 'route') route = c.long_name;
+                if (type === 'locality') city = c.long_name;
+                if (type === 'administrative_area_level_1') state = c.short_name;
+            }
+            if (streetNumber || route) addressInput.value = (streetNumber + ' ' + route).trim();
+            var cityField = document.getElementById('city');
+            var stateField = document.getElementById('state');
+            if (cityField && city) cityField.value = city;
+            if (stateField && state) stateField.value = state;
+        });
+    }
 
-    btn.textContent = 'Request Sent!';
-    btn.disabled = true;
-    var successMsg = document.createElement('p');
-    successMsg.style.cssText = 'margin-top:16px;font-size:1.1rem;color:#22c55e;font-weight:600;text-align:center;';
-    successMsg.textContent = 'Thanks! We\u2019ll be in touch within 24 hours.';
-    form.appendChild(successMsg);
 
-    // 10-second fallback notice
-    setTimeout(function() {
-        var fallback = document.createElement('p');
-        fallback.style.cssText = 'margin-top:8px;font-size:0.95rem;color:#555;text-align:center;';
-        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653
+}
+</script>
+</body>
+</html>
