@@ -575,7 +575,8 @@ document.getElementById('quoteForm').addEventListener('submit', function (e) {
     gclid: val('gclid'),
     fbclid: val('fbclid'),
     gbraid: val('gbraid'),
-    wbraid: val('wbraid')
+    wbraid: val('wbraid'),
+    landing_page: window.location.pathname
   };
 
   fetch('https://pressure-wash-crm.vercel.app/api/leads/web', {
