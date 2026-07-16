@@ -53,7 +53,9 @@ h1,h2,h3{font-family:'Bevan',serif;font-weight:400;color:#1c2a33}
 a{color:#3F647F;text-decoration:none}
 a:hover{color:#2E4F66}
 img{display:block;max-width:100%}
+input,select,textarea,button{font-family:'Archivo',system-ui,sans-serif}
 ::selection{background:#FF6B35;color:#fff}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
 @media (max-width:819px){body{padding-bottom:78px}}
 
@@ -86,6 +88,29 @@ img{display:block;max-width:100%}
 .lp-trust{background:#2E4F66;color:#e8eef3}
 .lp-trust-inner{display:flex;flex-wrap:wrap;gap:14px 44px;align-items:center;justify-content:center;padding:20px 0;font-size:14.5px;font-weight:600}
 .lp-trust-sep{width:1px;height:16px;background:rgba(255,255,255,.2)}
+
+/* quote form card */
+.lp-quote-section{padding:76px 0 20px;scroll-margin-top:20px}
+.lp-card{background:#fff;border:1px solid rgba(46,79,102,.12);border-radius:14px;box-shadow:0 24px 60px -34px rgba(28,42,51,.4);padding:30px 28px;max-width:580px;margin:0 auto}
+.lp-card-sub{font-size:14px;color:#6C757D;margin:6px 0 20px;text-align:center}
+form.lp-form{display:flex;flex-direction:column;gap:12px}
+.lp-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lp-row3{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:12px}
+.lp-field{padding:13px 14px;border:1px solid rgba(46,79,102,.25);border-radius:8px;font-size:15px;background:#fbfaf8;width:100%}
+select.lp-field{color:#22303a}
+textarea.lp-field{resize:vertical}
+.lp-consent{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:#6C757D;line-height:1.45;cursor:pointer}
+.lp-consent input{margin-top:2px;flex:none;width:16px;height:16px;accent-color:#3F647F}
+.lp-hp{position:absolute;left:-9999px}
+.lp-submit{margin-top:2px;padding:16px;border:none;border-radius:8px;background:linear-gradient(135deg,#FF6B35,#F7C531);color:#fff;font-size:16px;font-weight:800;letter-spacing:.01em;cursor:pointer;box-shadow:0 10px 24px -10px rgba(255,107,53,.55)}
+.lp-submit:disabled{opacity:.7;cursor:default}
+.lp-finePrint{text-align:center;font-size:12px;color:#98a2a9;margin-top:2px}
+.lp-error{display:none;background:#FDECEA;border:1px solid #f5b5ad;color:#8a2e22;font-size:13.5px;padding:11px 13px;border-radius:8px}
+.lp-success{text-align:center;padding:22px 4px 8px}
+.lp-success-icon{width:62px;height:62px;margin:0 auto 16px;border-radius:50%;background:#1F8A5B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800}
+.lp-success h2{font-size:25px}
+.lp-success p{font-size:15px;color:#42525c;margin:12px auto 20px;max-width:34ch}
+.lp-call-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;background:#2E4F66;color:#fff;font-weight:700;font-size:14.5px}
 
 /* section titles */
 .lp-eyebrow{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#E85D04;margin-bottom:12px;text-align:center}
@@ -159,8 +184,9 @@ img{display:block;max-width:100%}
 .lp-footer-brand img{height:56px;width:auto}
 
 /* sticky mobile cta */
-.lp-sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid rgba(46,79,102,.14);box-shadow:0 -8px 24px -14px rgba(28,42,51,.4)}
-.lp-sticky-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:8px;background:linear-gradient(135deg,#FF6B35,#F7C531);color:#fff;font-size:16px;font-weight:800}
+.lp-sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid rgba(46,79,102,.14);display:flex;gap:10px;box-shadow:0 -8px 24px -14px rgba(28,42,51,.4)}
+.lp-sticky-call{flex:none;display:flex;align-items:center;justify-content:center;width:50px;border:1px solid rgba(46,79,102,.28);border-radius:8px;color:#2E4F66;font-size:18px}
+.lp-sticky-cta{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:8px;background:linear-gradient(135deg,#FF6B35,#F7C531);color:#fff;font-size:16px;font-weight:800}
 @media (min-width:820px){.lp-sticky{display:none}}
 
 /* responsive */
@@ -172,6 +198,8 @@ img{display:block;max-width:100%}
   .lp-reviews-grid{grid-template-columns:1fr}
   .lp-reviews-head{flex-direction:column;align-items:flex-start}
   .lp-footer-top{grid-template-columns:1fr;text-align:left}
+  .lp-row2,.lp-row3{grid-template-columns:1fr}
+  .lp-card{padding:24px 20px}
 }
 </style>
 </head>
@@ -205,7 +233,7 @@ img{display:block;max-width:100%}
     <h1 id="hero-heading">Greenville's exterior cleaning experts.</h1>
     <p class="lp-hero-sub">Carolina Cleaning Boys is a professional exterior cleaning company serving Greenville and Eastern NC &mdash; with a mission to support local students along the way. Every job is done to a high standard, and helps invest in the next generation of our community.</p>
     <div class="lp-hero-ctas">
-      <a href="tel:9197174653" class="lp-btn-primary js-cta">Get a Free Quote &rarr;</a>
+      <a href="#quote" class="lp-btn-primary">Get a Free Quote &rarr;</a>
       <a href="#story" class="lp-btn-secondary">Our Story</a>
     </div>
   </div>
@@ -381,6 +409,101 @@ img{display:block;max-width:100%}
     </div>
   </section>
 
+  <section class="lp-quote-section" id="quote" aria-labelledby="quote-heading">
+    <div class="lp-section-head">
+      <p class="lp-eyebrow">Ready when you are</p>
+      <h2 class="lp-section-title" id="quote-heading">Get your free quote</h2>
+    </div>
+    <div class="lp-card">
+      <div id="quoteFormWrap">
+        <p class="lp-card-sub">Takes under a minute &middot; reply within 24 hrs</p>
+        <p class="lp-error" id="formError" role="alert"></p>
+        <form class="lp-form" id="quoteForm" novalidate>
+
+          <!-- Honeypot: hidden from sighted users AND screen readers, only a bot fills this in -->
+          <div class="lp-hp" aria-hidden="true">
+            <label>Company website
+              <input type="text" name="company_website" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
+
+          <div class="lp-row2">
+            <div>
+              <label class="sr-only" for="first_name">First name</label>
+              <input class="lp-field" id="first_name" name="first_name" required placeholder="First name">
+            </div>
+            <div>
+              <label class="sr-only" for="last_name">Last name</label>
+              <input class="lp-field" id="last_name" name="last_name" required placeholder="Last name">
+            </div>
+          </div>
+
+          <div>
+            <label class="sr-only" for="phone">Phone</label>
+            <input class="lp-field" id="phone" name="phone" type="tel" required placeholder="Phone">
+          </div>
+          <div>
+            <label class="sr-only" for="email">Email</label>
+            <input class="lp-field" id="email" name="email" type="email" required placeholder="Email">
+          </div>
+          <div>
+            <label class="sr-only" for="address">Street address</label>
+            <input class="lp-field" id="address" name="address" placeholder="Street address">
+          </div>
+          <div class="lp-row3">
+            <div>
+              <label class="sr-only" for="city">City</label>
+              <input class="lp-field" id="city" name="city" placeholder="City">
+            </div>
+            <div>
+              <label class="sr-only" for="state">State</label>
+              <input class="lp-field" id="state" name="state" value="NC" placeholder="State">
+            </div>
+            <div>
+              <label class="sr-only" for="zip">ZIP</label>
+              <input class="lp-field" id="zip" name="zip" placeholder="ZIP">
+            </div>
+          </div>
+          <div>
+            <label class="sr-only" for="service_type">Service needed</label>
+            <select class="lp-field" id="service_type" name="service_type">
+              <option selected>Not sure / General inquiry</option>
+              <option>House / Soft Washing</option>
+              <option>Driveway / Concrete Cleaning</option>
+              <option>Roof Cleaning</option>
+              <option>Gutter Cleaning</option>
+              <option>Deck / Fence Cleaning</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="sr-only" for="message">What needs cleaning</label>
+            <textarea class="lp-field" id="message" name="message" rows="2" placeholder="What needs cleaning? (optional)"></textarea>
+          </div>
+
+          <!-- Ad + campaign attribution, filled on load by the script at the bottom of the page -->
+          <input type="hidden" name="utm_source" id="utm_source">
+          <input type="hidden" name="utm_medium" id="utm_medium">
+          <input type="hidden" name="utm_campaign" id="utm_campaign">
+          <input type="hidden" name="utm_term" id="utm_term">
+          <input type="hidden" name="utm_content" id="utm_content">
+          <input type="hidden" name="gclid" id="gclid">
+          <input type="hidden" name="fbclid" id="fbclid">
+          <input type="hidden" name="gbraid" id="gbraid">
+          <input type="hidden" name="wbraid" id="wbraid">
+
+          <label class="lp-consent" for="sms_consent">
+            <input type="checkbox" id="sms_consent" name="sms_consent" value="yes">
+            <span>Text me about my quote. Msg &amp; data rates may apply; reply STOP to opt out. Consent isn't a condition of service. See our <a href="../../privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+          </label>
+
+          <button type="submit" class="lp-submit" id="submitBtn">Get My Free Quote &rarr;</button>
+          <p class="lp-finePrint">No spam. No obligation. Real local crew.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
 </div>
 </main>
 
@@ -392,7 +515,7 @@ img{display:block;max-width:100%}
         <p>Greenville, Winterville, Ayden, Farmville, Grifton, Washington, Chocowinity and the surrounding towns. If you're nearby, we'll come give you a free quote.</p>
       </div>
       <div>
-        <a href="tel:9197174653" class="lp-footer-cta js-cta">Get a Free Quote &rarr;</a>
+        <a href="#quote" class="lp-footer-cta">Get a Free Quote &rarr;</a>
         <div style="margin-top:16px;font-size:14px;color:#a9b8c4">or call <a href="tel:9197174653" style="color:#F7C531;font-weight:700" class="js-cta">919-717-4653</a></div>
       </div>
     </div>
@@ -407,7 +530,8 @@ img{display:block;max-width:100%}
 </footer>
 
 <div class="lp-sticky">
-  <a href="tel:9197174653" class="lp-sticky-cta js-cta">&#9742; Call for a Free Quote</a>
+  <a href="tel:9197174653" class="lp-sticky-call js-cta" aria-label="Call Carolina Cleaning Boys">&#9742;</a>
+  <a href="#quote" class="lp-sticky-cta">Get My Free Quote</a>
 </div>
 
 <script>
@@ -439,7 +563,13 @@ img{display:block;max-width:100%}
       }
     } catch (e2) {}
 
-    if (hasParams || Object.keys(bundle).length) {
+    for (var k = 0; k < params.length; k++) {
+      var name = params[k];
+      var el = document.getElementById(name);
+      if (el && bundle[name]) el.value = bundle[name];
+    }
+
+    if (hasParams) {
       bundle.landing_page = window.location.href;
       bundle.referrer = document.referrer;
       bundle.captured_at = Date.now();
@@ -450,9 +580,138 @@ img{display:block;max-width:100%}
 </script>
 
 <script>
-// This page has no lead form (pure brand-awareness page) — every primary CTA
-// is a tel: link. We still fire the Google Ads + Meta Lead conversion on
-// click so ad spend on this page is measurable, without blocking the call.
+function ccbShowError(msg) {
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = false;
+  btn.textContent = 'Get My Free Quote →';
+  var errEl = document.getElementById('formError');
+  if (errEl) {
+    errEl.style.display = 'block';
+    errEl.textContent = msg;
+  }
+}
+
+function ccbFireConversionTracking(phone, email) {
+  // Meta Lead. Isolated: a tracking failure must never block lead capture.
+  try {
+    var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
+    function fireLead(eid) {
+      if (typeof fbq === 'function') {
+        fbq('track', 'Lead', { value: 150.00, currency: 'USD' }, eid ? { eventID: eid } : {});
+      } else {
+        console.warn('[CCB] Meta pixel unavailable, Lead event not sent.');
+      }
+    }
+    if (raw && window.crypto && window.crypto.subtle) {
+      window.crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw)).then(function (buf) {
+        var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+        fireLead(hex);
+      }).catch(function () { fireLead(''); });
+    } else {
+      fireLead('');
+    }
+  } catch (err) { console.error('[CCB] Meta Lead tracking failed:', err); }
+
+  // Google Ads conversion. Also isolated.
+  try {
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { send_to: 'AW-17822819353/JIJRCJvpxuwbEJnIyrJC', value: 150.0, currency: 'USD' });
+    } else {
+      console.warn('[CCB] gtag unavailable, Google Ads conversion not sent.');
+    }
+  } catch (err) { console.error('[CCB] Google Ads conversion failed:', err); }
+}
+
+function ccbShowSuccess() {
+  var wrap = document.getElementById('quoteFormWrap');
+  wrap.innerHTML =
+    '<div class="lp-success">' +
+    '<div class="lp-success-icon">✓</div>' +
+    '<h2>Quote request received!</h2>' +
+    '<p>Thanks &mdash; we’ve got your details. A member of our Greenville crew will reach out within 24 hours to schedule your free estimate.</p>' +
+    '<a href="tel:9197174653" class="lp-call-btn">Need it sooner? Call 919-717-4653</a>' +
+    '</div>';
+}
+
+document.getElementById('quoteForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var form = e.target;
+
+  // Honeypot tripped — a real visitor never fills this in. Silently drop.
+  var hp = form.querySelector('[name="company_website"]');
+  if (hp && hp.value) { return; }
+
+  var btn = document.getElementById('submitBtn');
+  if (btn.disabled) return;
+
+  var errEl = document.getElementById('formError');
+  if (errEl) errEl.style.display = 'none';
+
+  var phoneDigits = (form.querySelector('[name="phone"]').value || '').replace(/\D/g, '');
+  if (phoneDigits.length < 10) {
+    ccbShowError('Please enter a valid phone number (at least 10 digits).');
+    form.querySelector('[name="phone"]').focus();
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  function val(name) {
+    var el = form.querySelector('[name="' + name + '"]');
+    if (!el) return '';
+    if (el.type === 'checkbox') return el.checked;
+    return el.value;
+  }
+
+  var payload = {
+    first_name: val('first_name'),
+    last_name: val('last_name'),
+    email: val('email'),
+    phone: val('phone'),
+    address: val('address'),
+    city: val('city'),
+    state: val('state'),
+    zip: val('zip'),
+    service_type: val('service_type'),
+    message: val('message'),
+    sms_consent: val('sms_consent'),
+    company_website: val('company_website'),
+    utm_source: val('utm_source'),
+    utm_medium: val('utm_medium'),
+    utm_campaign: val('utm_campaign'),
+    utm_term: val('utm_term'),
+    utm_content: val('utm_content'),
+    gclid: val('gclid'),
+    fbclid: val('fbclid'),
+    gbraid: val('gbraid'),
+    wbraid: val('wbraid'),
+    landing_page: window.location.pathname
+  };
+
+  fetch('https://pressure-wash-crm.vercel.app/api/leads/web', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function (res) {
+    if (!res.ok) { throw new Error('Request failed with status ' + res.status); }
+    return res.json();
+  }).then(function (data) {
+    if (data && data.success === false) { throw new Error(data.error || 'Submission failed'); }
+    ccbShowSuccess();
+    ccbFireConversionTracking(payload.phone, payload.email);
+  }).catch(function (err) {
+    console.error('[CCB] Lead submit failed:', err);
+    ccbShowError('Something went wrong sending your request. Please try again, or call 919-717-4653.');
+  });
+});
+</script>
+
+<script>
+// Secondary conversion: any remaining tel: call links (header phone, "call us"
+// links, sticky call icon) fire the Google Ads + Meta Lead conversion on
+// click too, since a phone call is also a qualifying lead action, separate
+// from the form submit handled above.
 (function () {
   function fireCtaConversion() {
     try {
