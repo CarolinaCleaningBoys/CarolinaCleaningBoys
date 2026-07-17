@@ -284,6 +284,7 @@ textarea.lp-field{resize:vertical}
           <input type="hidden" name="fbclid" id="fbclid">
           <input type="hidden" name="gbraid" id="gbraid">
           <input type="hidden" name="wbraid" id="wbraid">
+          <input type="hidden" name="landing_page" id="landing_page">
 
           <label class="lp-consent" for="sms_consent">
             <input type="checkbox" id="sms_consent" name="sms_consent" value="yes">
@@ -452,6 +453,10 @@ textarea.lp-field{resize:vertical}
       if (el && bundle[name]) el.value = bundle[name];
     }
 
+    // Landing page is known on every visit, even with no ad params — always record it
+    var lpEl = document.getElementById('landing_page');
+    if (lpEl) lpEl.value = window.location.href;
+
     if (hasParams) {
       bundle.landing_page = window.location.href;
       bundle.referrer = document.referrer;
@@ -569,7 +574,7 @@ document.getElementById('quoteForm').addEventListener('submit', function (e) {
     fbclid: val('fbclid'),
     gbraid: val('gbraid'),
     wbraid: val('wbraid'),
-    landing_page: window.location.pathname
+    landing_page: val('landing_page') || window.location.href
   };
 
   fetch('https://pressure-wash-crm.vercel.app/api/leads/web', {
