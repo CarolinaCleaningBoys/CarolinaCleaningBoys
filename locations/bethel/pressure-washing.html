@@ -79,6 +79,7 @@
         .city-hero p { font-size: 1.15rem; margin: 0 0 1.6rem; opacity: 0.96; }
         .city-hero-inner { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 2.6rem; }
         .city-hero-media img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 16px; box-shadow: 0 16px 44px rgba(0,0,0,.42); border: 4px solid rgba(255,255,255,.18); display: block; }
+        .city-hero-media { margin-top: 24px; }
         @media (max-width: 820px) { .city-hero-inner { grid-template-columns: 1fr; text-align: center; gap: 1.6rem; } }
         .area-map-section { padding: 46px 0 6px; background: #fff; text-align: center; }
         .area-map-section h2 { margin-bottom: 1rem; }
@@ -123,6 +124,7 @@
             .city-hero h1 { font-size: 1.8rem; }
             .city-hero { padding: 60px 20px; }
         }
+        .header .logo { margin-right: auto; }
     </style>
     <script type="application/ld+json">
     {
@@ -220,6 +222,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
     <a href="#main-content" class="skip-link">Skip to content</a>
     <header class="header">
         <nav class="nav container">
+            <button class="hamburger" onclick="toggleSidebar()" aria-label="Open menu"><span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span></button>
             <a href="../../index.html" class="logo">
                 <img src="../../images/logo-1200.png" alt="Carolina Cleaning Boys" class="logo-img" width="256" height="256">
             </a>
@@ -235,16 +238,20 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         </nav>
     </header>
 
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <nav class="sidebar" id="sidebar"><button class="sidebar-close" onclick="closeSidebar()">&times;</button><div class="sidebar-content"><a href="../../index.html" class="sidebar-link">Home</a><div class="sidebar-divider"></div><span class="sidebar-label">Our Services</span><a href="../../services/pressure-washing.html" class="sidebar-link">Pressure Washing</a><a href="../../services/soft-washing.html" class="sidebar-link">Soft-Washing</a><a href="../../services/surface-cleaning.html" class="sidebar-link">Surface Cleaning</a><a href="../../services/roof-cleaning.html" class="sidebar-link">Roof Cleaning</a><a href="../../services/gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a><div class="sidebar-divider"></div><a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a><a href="tel:919-717-4653" class="sidebar-link">919-717-4653</a></div></nav>
+
     <main id="main-content">
         <section class="city-hero">
-            <div class="container">
-                <h1>Pressure Washing in Bethel, NC</h1>
-                <p>High-pressure cleaning for Bethel's driveways, sidewalks, patios, and concrete — lifting red-clay stains, oil drips, and the field dirt that comes with living in farm country.</p>
-                <div class="city-image">
-                    <!-- Add city-specific image here: images/locations/bethel-pressure-washing.webp -->
-                    <img src="../../images/locations/bethel.webp" alt="Pressure Washing in Bethel, NC by Carolina Cleaning Boys" onerror="this.parentElement.innerHTML='📷 Image coming soon'" style="width:100%;height:300px;object-fit:cover;">
+            <div class="container city-hero-inner">
+                <div class="city-hero-copy">
+                    <h1>Pressure Washing in Bethel, NC</h1>
+                    <p>High-pressure cleaning for Bethel's driveways, sidewalks, patios, and concrete — lifting red-clay stains, oil drips, and the field dirt that comes with living in farm country.</p>
+                    <a href="#estimate-form" class="cta-btn cta-btn-primary">Get Your Free Bethel Quote</a>
                 </div>
-                <a href="#estimate-form" class="cta-btn cta-btn-primary">Get Your Free Bethel Quote</a>
+                <div class="city-hero-media">
+                    <img src="../../images/locations/bethel.webp" alt="Pressure Washing in Bethel, NC by Carolina Cleaning Boys" loading="eager" fetchpriority="high" decoding="async">
+                </div>
             </div>
         </section>
 
@@ -314,7 +321,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             <div class="container">
                 <h2 class="section-title">Why Bethel Chooses Us</h2>
                 <div class="benefits-grid">
-                    <article class="benefit-card animate-on-scroll"><div class="benefit-icon">💪</div><h3>Built for Red Clay & Oil</h3><p>Commercial pressure plus the right pre-treatment to lift the clay stains, tire marks, and oil drips that grind into Bethel concrete.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon">🚜</div><h3>Farm-Country Ready</h3><p>Barn slabs, shop floors, and equipment pads caked in field dirt are everyday work for us out here — not a surface we shy away from.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon">⚡</div><h3>Done in One Trip</h3><p>Most driveways, sidewalks, and patios are cleaned in a single visit, with a before-and-after you'll want the neighbors to see.</p></article>
+                    <article class="benefit-card animate-on-scroll"><div class="benefit-icon"></div><h3>Built for Red Clay & Oil</h3><p>Commercial pressure plus the right pre-treatment to lift the clay stains, tire marks, and oil drips that grind into Bethel concrete.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon"></div><h3>Farm-Country Ready</h3><p>Barn slabs, shop floors, and equipment pads caked in field dirt are everyday work for us out here — not a surface we shy away from.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon"></div><h3>Done in One Trip</h3><p>Most driveways, sidewalks, and patios are cleaned in a single visit, with a before-and-after you'll want the neighbors to see.</p></article>
                 </div>
             </div>
         </section>
@@ -377,7 +384,6 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <img src="../../images/logo-1200.png" alt="Carolina Cleaning Boys" class="footer-logo">
                     <p>Professional exterior cleaning services serving Bethel, Pitt County, and all of Eastern NC.</p>
                 </div>
                 <div class="footer-contact">
@@ -387,7 +393,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 </div>
                 <div class="footer-services">
                     <h4>Our Services</h4>
-                    <ul>
+                    <ul style="display:flex;flex-wrap:wrap;gap:0.4rem 1.4rem;list-style:none;padding:0;margin:0;">
                         <li><a href="../../services/pressure-washing.html">Pressure Washing</a></li>
                         <li><a href="../../services/soft-washing.html">Soft Washing</a></li>
                         <li><a href="../../services/surface-cleaning.html">Surface Cleaning</a></li>
@@ -443,6 +449,8 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             currentFormStep = step;
         }
         
+        function toggleSidebar(){document.getElementById('sidebar').classList.toggle('active');document.getElementById('sidebarOverlay').classList.toggle('active');document.body.style.overflow=document.getElementById('sidebar').classList.contains('active')?'hidden':''}function closeSidebar(){document.getElementById('sidebar').classList.remove('active');document.getElementById('sidebarOverlay').classList.remove('active');document.body.style.overflow=''}
+
         function toggleFaq(button) { var faqItem = button.parentElement; var isActive = faqItem.classList.contains('active'); document.querySelectorAll('.faq-item').forEach(function(item) { item.classList.remove('active'); }); if (!isActive) { faqItem.classList.add('active'); } }
         
         
