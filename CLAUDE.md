@@ -1,37 +1,58 @@
 # CLAUDE.md — Carolina Cleaning Boys Website
 
-Static HTML/CSS marketing site for Carolina Cleaning Boys, a pressure washing business in Greenville, NC. No build system — files are deployed directly (hosted on Cloudflare).
+Static HTML/CSS marketing site for Carolina Cleaning Boys, a pressure washing business in Greenville, NC. No build system — files are deployed directly, hosted on **GitHub Pages** (public repo), with Cloudflare sitting in front purely as DNS/CDN proxy (no Cloudflare Pages, no Workers).
 
 ## File Structure
 
+Last verified against the actual files on disk on 2026-08-12. If you're reading this much later, a quick sanity check (`ls` the folders below) takes less time than trusting a stale tree.
+
 ```
 /                          ← root
-├── index.html             ← homepage
+├── index.html             ← homepage — posts leads straight to the CRM (not the old Google Form/Sheet flow)
+├── our-story.html         ← "About Us"-style page. Real, indexable content — but NOT linked from the nav, footer, or sitemap.xml anywhere.
+│                             It's an orphan page: nobody currently finds it by clicking around the site. Flag this to Zach before
+│                             editing/deleting — unclear if it's a forgotten page or an intentionally-unlinked one.
 ├── style.css              ← shared stylesheet for all pages
-├── favicon.ico
+├── DESIGN.md               ← design-system reference (colors, fonts, brand voice/tone) — written for AI design tooling context, not a site page
+├── PRODUCT.md               ← product/brand brief (audience, positioning, "anti-references") — written for AI design tooling context, not a site page
+├── favicon.ico, favicon-16x16.png, favicon-32x32.png, apple-touch-icon.png,
+│   android-chrome-192x192.png, android-chrome-512x512.png, site.webmanifest   ← favicon/PWA icon set
 ├── privacy-policy.html
 ├── terms-and-conditions.html
-├── services/
+├── robots.txt
+├── sitemap.xml             ← lists every page meant to be indexed. Has some drift — see "Location pages" below.
+├── google551afceabee48996.html   ← Google Search Console ownership-verification file. Must keep this exact filename; don't rename or delete it.
+├── docs/
+│   └── ad-tracking-setup.md   ← plain-English writeup for Nick on how gclid/UTM tracking works on the lp/ pages
+├── scripts/
+│   └── check-form-scripts.js  ← the lead-form safety checker referenced throughout "Known Patterns & Gotchas" below — run after any form edit
+├── services/               ← the 5 core service pages, linked from every page's nav
 │   ├── pressure-washing.html
 │   ├── soft-washing.html
 │   ├── surface-cleaning.html
 │   ├── roof-cleaning.html
 │   └── gutter-cleaning.html
-├── locations/
-│   └── [city]/            ← e.g. greenville/, ayden/, raleigh/
-│       ├── pressure-washing.html
-│       ├── soft-washing.html
-│       ├── surface-cleaning.html
-│       ├── roof-cleaning.html
-│       └── gutter-cleaning.html
-├── lp/                     ← standalone paid-traffic landing pages (Claude Design exports turned production)
+├── locations/              ← 24 town folders + one directory/index page. NOT one uniform template — see "Location pages" note below
+│   ├── index.html           ← the "our service areas" hub page; links to only 14 of the 24 towns (see note below)
+│   └── [town]/
+├── lp/                      ← LIVE standalone paid-traffic landing pages (what Google/Meta ads actually point to)
 │   ├── pressure-washing/index.html   ← served at carolinacleaningboys.com/lp/pressure-washing
 │   ├── soft-washing/index.html
 │   ├── surface-cleaning/index.html
 │   ├── roof-washing/index.html
 │   ├── gutter-cleaning/index.html
 │   └── brand-awareness/index.html
-└── images/                ← logos (.png) and photos (.webp)
+├── Landing Pages/           ← NOT live — do not confuse with lp/ above. This is the raw design-tool export (zip files + their unpacked
+│                               contents: Claude Design ".dc.html" files, image-slot.js, support.js, uploads/, screenshots/) that the
+│                               lp/ pages were originally built from. It's an archive/source folder, not deployed anywhere. To change
+│                               a live landing page, edit the matching file under lp/, not here.
+└── images/                 ← logos (.png) and photos (.webp)
+    ├── work/                 ← before/after job photos, organized by category (driveway-concrete/, gutter-cleaning/, homepage/,
+    │                            pressure-washing/, roof-washing/, soft-washing/) — used mainly by the lp/ pages
+    ├── landing/              ← per-service image sets specifically for the lp/ pages (pressure-washing/, soft-washing/, etc.)
+    └── locations/            ← one hero photo per town (e.g. greenville.webp). Has MORE towns than locations/ currently has pages for
+                                 (e.g. raleigh, garner, zebulon, wendell, wake forest, smithfield, clayton, rolesville) — looks like
+                                 images pre-staged for expansion towns that don't have a page yet. Don't assume every file here has a matching page.
 ```
 
 ## Design System
@@ -239,8 +260,17 @@ Email addresses in deployed HTML are replaced with Cloudflare-obfuscated spans. 
 - Pages in `locations/[city]/` use `../../` for root assets
 - Root pages (`index.html`, `privacy-policy.html`, etc.) use no prefix
 
-**Location pages:**
-There are ~20+ cities each with 5 service variants = 100+ location pages. They follow the same template as service pages. Cities include: Greenville, Ayden, Bethel, Bailey, Black Creek, Clayton, Farmville, Fountain, Garner, Grimesland, Hookerton, Kenley, Knightdale, Lucama, Middlesex, Raleigh, Rolesville, Saratoga, Selma, Zebulon, and others.
+**Location pages (corrected 2026-08-12 — the old "~100+ pages" claim below was wrong, don't repeat it):**
+
+`locations/` has 24 town folders, but they are NOT all the same template. Two different setups exist, and mixing them up will waste an edit:
+
+1. **8 "hub" towns** — Ayden, Bethel, Farmville, Fountain, Greenville, Grimesland, Simpson, Winterville. Each of these has ONE real content page, `pressure-washing.html` (~50KB, the actual page Google indexes). The other 4 files in that same folder (`index.html`, `gutter-cleaning.html`, `roof-cleaning.html`, `soft-washing.html`) are just tiny meta-refresh redirect stubs that immediately forward to `pressure-washing.html`. **If you need to edit one of these towns, edit `pressure-washing.html` — editing `index.html` or the other service filenames does nothing real.**
+2. **14 "single-page" towns** — Bailey, Black Creek, Hookerton, Kenley, Kinston, Lucama, Middlesex, Saratoga, Selma, Sims, Snow Hill, Stantonsburg, Walstonburg, Wilson. Each of these has just one `index.html` that covers all 5 services on a single page. This is the real, indexed content for that town.
+3. **2 dead/duplicate stubs** — `kenly/` (redirects to `kenley/` — likely a misspelling cleanup) and `knightdale/` (redirects back to the `locations/` directory page, i.e. effectively retired). Neither has real content of its own. Oddly, `sitemap.xml` still lists `kenly/pressure-washing.html` even though it's a dead redirect — that's a leftover sitemap entry worth cleaning up at some point, but hasn't been fixed as of this writing.
+
+So the real count is roughly **22 unique location landing pages** (8 hub-town pages + 14 single-page towns), not "100+." The `locations/index.html` directory/hub page only links to the 14 single-page towns — the 8 hub towns and the two dead stubs aren't linked from it (they're presumably reached via the sitemap, ads, or direct links elsewhere).
+
+Towns like Clayton, Garner, Raleigh, Rolesville, Wake Forest, Wendell, and Zebulon do **not** currently have a `locations/` folder at all, despite older drafts of this doc listing them as existing cities and despite `images/locations/` already having hero photos staged for them — treat those as "planned, not yet built," not as existing pages.
 
 **FAQ accordion JS** (used in service pages):
 ```js
@@ -251,7 +281,7 @@ function toggleFaq(btn) {
 
 ## Landing Pages (`lp/`)
 
-Standalone, self-contained pages for paid traffic (Google/Meta ads) — not part of the standard site nav/footer template. Built from Claude Design HTML exports (`Landing Pages/_extracted/`), kept as their own premium visual style rather than flattened into the old site template.
+Standalone, self-contained pages for paid traffic (Google/Meta ads) — not part of the standard site nav/footer template. Built from Claude Design HTML exports living in `Landing Pages/` (a zip per landing page, e.g. `Pressure Washing.zip`, plus its unpacked contents in a matching `Landing Pages/_extracted*/` folder), kept as their own premium visual style rather than flattened into the old site template. **`Landing Pages/` is source material only — it is not deployed.** The live, editable version of each page is under `lp/<name>/index.html`; that's the file to change if you want the ad-facing page itself to change.
 
 **URL structure:** each page lives at `lp/<name>/index.html` (2 levels deep), so GitHub Pages serves it at the clean, extension-less URL `carolinacleaningboys.com/lp/<name>` — no `.html` in the address bar. Because these files are 2 levels deep (not 1, like the old `landing/<name>.html`), every root-relative asset reference uses `../../` (e.g. `../../style.css`, `../../images/...`, `../../index.html`, `../../privacy-policy.html`), not `../`. The `<link rel="canonical">` and `og:url` tags point to the clean URL (`https://carolinacleaningboys.com/lp/<name>`, no `.html`), matching what's actually in the address bar.
 
