@@ -9,9 +9,10 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 ```
 /                          ← root
 ├── index.html             ← homepage — posts leads straight to the CRM (not the old Google Form/Sheet flow)
-├── our-story.html         ← "About Us"-style page. Real, indexable content — but NOT linked from the nav, footer, or sitemap.xml anywhere.
-│                             It's an orphan page: nobody currently finds it by clicking around the site. Flag this to Zach before
-│                             editing/deleting — unclear if it's a forgotten page or an intentionally-unlinked one.
+├── our-story.html         ← "About Us"-style page — WORK IN PROGRESS, not finished (confirmed by Zach 2026-08-09).
+│                             Deliberately unlinked from nav/footer/sitemap and NOT YET COMMITTED to git, so it does not
+│                             exist on the live site at all — it's local-only draft work. Don't publish, link, or delete it;
+│                             don't "fix" the missing nav links. It goes live when Zach finishes it.
 ├── style.css              ← shared stylesheet for all pages
 ├── DESIGN.md               ← design-system reference (colors, fonts, brand voice/tone) — written for AI design tooling context, not a site page
 ├── PRODUCT.md               ← product/brand brief (audience, positioning, "anti-references") — written for AI design tooling context, not a site page
