@@ -40,6 +40,25 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- OpenAI Ads Pixel -->
+<script>
+try {
+(function (w, d, s, u) {
+  if (w.oaiq) return;
+  var q = function () { q.q.push(arguments); };
+  q.q = []; w.oaiq = q;
+  var js = d.createElement(s); js.async = true; js.src = u;
+  var f = d.getElementsByTagName(s)[0]; f.parentNode.insertBefore(js, f);
+})(window, document, 'script', 'https://bzrcdn.openai.com/sdk/oaiq.min.js');
+// Pixel ID is public by design - it ships in the browser on every pageview.
+// debug stays off in production so visitors never see our pixel activity.
+oaiq('init', {
+  pixelId: 'Du48SKjqiDVR9pxHKrMFXb',
+  debug: /^(localhost|127\.0\.0\.1|\[::1\])?$/.test(location.hostname)
+});
+} catch (e) { console.error('[CCB] OpenAI pixel init failed:', e); }
+</script>
+<!-- End OpenAI Ads Pixel -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -289,6 +308,7 @@ textarea.lp-field{resize:vertical}
           <input type="hidden" name="fbclid" id="fbclid">
           <input type="hidden" name="gbraid" id="gbraid">
           <input type="hidden" name="wbraid" id="wbraid">
+          <input type="hidden" name="oppref" id="oppref">
           <input type="hidden" name="landing_page" id="landing_page">
 
           <label class="lp-consent" for="sms_consent">
@@ -436,7 +456,7 @@ textarea.lp-field{resize:vertical}
 <script>
 (function () {
   try {
-    var params = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','gbraid','wbraid'];
+    var params = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid','gbraid','wbraid','oppref'];
     var qs = new URLSearchParams(window.location.search);
     var bundle = {};
     var hasParams = false;
@@ -451,6 +471,12 @@ textarea.lp-field{resize:vertical}
         var parts = cookieMatch[1].split('.');
         if (parts.length >= 3) { bundle.gclid = parts.slice(2).join('.'); hasParams = true; }
       }
+    }
+    // __oppref cookie fallback: OpenAI appends this click ID to every ad
+    // landing URL and its SDK mirrors it into a first-party cookie (~30d).
+    if (!bundle.oppref) {
+      var opprefMatch = document.cookie.match(/(?:^|;\s*)__oppref=([^;]+)/);
+      if (opprefMatch) { bundle.oppref = decodeURIComponent(opprefMatch[1]); hasParams = true; }
     }
     // Fall back to attribution already captured on another CCB page this visit
     try {
@@ -494,7 +520,16 @@ function ccbShowError(msg) {
   }
 }
 
-function ccbFireConversionTracking(phone, email) {
+function ccbNewEventId() {
+  // Shared between the browser pixel and the server-side Conversions API so
+  // OpenAI dedupes the two into one conversion instead of counting both.
+  try {
+    if (window.crypto && window.crypto.randomUUID) { return window.crypto.randomUUID(); }
+  } catch (e) {}
+  return 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+}
+
+function ccbFireConversionTracking(phone, email, openaiEventId) {
   // Meta Lead. Isolated: a tracking failure must never block lead capture.
   try {
     var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
@@ -523,6 +558,15 @@ function ccbFireConversionTracking(phone, email) {
       console.warn('[CCB] gtag unavailable, Google Ads conversion not sent.');
     }
   } catch (err) { console.error('[CCB] Google Ads conversion failed:', err); }
+
+  // OpenAI Ads lead_created. Also isolated.
+  try {
+    if (typeof window.oaiq === 'function') {
+      window.oaiq('measure', 'lead_created', { type: 'customer_action' }, openaiEventId ? { event_id: openaiEventId } : {});
+    } else {
+      console.warn('[CCB] oaiq unavailable, OpenAI lead_created not sent.');
+    }
+  } catch (err) { console.error('[CCB] OpenAI lead_created failed:', err); }
 }
 
 function ccbShowSuccess() {
@@ -589,7 +633,9 @@ document.getElementById('quoteForm').addEventListener('submit', function (e) {
     fbclid: val('fbclid'),
     gbraid: val('gbraid'),
     wbraid: val('wbraid'),
-    landing_page: val('landing_page') || window.location.href
+    landing_page: val('landing_page') || window.location.href,
+    oppref: val('oppref'),
+    openai_event_id: ccbNewEventId()
   };
 
   fetch('https://pressure-wash-crm.vercel.app/api/leads/web', {
@@ -602,7 +648,7 @@ document.getElementById('quoteForm').addEventListener('submit', function (e) {
   }).then(function (data) {
     if (data && data.success === false) { throw new Error(data.error || 'Submission failed'); }
     ccbShowSuccess();
-    ccbFireConversionTracking(payload.phone, payload.email);
+    ccbFireConversionTracking(payload.phone, payload.email, payload.openai_event_id);
   }).catch(function (err) {
     console.error('[CCB] Lead submit failed:', err);
     ccbShowError('Something went wrong sending your request. Please try again, or call 704-860-9138.');

@@ -212,15 +212,35 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- OpenAI Ads Pixel -->
+<script>
+try {
+(function (w, d, s, u) {
+  if (w.oaiq) return;
+  var q = function () { q.q.push(arguments); };
+  q.q = []; w.oaiq = q;
+  var js = d.createElement(s); js.async = true; js.src = u;
+  var f = d.getElementsByTagName(s)[0]; f.parentNode.insertBefore(js, f);
+})(window, document, 'script', 'https://bzrcdn.openai.com/sdk/oaiq.min.js');
+// Pixel ID is public by design - it ships in the browser on every pageview.
+// debug stays off in production so visitors never see our pixel activity.
+oaiq('init', {
+  pixelId: 'Du48SKjqiDVR9pxHKrMFXb',
+  debug: /^(localhost|127\.0\.0\.1|\[::1\])?$/.test(location.hostname)
+});
+} catch (e) { console.error('[CCB] OpenAI pixel init failed:', e); }
+</script>
+<!-- End OpenAI Ads Pixel -->
 <script>
 (function() {
-    var params = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+    var params = ['gclid','gbraid','wbraid','fbclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content','oppref'];
     var existing = localStorage.getItem('ccb_attribution');
     var qs = new URLSearchParams(window.location.search);
     var hasParams = false;
     for (var i = 0; i < params.length; i++) {
         if (qs.get(params[i])) { hasParams = true; break; }
     }
+    var urlHasParams = hasParams;
     if (true) {
         var bundle = { landing_page: window.location.href, referrer: document.referrer };
         for (var j = 0; j < params.length; j++) {
@@ -238,6 +258,28 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                     hasParams = true;
                 }
             }
+        }
+        // __oppref cookie fallback: OpenAI appends this click ID to every ad
+        // landing URL and its SDK mirrors it into a first-party cookie (~30d).
+        if (!bundle.oppref) {
+            var opprefMatch = document.cookie.match(/(?:^|;\s*)__oppref=([^;]+)/);
+            if (opprefMatch) {
+                bundle.oppref = decodeURIComponent(opprefMatch[1]);
+                hasParams = true;
+            }
+        }
+        // No ad params on this URL means this is a later pageview in the same
+        // visit, not a new click. Keep what the original click recorded rather
+        // than overwriting it with a cookie-only bundle that lost every utm_*.
+        if (!urlHasParams) {
+            try {
+                var prior = JSON.parse(localStorage.getItem('ccb_attribution') || '{}');
+                if (prior && prior.captured_at && (Date.now() - prior.captured_at) < 2592000000) {
+                    for (var m2 = 0; m2 < params.length; m2++) {
+                        if (!bundle[params[m2]] && prior[params[m2]]) { bundle[params[m2]] = prior[params[m2]]; }
+                    }
+                }
+            } catch (e3) {}
         }
         if (hasParams) {
             bundle.captured_at = Date.now(); localStorage.setItem('ccb_attribution', JSON.stringify(bundle));
@@ -405,7 +447,16 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         function prevStep(step) { document.querySelector('.form-section[data-section="' + currentFormStep + '"]').classList.remove('active'); document.querySelector('.form-section[data-section="' + step + '"]').classList.add('active'); document.querySelector('.form-progress-step[data-step="' + currentFormStep + '"]').classList.remove('active'); document.querySelector('.form-progress-step[data-step="' + step + '"]').classList.remove('completed'); document.querySelector('.form-progress-step[data-step="' + step + '"]').classList.add('active'); document.querySelectorAll('.form-progress-connector')[step - 1].classList.remove('active'); currentFormStep = step; }
     </script>
     <script>
-function ccbFireTracking(phone, email) {
+function ccbNewEventId() {
+    // Shared between the browser pixel and the server-side Conversions API so
+    // OpenAI dedupes the two into one conversion instead of counting both.
+    try {
+        if (window.crypto && window.crypto.randomUUID) { return window.crypto.randomUUID(); }
+    } catch (e) {}
+    return 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+}
+
+function ccbFireTracking(phone, email, openaiEventId) {
     // Meta Lead. Isolated: a tracking failure must NEVER block lead capture.
     try {
         var raw = ((email || '').trim().toLowerCase()) || ((phone || '').replace(/\D/g, '')) || '';
@@ -432,6 +483,15 @@ function ccbFireTracking(phone, email) {
             console.warn('[CCB] gtag unavailable - Google Ads conversion NOT sent.');
         }
     } catch (err) { console.error('[CCB] Google Ads conversion failed:', err); }
+
+    // OpenAI Ads lead_created. Also isolated.
+    try {
+        if (typeof window.oaiq === 'function') {
+            window.oaiq('measure', 'lead_created', { type: 'customer_action' }, openaiEventId ? { event_id: openaiEventId } : {});
+        } else {
+            console.warn('[CCB] oaiq unavailable - OpenAI lead_created NOT sent.');
+        }
+    } catch (err) { console.error('[CCB] OpenAI lead_created failed:', err); }
 }
 
 function ccbSendLead(data, form, btn, originalBtnLabel) {
@@ -445,7 +505,7 @@ function ccbSendLead(data, form, btn, originalBtnLabel) {
     }).then(function(d) {
         if (d && d.success === false) { throw new Error(d.error || 'Submission failed'); }
         ccbShowSuccess(form, btn);
-        ccbFireTracking(data.phone, data.email);
+        ccbFireTracking(data.phone, data.email, data.openai_event_id);
     }).catch(function(err) {
         console.error('[CCB] Lead submit failed:', err);
         ccbShowError(form, btn, originalBtnLabel);
@@ -521,6 +581,7 @@ function submitForm(e) {
     var propertyType = form.querySelector('input[name="property_type"]:checked');
     var smsConsentEl = form.querySelector('#sms_consent');
 
+    var ccbAttr = ccbGetAttribution();
     var data = {
         property_type: propertyType ? propertyType.value : '',
         first_name: form.querySelector('#first_name').value,
@@ -536,7 +597,9 @@ function submitForm(e) {
         sms_consent: smsConsentEl ? smsConsentEl.checked : false,
         consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
         form_source: 'service_page',
-        attribution: ccbGetAttribution(),
+        attribution: ccbAttr,
+        oppref: ccbAttr.oppref || '',
+        openai_event_id: ccbNewEventId(),
         company_website: hp ? hp.value : ''
     };
 

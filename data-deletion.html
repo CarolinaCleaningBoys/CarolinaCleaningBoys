@@ -184,6 +184,25 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+<!-- OpenAI Ads Pixel -->
+<script>
+try {
+(function (w, d, s, u) {
+  if (w.oaiq) return;
+  var q = function () { q.q.push(arguments); };
+  q.q = []; w.oaiq = q;
+  var js = d.createElement(s); js.async = true; js.src = u;
+  var f = d.getElementsByTagName(s)[0]; f.parentNode.insertBefore(js, f);
+})(window, document, 'script', 'https://bzrcdn.openai.com/sdk/oaiq.min.js');
+// Pixel ID is public by design - it ships in the browser on every pageview.
+// debug stays off in production so visitors never see our pixel activity.
+oaiq('init', {
+  pixelId: 'Du48SKjqiDVR9pxHKrMFXb',
+  debug: /^(localhost|127\.0\.0\.1|\[::1\])?$/.test(location.hostname)
+});
+} catch (e) { console.error('[CCB] OpenAI pixel init failed:', e); }
+</script>
+<!-- End OpenAI Ads Pixel -->
 </head>
 <body>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
