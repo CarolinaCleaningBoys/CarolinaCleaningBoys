@@ -1,0 +1,2 @@
+# Calendar files must keep their exact CRLF bytes (RFC 5545) — never let git rewrite line endings.
+*.ics -text
