@@ -49,6 +49,12 @@
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
+    <url>
+        <loc>https://carolinacleaningboys.com/services/window-cleaning.html</loc>
+        <lastmod>2026-09-20</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
     
     <!-- City-Specific Landing Pages -->
     <url>

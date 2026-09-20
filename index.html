@@ -287,6 +287,19 @@ function prevFormStep(targetStep) {
                 width: auto !important;
             }
         }
+    
+        /* Window-detail intake panel (optional, shown when "Windows" is checked) */
+        .ccb-win-details{border:2px dashed var(--primary-light);border-radius:10px;padding:0.75rem 1rem;background:var(--off-white);margin-bottom:var(--space-md)}
+        .ccb-win-details summary{cursor:pointer;font-weight:700;color:var(--primary);font-size:0.9rem;list-style:none}
+        .ccb-win-details summary::-webkit-details-marker{display:none}
+        .ccb-win-details summary::before{content:'+ ';color:var(--accent-pressure)}
+        .ccb-win-details[open] summary::before{content:'- '}
+        .ccb-win-fields{display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem}
+        .ccb-win-row3{display:grid;grid-template-columns:1fr;gap:0.75rem}
+        @media (min-width:560px){.ccb-win-row3{grid-template-columns:repeat(3,1fr)}}
+        .ccb-win-count{display:none;align-items:center;gap:0.4rem;margin:0.4rem 0 0 1.5rem;font-size:0.85rem;color:var(--primary)}
+        .ccb-win-count.show{display:flex}
+        .ccb-win-count input{width:56px;flex:none;padding:0.4rem 0.5rem;text-align:center}
     </style>
     <script type="application/ld+json">
     {
@@ -413,7 +426,7 @@ oaiq('init', {
     <nav class="sidebar" id="sidebar">
         <button class="sidebar-close" onclick="closeSidebar()" aria-label="Close menu">&times;</button>
         <div class="sidebar-content">
-            <a href="index.html" class="sidebar-link active">Home</a>
+            <a href="index.html" class="sidebar-link active">Home</a><a href="our-story.html" class="sidebar-link">Our Story</a>
             
             <div class="sidebar-divider"></div>
             <span class="sidebar-label">Our Services</span>
@@ -421,7 +434,7 @@ oaiq('init', {
             <a href="services/soft-washing.html" class="sidebar-link">Soft-Washing</a>
             <a href="services/surface-cleaning.html" class="sidebar-link">Surface Cleaning</a>
             <a href="services/roof-cleaning.html" class="sidebar-link">Roof Cleaning</a>
-            <a href="services/gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a>
+            <a href="services/gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a><a href="services/window-cleaning.html" class="sidebar-link">Window Cleaning</a>
             <div class="sidebar-divider"></div>
             <a href="#hero-quote-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a>
             <a href="tel:919-717-4653" class="sidebar-link">919-717-4653</a>
@@ -576,7 +589,7 @@ oaiq('init', {
                                         <label class="checkbox-label"><input type="checkbox" name="services" value="Windows"><span class="checkbox-custom"></span>Windows</label>
                                         <label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label>
                                     </div>
-                                </div>
+                                </div><div class="form-group" id="windowDetailsPanel" style="display:none"><details class="ccb-win-details"><summary>Help us quote faster (optional)</summary><div class="ccb-win-fields"><div class="form-group"><label class="form-label" for="win_count">Roughly how many windows?</label><input type="number" min="0" inputmode="numeric" id="win_count" class="form-input" placeholder="e.g. 18"></div><div class="form-group"><span class="form-label">Inside, outside, or both?</span><div class="radio-group"><label class="radio-label"><input type="radio" name="win_inout" value="outside"><span class="radio-custom"></span>Outside only</label><label class="radio-label"><input type="radio" name="win_inout" value="both"><span class="radio-custom"></span>Inside + outside</label><label class="radio-label"><input type="radio" name="win_inout" value="unsure"><span class="radio-custom"></span>Not sure</label></div></div><div class="ccb-win-row3"><div class="form-group"><label class="form-label" for="win_storm">Storm panes?</label><input type="number" min="0" inputmode="numeric" id="win_storm" class="form-input" placeholder="0"></div><div class="form-group"><label class="form-label" for="win_sliding">Sliding doors?</label><input type="number" min="0" inputmode="numeric" id="win_sliding" class="form-input" placeholder="0"></div><div class="form-group"><label class="form-label" for="win_skylights">Skylights?</label><input type="number" min="0" inputmode="numeric" id="win_skylights" class="form-input" placeholder="0"></div></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_screens"><span class="checkbox-custom"></span>Clean the screens</label><span class="ccb-win-count" id="win_screens_wrap"><input type="number" min="0" inputmode="numeric" id="win_screens_count" class="form-input" placeholder="#">screens</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_deep_track"><span class="checkbox-custom"></span>Deep track &amp; sill detail</label><span class="ccb-win-count" id="win_deep_track_wrap"><input type="number" min="0" inputmode="numeric" id="win_deep_track_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_hard_water"><span class="checkbox-custom"></span>Hard water spots</label><span class="ccb-win-count" id="win_hard_water_wrap"><input type="number" min="0" inputmode="numeric" id="win_hard_water_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_overspray"><span class="checkbox-custom"></span>Paint / construction overspray</label><span class="ccb-win-count" id="win_overspray_wrap"><input type="number" min="0" inputmode="numeric" id="win_overspray_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_hard_reach"><span class="checkbox-custom"></span>Hard-to-reach / upper-story windows</label><span class="ccb-win-count" id="win_hard_reach_wrap"><input type="number" min="0" inputmode="numeric" id="win_hard_reach_count" class="form-input" placeholder="#">windows</span></div></div></details></div>
                                 <div id="formStep2Error" class="hero-form-error" aria-live="polite"></div>
                                 <div class="form-nav-buttons">
                                     <button type="button" class="btn btn-secondary" onclick="prevFormStep(1)">&#8592; Back</button>
@@ -633,7 +646,7 @@ oaiq('init', {
                     <article class="feature-card animate-on-scroll">
                         <div class="feature-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
                         <h3>5-Star Reviews</h3>
-                        <p>143 five-star reviews and counting, from real customers across Eastern NC.</p>
+                        <p>200+ five-star reviews and counting, from real customers across Eastern NC.</p>
                     </article>
                     <article class="feature-card animate-on-scroll">
                         <div class="feature-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15l-4-4 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 7z"/></svg></div>
@@ -651,7 +664,7 @@ oaiq('init', {
                         <p>Owned and run by East Carolina University students, working to pay for school and build something real for our hometown.</p>
                     </article>
                 </div>
-                <p class="why-choose-blurb animate-on-scroll">143 five-star reviews didn't happen by accident — we show up, do the work right, and stand behind it. We're licensed and insured, so you're covered no matter what. We're also ECU students building something real in Greenville, not some faceless national chain. Support local, and get the job done right the first time.</p>
+                <p class="why-choose-blurb animate-on-scroll">200+ five-star reviews didn't happen by accident — we show up, do the work right, and stand behind it. We're licensed and insured, so you're covered no matter what. We're also ECU students building something real in Greenville, not some faceless national chain. Support local, and get the job done right the first time.</p>
             </div>
         </section>
 
@@ -713,6 +726,16 @@ oaiq('init', {
                         <div class="service-card-content">
                             <h3>Gutter Cleaning</h3>
                             <p>Complete gutter and downspout cleaning to prevent water damage and protect your home's foundation.</p>
+                        </div>
+                    </a>
+                    <a href="services/window-cleaning.html" class="service-card animate-on-scroll">
+                        <div class="service-card-image">
+                            <img src="images/work/window-cleaning/window-cleaning-slider-after.webp" width="1050" height="1400" alt="Window cleaning" loading="lazy">
+                            <div class="service-card-overlay"><span class="view-gallery-text">Learn More →</span></div>
+                        </div>
+                        <div class="service-card-content">
+                            <h3>Window Cleaning</h3>
+                            <p>Pure-water window cleaning that dries spot-free and streak-free. Frames, tracks, and sills included.</p>
                         </div>
                     </a>
                 </div>
@@ -855,7 +878,7 @@ oaiq('init', {
                         <li><a href="services/soft-washing.html" class="footer-link">Soft-Washing</a></li>
                         <li><a href="services/surface-cleaning.html" class="footer-link">Surface Cleaning</a></li>
                         <li><a href="services/roof-cleaning.html" class="footer-link">Roof Cleaning</a></li>
-                        <li><a href="services/gutter-cleaning.html" class="footer-link">Gutter Cleaning</a></li>
+                        <li><a href="services/gutter-cleaning.html" class="footer-link">Gutter Cleaning</a></li><li><a href="services/window-cleaning.html" class="footer-link">Window Cleaning</a></li>
                     </ul>
                 </div>
             </div>
@@ -925,6 +948,112 @@ oaiq('init', {
         });
     </script>
     <script>
+function ccbRadioVal(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+}
+
+function ccbCountLine(checkboxId, countId, label, unit, suffix) {
+    var cb = document.getElementById(checkboxId);
+    if (!cb || !cb.checked) return '';
+    var countEl = document.getElementById(countId);
+    var count = countEl ? (countEl.value || '').trim() : '';
+    var unitPart = unit ? (' ' + unit) : '';
+    var suffixPart = suffix || '';
+    if (count) return label + ': ' + count + unitPart + suffixPart;
+    return label + ': yes' + suffixPart;
+}
+
+function ccbComposeWindowDetails() {
+    var lines = [];
+
+    var winCountEl = document.getElementById('win_count');
+    var windowsCount = winCountEl ? (winCountEl.value || '').trim() : '';
+    var inout = ccbRadioVal('win_inout');
+    var inoutLabel = { outside: 'outside only', both: 'inside + outside', unsure: 'not sure' }[inout] || '';
+    if (windowsCount && inoutLabel) {
+        lines.push('Windows: ' + windowsCount + ' (' + inoutLabel + ')');
+    } else if (windowsCount) {
+        lines.push('Windows: ' + windowsCount);
+    } else if (inoutLabel) {
+        lines.push('Windows: ' + inoutLabel);
+    }
+
+    var screens = ccbCountLine('win_screens', 'win_screens_count', 'Screens', '', ' - clean them');
+    if (screens) lines.push(screens);
+
+    var stormEl = document.getElementById('win_storm');
+    var storm = stormEl ? (stormEl.value || '').trim() : '';
+    if (storm) lines.push('Storm panes: ' + storm);
+
+    var slidingEl = document.getElementById('win_sliding');
+    var sliding = slidingEl ? (slidingEl.value || '').trim() : '';
+    if (sliding) lines.push('Sliding doors: ' + sliding);
+
+    var skylightsEl = document.getElementById('win_skylights');
+    var skylights = skylightsEl ? (skylightsEl.value || '').trim() : '';
+    if (skylights) lines.push('Skylights: ' + skylights);
+
+    var deepTrack = ccbCountLine('win_deep_track', 'win_deep_track_count', 'Deep track & sill detail', 'windows');
+    if (deepTrack) lines.push(deepTrack);
+
+    var hardWater = ccbCountLine('win_hard_water', 'win_hard_water_count', 'Hard water spots', 'windows');
+    if (hardWater) lines.push(hardWater);
+
+    var overspray = ccbCountLine('win_overspray', 'win_overspray_count', 'Paint / overspray', 'windows');
+    if (overspray) lines.push(overspray);
+
+    var hardReach = ccbCountLine('win_hard_reach', 'win_hard_reach_count', 'Hard to reach', 'windows');
+    if (hardReach) lines.push(hardReach);
+
+    return lines.length ? ('WINDOW CLEANING DETAILS\n' + lines.join('\n')) : '';
+}
+
+function ccbCapMessage(str) {
+    if (str.length <= 2000) return str;
+    var truncated = str.slice(0, 2000);
+    var lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > 0) truncated = truncated.slice(0, lastSpace);
+    return truncated;
+}
+
+function ccbComposeAdditionalInfo(typedValue) {
+    var detailBlock = ccbComposeWindowDetails();
+    var typed = (typedValue || '').trim();
+    var combined = detailBlock
+        ? (typed ? detailBlock + '\n\n' + typed : detailBlock)
+        : typed;
+    return ccbCapMessage(combined);
+}
+
+(function () {
+    var windowCheckbox = document.querySelector('input[name="services"][value="Windows"]');
+    var panel = document.getElementById('windowDetailsPanel');
+    function ccbSyncWindowPanel() {
+        if (windowCheckbox && panel) {
+            panel.style.display = windowCheckbox.checked ? 'block' : 'none';
+        }
+    }
+    if (windowCheckbox) { windowCheckbox.addEventListener('change', ccbSyncWindowPanel); }
+    ccbSyncWindowPanel();
+})();
+
+(function () {
+    function wireCount(checkboxId, wrapId) {
+        var cb = document.getElementById(checkboxId);
+        var wrap = document.getElementById(wrapId);
+        if (!cb || !wrap) return;
+        function sync() { wrap.classList.toggle('show', cb.checked); }
+        cb.addEventListener('change', sync);
+        sync();
+    }
+    wireCount('win_screens', 'win_screens_wrap');
+    wireCount('win_deep_track', 'win_deep_track_wrap');
+    wireCount('win_hard_water', 'win_hard_water_wrap');
+    wireCount('win_overspray', 'win_overspray_wrap');
+    wireCount('win_hard_reach', 'win_hard_reach_wrap');
+})();
+
 function ccbNewEventId() {
     // Shared between the browser pixel and the server-side Conversions API so
     // OpenAI dedupes the two into one conversion instead of counting both.
@@ -1070,7 +1199,7 @@ function submitForm(e) {
         state: form.querySelector('#state').value,
         services: services.join(', '),
         referral_source: form.querySelector('#referral_source').value,
-        additional_info: form.querySelector('#additional_info').value,
+        additional_info: ccbComposeAdditionalInfo(form.querySelector('#additional_info').value),
         sms_consent: form.querySelector('#sms_consent') ? form.querySelector('#sms_consent').checked : false,
         consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
         form_source: 'full_form',

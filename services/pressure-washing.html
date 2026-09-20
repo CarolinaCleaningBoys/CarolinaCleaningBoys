@@ -171,6 +171,19 @@
         .faq-item.active .faq-answer { max-height: 500px; padding: 0 25px 20px; }
         .faq-answer p { color: #555; line-height: 1.7; margin: 0; }
         @media (max-width: 768px) { .faq-question { font-size: 1rem; padding: 15px 20px; } .faq-item.active .faq-answer { padding: 0 20px 15px; } }
+    
+        /* Window-detail intake panel (optional, shown when "Windows" is checked) */
+        .ccb-win-details{border:2px dashed var(--primary-light);border-radius:10px;padding:0.75rem 1rem;background:var(--off-white);margin-bottom:var(--space-md)}
+        .ccb-win-details summary{cursor:pointer;font-weight:700;color:var(--primary);font-size:0.9rem;list-style:none}
+        .ccb-win-details summary::-webkit-details-marker{display:none}
+        .ccb-win-details summary::before{content:'+ ';color:var(--accent-pressure)}
+        .ccb-win-details[open] summary::before{content:'- '}
+        .ccb-win-fields{display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem}
+        .ccb-win-row3{display:grid;grid-template-columns:1fr;gap:0.75rem}
+        @media (min-width:560px){.ccb-win-row3{grid-template-columns:repeat(3,1fr)}}
+        .ccb-win-count{display:none;align-items:center;gap:0.4rem;margin:0.4rem 0 0 1.5rem;font-size:0.85rem;color:var(--primary)}
+        .ccb-win-count.show{display:flex}
+        .ccb-win-count input{width:56px;flex:none;padding:0.4rem 0.5rem;text-align:center}
     </style>
     <script type="application/ld+json">
     {
@@ -299,7 +312,7 @@ oaiq('init', {
     
     <div class="water-bg" aria-hidden="true"><div class="bubble bubble-1"></div><div class="bubble bubble-2"></div><div class="bubble bubble-3"></div><div class="soap-sud sud-1"></div><div class="soap-sud sud-2"></div></div>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-    <nav class="sidebar" id="sidebar"><button class="sidebar-close" onclick="closeSidebar()">&times;</button><div class="sidebar-content"><a href="../index.html" class="sidebar-link">Home</a><div class="sidebar-divider"></div><span class="sidebar-label">Our Services</span><a href="pressure-washing.html" class="sidebar-link active">Pressure Washing</a><a href="soft-washing.html" class="sidebar-link">Soft-Washing</a><a href="surface-cleaning.html" class="sidebar-link">Surface Cleaning</a><a href="roof-cleaning.html" class="sidebar-link">Roof Cleaning</a><a href="gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a><div class="sidebar-divider"></div><a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a><a href="tel:919-717-4653" class="sidebar-link">919-717-4653</a></div></nav>
+    <nav class="sidebar" id="sidebar"><button class="sidebar-close" onclick="closeSidebar()">&times;</button><div class="sidebar-content"><a href="../index.html" class="sidebar-link">Home</a><a href="../our-story.html" class="sidebar-link">Our Story</a><div class="sidebar-divider"></div><span class="sidebar-label">Our Services</span><a href="pressure-washing.html" class="sidebar-link active">Pressure Washing</a><a href="soft-washing.html" class="sidebar-link">Soft-Washing</a><a href="surface-cleaning.html" class="sidebar-link">Surface Cleaning</a><a href="roof-cleaning.html" class="sidebar-link">Roof Cleaning</a><a href="gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a><a href="window-cleaning.html" class="sidebar-link">Window Cleaning</a><div class="sidebar-divider"></div><a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a><a href="tel:919-717-4653" class="sidebar-link">919-717-4653</a></div></nav>
     <header class="header"><nav class="nav container"><button class="hamburger" onclick="toggleSidebar()" aria-label="Open menu"><span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span></button><a href="../index.html" class="logo"><img src="../images/logo-guys.png" alt="Carolina Cleaning Boys cleaning crew logo" class="logo-img" width="116" height="105"><span class="logo-name">Carolina Cleaning Boys</span></a><div class="nav-contact"><a href="mailto:carolinacleaningboys@gmail.com" class="nav-email"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2"/><path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2"/></svg></a><a href="#estimate-form" class="nav-cta nav-cta-upgraded"><span class="cta-text">FREE Quote<span class="cta-subtext"> - 24hr Response!</span></span></a></div></nav></header>
     <main id="main-content">
         <section class="service-hero parallax-hero hero-animated hero-split">
@@ -354,7 +367,7 @@ oaiq('init', {
                 
                 <!-- Step 3: Services -->
                 <div class="form-section" data-section="3">
-                    <div class="form-group"><label class="form-label">Type of Service <span class="required">*</span></label><p class="form-help">Select all that apply</p><div class="checkbox-grid"><label class="checkbox-label"><input type="checkbox" name="services" value="House"><span class="checkbox-custom"></span>House</label><label class="checkbox-label"><input type="checkbox" name="services" value="Driveway" checked><span class="checkbox-custom"></span>Driveway</label><label class="checkbox-label"><input type="checkbox" name="services" value="Deck"><span class="checkbox-custom"></span>Deck</label><label class="checkbox-label"><input type="checkbox" name="services" value="Fence"><span class="checkbox-custom"></span>Fence</label><label class="checkbox-label"><input type="checkbox" name="services" value="Patio"><span class="checkbox-custom"></span>Patio</label><label class="checkbox-label"><input type="checkbox" name="services" value="Sidewalk"><span class="checkbox-custom"></span>Sidewalk</label><label class="checkbox-label"><input type="checkbox" name="services" value="Gutters"><span class="checkbox-custom"></span>Gutters</label><label class="checkbox-label"><input type="checkbox" name="services" value="Roof"><span class="checkbox-custom"></span>Roof</label><label class="checkbox-label"><input type="checkbox" name="services" value="Windows"><span class="checkbox-custom"></span>Windows</label><label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label></div></div>
+                    <div class="form-group"><label class="form-label">Type of Service <span class="required">*</span></label><p class="form-help">Select all that apply</p><div class="checkbox-grid"><label class="checkbox-label"><input type="checkbox" name="services" value="House"><span class="checkbox-custom"></span>House</label><label class="checkbox-label"><input type="checkbox" name="services" value="Driveway" checked><span class="checkbox-custom"></span>Driveway</label><label class="checkbox-label"><input type="checkbox" name="services" value="Deck"><span class="checkbox-custom"></span>Deck</label><label class="checkbox-label"><input type="checkbox" name="services" value="Fence"><span class="checkbox-custom"></span>Fence</label><label class="checkbox-label"><input type="checkbox" name="services" value="Patio"><span class="checkbox-custom"></span>Patio</label><label class="checkbox-label"><input type="checkbox" name="services" value="Sidewalk"><span class="checkbox-custom"></span>Sidewalk</label><label class="checkbox-label"><input type="checkbox" name="services" value="Gutters"><span class="checkbox-custom"></span>Gutters</label><label class="checkbox-label"><input type="checkbox" name="services" value="Roof"><span class="checkbox-custom"></span>Roof</label><label class="checkbox-label"><input type="checkbox" name="services" value="Windows"><span class="checkbox-custom"></span>Windows</label><label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label></div></div><div class="form-group" id="windowDetailsPanel" style="display:none"><details class="ccb-win-details"><summary>Help us quote faster (optional)</summary><div class="ccb-win-fields"><div class="form-group"><label class="form-label" for="win_count">Roughly how many windows?</label><input type="number" min="0" inputmode="numeric" id="win_count" class="form-input" placeholder="e.g. 18"></div><div class="form-group"><span class="form-label">Inside, outside, or both?</span><div class="radio-group"><label class="radio-label"><input type="radio" name="win_inout" value="outside"><span class="radio-custom"></span>Outside only</label><label class="radio-label"><input type="radio" name="win_inout" value="both"><span class="radio-custom"></span>Inside + outside</label><label class="radio-label"><input type="radio" name="win_inout" value="unsure"><span class="radio-custom"></span>Not sure</label></div></div><div class="ccb-win-row3"><div class="form-group"><label class="form-label" for="win_storm">Storm panes?</label><input type="number" min="0" inputmode="numeric" id="win_storm" class="form-input" placeholder="0"></div><div class="form-group"><label class="form-label" for="win_sliding">Sliding doors?</label><input type="number" min="0" inputmode="numeric" id="win_sliding" class="form-input" placeholder="0"></div><div class="form-group"><label class="form-label" for="win_skylights">Skylights?</label><input type="number" min="0" inputmode="numeric" id="win_skylights" class="form-input" placeholder="0"></div></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_screens"><span class="checkbox-custom"></span>Clean the screens</label><span class="ccb-win-count" id="win_screens_wrap"><input type="number" min="0" inputmode="numeric" id="win_screens_count" class="form-input" placeholder="#">screens</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_deep_track"><span class="checkbox-custom"></span>Deep track &amp; sill detail</label><span class="ccb-win-count" id="win_deep_track_wrap"><input type="number" min="0" inputmode="numeric" id="win_deep_track_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_hard_water"><span class="checkbox-custom"></span>Hard water spots</label><span class="ccb-win-count" id="win_hard_water_wrap"><input type="number" min="0" inputmode="numeric" id="win_hard_water_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_overspray"><span class="checkbox-custom"></span>Paint / construction overspray</label><span class="ccb-win-count" id="win_overspray_wrap"><input type="number" min="0" inputmode="numeric" id="win_overspray_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_hard_reach"><span class="checkbox-custom"></span>Hard-to-reach / upper-story windows</label><span class="ccb-win-count" id="win_hard_reach_wrap"><input type="number" min="0" inputmode="numeric" id="win_hard_reach_count" class="form-input" placeholder="#">windows</span></div></div></details></div>
                     <div class="form-group"><label for="referral_source" class="form-label">How did you hear about us?</label><select id="referral_source" name="referral_source" class="form-select"><option value="">Select an option...</option><option value="Google Search">Google Search</option><option value="ChatGPT">ChatGPT / AI Assistant</option><option value="Facebook">Facebook</option><option value="Instagram">Instagram</option><option value="Referral from Friend/Family">Referral from Friend/Family</option><option value="Yard Sign">Yard Sign</option><option value="Door to Door">Door to Door</option><option value="Nextdoor">Nextdoor</option><option value="ECU Campus">ECU Campus</option><option value="Other">Other</option></select></div>
                     <div class="form-group"><label for="additional_info" class="form-label">Questions or Additional Information</label><textarea id="additional_info" name="additional_info" rows="3" class="form-textarea" placeholder="Tell us more about your project..."></textarea></div>
                     <div class="form-group">
@@ -403,12 +416,12 @@ oaiq('init', {
 <div class="faq-item animate-on-scroll"><button class="faq-question" onclick="toggleFaq(this)"><span>Do you offer free pressure washing estimates?</span><svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Yes! We offer 100% free estimates with no obligation. Simply fill out our quote form or call us at 919-717-4653 and we'll respond within 24 hours with a detailed quote.</p></div></div>
 </div></div></section>
 
-        <section class="service-benefits-section"><div class="container"><h2 class="section-title animate-on-scroll">Why Choose Us?</h2><div class="benefits-grid"><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>5-Star Reviews</h3><p>143 five-star reviews from homeowners who've watched years of grime blast off their driveways and walkways.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4.99L19 9.28V11c0 4.52-3.02 8.76-7 9.93C8.02 19.76 5 15.52 5 11V9.28L12 5.99z"/></svg></div><h3>Licensed &amp; Insured</h3><p>Fully licensed and insured, so your property is covered from the first pass to the final rinse.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><h3>Satisfaction Guaranteed</h3><p>We don't take a dime until that concrete looks the way you hoped it would.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div><h3>Student-Owned &amp; Local</h3><p>Started by ECU students right here in Eastern NC. You're backing a local crew, not a national chain.</p></article></div></div></section>
+        <section class="service-benefits-section"><div class="container"><h2 class="section-title animate-on-scroll">Why Choose Us?</h2><div class="benefits-grid"><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div><h3>5-Star Reviews</h3><p>200+ five-star reviews from homeowners who've watched years of grime blast off their driveways and walkways.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4.99L19 9.28V11c0 4.52-3.02 8.76-7 9.93C8.02 19.76 5 15.52 5 11V9.28L12 5.99z"/></svg></div><h3>Licensed &amp; Insured</h3><p>Fully licensed and insured, so your property is covered from the first pass to the final rinse.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div><h3>Satisfaction Guaranteed</h3><p>We don't take a dime until that concrete looks the way you hoped it would.</p></article><article class="benefit-card animate-on-scroll"><div class="benefit-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div><h3>Student-Owned &amp; Local</h3><p>Started by ECU students right here in Eastern NC. You're backing a local crew, not a national chain.</p></article></div></div></section>
         
         
         
     </main>
-    <footer class="footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="../index.html" class="footer-logo"><img src="../images/logo-256-white.png" alt="Carolina Cleaning Boys - Pressure Washing Services Greenville NC" class="footer-logo-img" width="256" height="256" style="height:100px!important;width:100px!important;max-width:none!important;object-fit:contain!important;display:block!important;"></a><p class="footer-desc">Professional pressure washing, soft-washing, and exterior cleaning services. Proudly student-owned and operated by ECU students. "Turning Dirt into Degrees"</p><div class="footer-social"><a href="https://www.facebook.com/profile.php?id=61558735994193" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.79-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796v8.437C19.612 23.091 24 18.099 24 12.073z"/></svg></a></div></div><div class="footer-contact"><h3>Contact Us</h3><address><p><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Greenville, North Carolina</p><p><a href="tel:919-717-4653" class="footer-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>919-717-4653</a></p><p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>carolinacleaningboys@gmail.com</a></p></address></div><div class="footer-services"><h3>Services</h3><ul><li><a href="pressure-washing.html" class="footer-link">Pressure Washing</a></li><li><a href="soft-washing.html" class="footer-link">Soft-Washing</a></li><li><a href="surface-cleaning.html" class="footer-link">Surface Cleaning</a></li><li><a href="roof-cleaning.html" class="footer-link">Roof Cleaning</a></li><li><a href="gutter-cleaning.html" class="footer-link">Gutter Cleaning</a></li></ul></div></div><div class="footer-areas"><h3>Areas We Serve</h3><p>Proudly serving Greenville, Winterville, Ayden, Farmville &amp; 20+ cities across Pitt County &amp; Eastern NC.</p><a href="../locations/index.html" class="footer-areas-btn">View All Locations &rarr;</a></div><div class="footer-partners"><span class="footer-partners-label">Partners</span><a href="https://campuscribsrentals.com" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/campus-cribs-logo.png" alt="Campus Cribs Rentals" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;background:#fff;padding:4px 8px;border-radius:6px;"><span class="footer-partner-name">Campus Cribs Rentals</span></a><a href="https://www.justiceleadership.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/justice-leadership-logo.png" alt="Justice Leadership" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;"><span class="footer-partner-name">Justice Leadership</span></a><a href="https://radiateprints.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/radiate-prints-logo.png" alt="Radiate Prints &amp; Promo" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;background:#fff;padding:4px 8px;border-radius:6px;"><span class="footer-partner-name">Radiate Prints &amp; Promo</span></a><a href="https://www.frontline-grading.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/frontline-grading-logo.png" alt="Frontline Grading" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;background:#fff;padding:4px 8px;border-radius:6px;"><span class="footer-partner-name">Frontline Grading</span></a></div><div class="footer-bottom"><p>&copy; 2024-2026 Carolina Cleaning Boys. All rights reserved.</p><p>Proudly serving Eastern NC and surrounding areas.</p><p><a href="../privacy-policy.html" class="footer-link">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms-and-conditions.html" class="footer-link">Terms &amp; Conditions</a></p></div></div></footer>
+    <footer class="footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="../index.html" class="footer-logo"><img src="../images/logo-256-white.png" alt="Carolina Cleaning Boys - Pressure Washing Services Greenville NC" class="footer-logo-img" width="256" height="256" style="height:100px!important;width:100px!important;max-width:none!important;object-fit:contain!important;display:block!important;"></a><p class="footer-desc">Professional pressure washing, soft-washing, and exterior cleaning services. Proudly student-owned and operated by ECU students. "Turning Dirt into Degrees"</p><div class="footer-social"><a href="https://www.facebook.com/profile.php?id=61558735994193" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.79-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796v8.437C19.612 23.091 24 18.099 24 12.073z"/></svg></a></div></div><div class="footer-contact"><h3>Contact Us</h3><address><p><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Greenville, North Carolina</p><p><a href="tel:919-717-4653" class="footer-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>919-717-4653</a></p><p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:middle;margin-right:0.35rem"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>carolinacleaningboys@gmail.com</a></p></address></div><div class="footer-services"><h3>Services</h3><ul><li><a href="pressure-washing.html" class="footer-link">Pressure Washing</a></li><li><a href="soft-washing.html" class="footer-link">Soft-Washing</a></li><li><a href="surface-cleaning.html" class="footer-link">Surface Cleaning</a></li><li><a href="roof-cleaning.html" class="footer-link">Roof Cleaning</a></li><li><a href="gutter-cleaning.html" class="footer-link">Gutter Cleaning</a></li><li><a href="window-cleaning.html" class="footer-link">Window Cleaning</a></li></ul></div></div><div class="footer-areas"><h3>Areas We Serve</h3><p>Proudly serving Greenville, Winterville, Ayden, Farmville &amp; 20+ cities across Pitt County &amp; Eastern NC.</p><a href="../locations/index.html" class="footer-areas-btn">View All Locations &rarr;</a></div><div class="footer-partners"><span class="footer-partners-label">Partners</span><a href="https://campuscribsrentals.com" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/campus-cribs-logo.png" alt="Campus Cribs Rentals" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;background:#fff;padding:4px 8px;border-radius:6px;"><span class="footer-partner-name">Campus Cribs Rentals</span></a><a href="https://www.justiceleadership.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/justice-leadership-logo.png" alt="Justice Leadership" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;"><span class="footer-partner-name">Justice Leadership</span></a><a href="https://radiateprints.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/radiate-prints-logo.png" alt="Radiate Prints &amp; Promo" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;background:#fff;padding:4px 8px;border-radius:6px;"><span class="footer-partner-name">Radiate Prints &amp; Promo</span></a><a href="https://www.frontline-grading.com/" target="_blank" rel="noopener noreferrer" class="footer-partner-badge"><img src="../images/frontline-grading-logo.png" alt="Frontline Grading" class="footer-partner-logo" loading="lazy" style="height:34px;width:auto;max-height:34px;object-fit:contain;display:block;background:#fff;padding:4px 8px;border-radius:6px;"><span class="footer-partner-name">Frontline Grading</span></a></div><div class="footer-bottom"><p>&copy; 2024-2026 Carolina Cleaning Boys. All rights reserved.</p><p>Proudly serving Eastern NC and surrounding areas.</p><p><a href="../privacy-policy.html" class="footer-link">Privacy Policy</a> &nbsp;|&nbsp; <a href="../terms-and-conditions.html" class="footer-link">Terms &amp; Conditions</a></p></div></div></footer>
     <a href="#estimate-form" class="floating-cta"><span class="floating-cta-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg></span><span class="floating-cta-text">FREE Quote</span><span class="floating-cta-badge">24hr</span></a>
     <script>
         window.addEventListener('scroll', function() { var w = document.body.scrollTop || document.documentElement.scrollTop; var h = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById('scrollProgress').style.width = (w / h) * 100 + '%'; });
@@ -468,6 +481,112 @@ oaiq('init', {
         }
     </script>
     <script>
+function ccbRadioVal(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+}
+
+function ccbCountLine(checkboxId, countId, label, unit, suffix) {
+    var cb = document.getElementById(checkboxId);
+    if (!cb || !cb.checked) return '';
+    var countEl = document.getElementById(countId);
+    var count = countEl ? (countEl.value || '').trim() : '';
+    var unitPart = unit ? (' ' + unit) : '';
+    var suffixPart = suffix || '';
+    if (count) return label + ': ' + count + unitPart + suffixPart;
+    return label + ': yes' + suffixPart;
+}
+
+function ccbComposeWindowDetails() {
+    var lines = [];
+
+    var winCountEl = document.getElementById('win_count');
+    var windowsCount = winCountEl ? (winCountEl.value || '').trim() : '';
+    var inout = ccbRadioVal('win_inout');
+    var inoutLabel = { outside: 'outside only', both: 'inside + outside', unsure: 'not sure' }[inout] || '';
+    if (windowsCount && inoutLabel) {
+        lines.push('Windows: ' + windowsCount + ' (' + inoutLabel + ')');
+    } else if (windowsCount) {
+        lines.push('Windows: ' + windowsCount);
+    } else if (inoutLabel) {
+        lines.push('Windows: ' + inoutLabel);
+    }
+
+    var screens = ccbCountLine('win_screens', 'win_screens_count', 'Screens', '', ' - clean them');
+    if (screens) lines.push(screens);
+
+    var stormEl = document.getElementById('win_storm');
+    var storm = stormEl ? (stormEl.value || '').trim() : '';
+    if (storm) lines.push('Storm panes: ' + storm);
+
+    var slidingEl = document.getElementById('win_sliding');
+    var sliding = slidingEl ? (slidingEl.value || '').trim() : '';
+    if (sliding) lines.push('Sliding doors: ' + sliding);
+
+    var skylightsEl = document.getElementById('win_skylights');
+    var skylights = skylightsEl ? (skylightsEl.value || '').trim() : '';
+    if (skylights) lines.push('Skylights: ' + skylights);
+
+    var deepTrack = ccbCountLine('win_deep_track', 'win_deep_track_count', 'Deep track & sill detail', 'windows');
+    if (deepTrack) lines.push(deepTrack);
+
+    var hardWater = ccbCountLine('win_hard_water', 'win_hard_water_count', 'Hard water spots', 'windows');
+    if (hardWater) lines.push(hardWater);
+
+    var overspray = ccbCountLine('win_overspray', 'win_overspray_count', 'Paint / overspray', 'windows');
+    if (overspray) lines.push(overspray);
+
+    var hardReach = ccbCountLine('win_hard_reach', 'win_hard_reach_count', 'Hard to reach', 'windows');
+    if (hardReach) lines.push(hardReach);
+
+    return lines.length ? ('WINDOW CLEANING DETAILS\n' + lines.join('\n')) : '';
+}
+
+function ccbCapMessage(str) {
+    if (str.length <= 2000) return str;
+    var truncated = str.slice(0, 2000);
+    var lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > 0) truncated = truncated.slice(0, lastSpace);
+    return truncated;
+}
+
+function ccbComposeAdditionalInfo(typedValue) {
+    var detailBlock = ccbComposeWindowDetails();
+    var typed = (typedValue || '').trim();
+    var combined = detailBlock
+        ? (typed ? detailBlock + '\n\n' + typed : detailBlock)
+        : typed;
+    return ccbCapMessage(combined);
+}
+
+(function () {
+    var windowCheckbox = document.querySelector('input[name="services"][value="Windows"]');
+    var panel = document.getElementById('windowDetailsPanel');
+    function ccbSyncWindowPanel() {
+        if (windowCheckbox && panel) {
+            panel.style.display = windowCheckbox.checked ? 'block' : 'none';
+        }
+    }
+    if (windowCheckbox) { windowCheckbox.addEventListener('change', ccbSyncWindowPanel); }
+    ccbSyncWindowPanel();
+})();
+
+(function () {
+    function wireCount(checkboxId, wrapId) {
+        var cb = document.getElementById(checkboxId);
+        var wrap = document.getElementById(wrapId);
+        if (!cb || !wrap) return;
+        function sync() { wrap.classList.toggle('show', cb.checked); }
+        cb.addEventListener('change', sync);
+        sync();
+    }
+    wireCount('win_screens', 'win_screens_wrap');
+    wireCount('win_deep_track', 'win_deep_track_wrap');
+    wireCount('win_hard_water', 'win_hard_water_wrap');
+    wireCount('win_overspray', 'win_overspray_wrap');
+    wireCount('win_hard_reach', 'win_hard_reach_wrap');
+})();
+
 function ccbNewEventId() {
     // Shared between the browser pixel and the server-side Conversions API so
     // OpenAI dedupes the two into one conversion instead of counting both.
@@ -614,7 +733,7 @@ function submitForm(e) {
         state: form.querySelector('#state').value,
         services: services.join(', '),
         referral_source: form.querySelector('#referral_source').value,
-        additional_info: form.querySelector('#additional_info').value,
+        additional_info: ccbComposeAdditionalInfo(form.querySelector('#additional_info').value),
         sms_consent: smsConsentEl ? smsConsentEl.checked : false,
         consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
         form_source: 'service_page',

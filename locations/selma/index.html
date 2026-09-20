@@ -137,6 +137,19 @@
             .city-hero { padding: 60px 20px; }
         }
         .header .logo { margin-right: auto; }
+    
+        /* Window-detail intake panel (optional, shown when "Windows" is checked) */
+        .ccb-win-details{border:2px dashed var(--primary-light);border-radius:10px;padding:0.75rem 1rem;background:var(--off-white);margin-bottom:var(--space-md)}
+        .ccb-win-details summary{cursor:pointer;font-weight:700;color:var(--primary);font-size:0.9rem;list-style:none}
+        .ccb-win-details summary::-webkit-details-marker{display:none}
+        .ccb-win-details summary::before{content:'+ ';color:var(--accent-pressure)}
+        .ccb-win-details[open] summary::before{content:'- '}
+        .ccb-win-fields{display:flex;flex-direction:column;gap:0.75rem;margin-top:0.75rem}
+        .ccb-win-row3{display:grid;grid-template-columns:1fr;gap:0.75rem}
+        @media (min-width:560px){.ccb-win-row3{grid-template-columns:repeat(3,1fr)}}
+        .ccb-win-count{display:none;align-items:center;gap:0.4rem;margin:0.4rem 0 0 1.5rem;font-size:0.85rem;color:var(--primary)}
+        .ccb-win-count.show{display:flex}
+        .ccb-win-count input{width:56px;flex:none;padding:0.4rem 0.5rem;text-align:center}
     </style>
     <script type="application/ld+json">
     {
@@ -270,7 +283,7 @@ oaiq('init', {
     </header>
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-    <nav class="sidebar" id="sidebar"><button class="sidebar-close" onclick="closeSidebar()">&times;</button><div class="sidebar-content"><a href="../../index.html" class="sidebar-link">Home</a><div class="sidebar-divider"></div><span class="sidebar-label">Our Services</span><a href="../../services/pressure-washing.html" class="sidebar-link">Pressure Washing</a><a href="../../services/soft-washing.html" class="sidebar-link">Soft-Washing</a><a href="../../services/surface-cleaning.html" class="sidebar-link">Surface Cleaning</a><a href="../../services/roof-cleaning.html" class="sidebar-link">Roof Cleaning</a><a href="../../services/gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a><div class="sidebar-divider"></div><a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a><a href="tel:919-717-4653" class="sidebar-link">919-717-4653</a></div></nav>
+    <nav class="sidebar" id="sidebar"><button class="sidebar-close" onclick="closeSidebar()">&times;</button><div class="sidebar-content"><a href="../../index.html" class="sidebar-link">Home</a><a href="../../our-story.html" class="sidebar-link">Our Story</a><div class="sidebar-divider"></div><span class="sidebar-label">Our Services</span><a href="../../services/pressure-washing.html" class="sidebar-link">Pressure Washing</a><a href="../../services/soft-washing.html" class="sidebar-link">Soft-Washing</a><a href="../../services/surface-cleaning.html" class="sidebar-link">Surface Cleaning</a><a href="../../services/roof-cleaning.html" class="sidebar-link">Roof Cleaning</a><a href="../../services/gutter-cleaning.html" class="sidebar-link">Gutter Cleaning</a><a href="../../services/window-cleaning.html" class="sidebar-link">Window Cleaning</a><div class="sidebar-divider"></div><a href="#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">Get a FREE Quote</a><a href="tel:919-717-4653" class="sidebar-link">919-717-4653</a></div></nav>
 
     <main id="main-content">
         <section class="city-hero">
@@ -317,7 +330,7 @@ oaiq('init', {
                 </div>
 
                 <div class="form-section" data-section="3">
-                    <div class="form-group"><label class="form-label">Type of Service <span class="required">*</span></label><p class="form-help">Select all that apply</p><div class="checkbox-grid"><label class="checkbox-label"><input type="checkbox" name="services" value="House"><span class="checkbox-custom"></span>House</label><label class="checkbox-label"><input type="checkbox" name="services" value="Driveway"><span class="checkbox-custom"></span>Driveway</label><label class="checkbox-label"><input type="checkbox" name="services" value="Deck"><span class="checkbox-custom"></span>Deck</label><label class="checkbox-label"><input type="checkbox" name="services" value="Fence"><span class="checkbox-custom"></span>Fence</label><label class="checkbox-label"><input type="checkbox" name="services" value="Patio"><span class="checkbox-custom"></span>Patio</label><label class="checkbox-label"><input type="checkbox" name="services" value="Sidewalk"><span class="checkbox-custom"></span>Sidewalk</label><label class="checkbox-label"><input type="checkbox" name="services" value="Gutters"><span class="checkbox-custom"></span>Gutters</label><label class="checkbox-label"><input type="checkbox" name="services" value="Roof"><span class="checkbox-custom"></span>Roof</label><label class="checkbox-label"><input type="checkbox" name="services" value="Windows"><span class="checkbox-custom"></span>Windows</label><label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label></div></div>
+                    <div class="form-group"><label class="form-label">Type of Service <span class="required">*</span></label><p class="form-help">Select all that apply</p><div class="checkbox-grid"><label class="checkbox-label"><input type="checkbox" name="services" value="House"><span class="checkbox-custom"></span>House</label><label class="checkbox-label"><input type="checkbox" name="services" value="Driveway"><span class="checkbox-custom"></span>Driveway</label><label class="checkbox-label"><input type="checkbox" name="services" value="Deck"><span class="checkbox-custom"></span>Deck</label><label class="checkbox-label"><input type="checkbox" name="services" value="Fence"><span class="checkbox-custom"></span>Fence</label><label class="checkbox-label"><input type="checkbox" name="services" value="Patio"><span class="checkbox-custom"></span>Patio</label><label class="checkbox-label"><input type="checkbox" name="services" value="Sidewalk"><span class="checkbox-custom"></span>Sidewalk</label><label class="checkbox-label"><input type="checkbox" name="services" value="Gutters"><span class="checkbox-custom"></span>Gutters</label><label class="checkbox-label"><input type="checkbox" name="services" value="Roof"><span class="checkbox-custom"></span>Roof</label><label class="checkbox-label"><input type="checkbox" name="services" value="Windows"><span class="checkbox-custom"></span>Windows</label><label class="checkbox-label"><input type="checkbox" name="services" value="Other"><span class="checkbox-custom"></span>Other</label></div></div><div class="form-group" id="windowDetailsPanel" style="display:none"><details class="ccb-win-details"><summary>Help us quote faster (optional)</summary><div class="ccb-win-fields"><div class="form-group"><label class="form-label" for="win_count">Roughly how many windows?</label><input type="number" min="0" inputmode="numeric" id="win_count" class="form-input" placeholder="e.g. 18"></div><div class="form-group"><span class="form-label">Inside, outside, or both?</span><div class="radio-group"><label class="radio-label"><input type="radio" name="win_inout" value="outside"><span class="radio-custom"></span>Outside only</label><label class="radio-label"><input type="radio" name="win_inout" value="both"><span class="radio-custom"></span>Inside + outside</label><label class="radio-label"><input type="radio" name="win_inout" value="unsure"><span class="radio-custom"></span>Not sure</label></div></div><div class="ccb-win-row3"><div class="form-group"><label class="form-label" for="win_storm">Storm panes?</label><input type="number" min="0" inputmode="numeric" id="win_storm" class="form-input" placeholder="0"></div><div class="form-group"><label class="form-label" for="win_sliding">Sliding doors?</label><input type="number" min="0" inputmode="numeric" id="win_sliding" class="form-input" placeholder="0"></div><div class="form-group"><label class="form-label" for="win_skylights">Skylights?</label><input type="number" min="0" inputmode="numeric" id="win_skylights" class="form-input" placeholder="0"></div></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_screens"><span class="checkbox-custom"></span>Clean the screens</label><span class="ccb-win-count" id="win_screens_wrap"><input type="number" min="0" inputmode="numeric" id="win_screens_count" class="form-input" placeholder="#">screens</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_deep_track"><span class="checkbox-custom"></span>Deep track &amp; sill detail</label><span class="ccb-win-count" id="win_deep_track_wrap"><input type="number" min="0" inputmode="numeric" id="win_deep_track_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_hard_water"><span class="checkbox-custom"></span>Hard water spots</label><span class="ccb-win-count" id="win_hard_water_wrap"><input type="number" min="0" inputmode="numeric" id="win_hard_water_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_overspray"><span class="checkbox-custom"></span>Paint / construction overspray</label><span class="ccb-win-count" id="win_overspray_wrap"><input type="number" min="0" inputmode="numeric" id="win_overspray_count" class="form-input" placeholder="#">windows</span></div><div class="form-group"><label class="checkbox-label"><input type="checkbox" id="win_hard_reach"><span class="checkbox-custom"></span>Hard-to-reach / upper-story windows</label><span class="ccb-win-count" id="win_hard_reach_wrap"><input type="number" min="0" inputmode="numeric" id="win_hard_reach_count" class="form-input" placeholder="#">windows</span></div></div></details></div>
                     <div class="form-group"><label for="referral_source" class="form-label">How did you hear about us?</label><select id="referral_source" name="referral_source" class="form-select"><option value="">Select an option...</option><option value="Google Search">Google Search</option><option value="ChatGPT">ChatGPT / AI Assistant</option><option value="Facebook">Facebook</option><option value="Instagram">Instagram</option><option value="Referral from Friend/Family">Referral from Friend/Family</option><option value="Yard Sign">Yard Sign</option><option value="Door to Door">Door to Door</option><option value="Nextdoor">Nextdoor</option><option value="ECU Campus">ECU Campus</option><option value="Other">Other</option></select></div>
                     <div class="form-group"><label for="additional_info" class="form-label">Questions or Additional Information</label><textarea id="additional_info" name="additional_info" rows="3" class="form-textarea" placeholder="Tell us more about your project..."></textarea></div>
                     <div class="form-group"><label for="sms_consent" class="sms-consent-label"><input type="checkbox" id="sms_consent" name="sms_consent" value="yes" class="sms-consent-checkbox"><span class="sms-consent-text"><strong>Yes, text me about my request.</strong><br>I agree to receive SMS messages from Carolina Cleaning Boys about my service request. Msg &amp; data rates may apply. Reply STOP to unsubscribe. <a href="/privacy-policy.html" target="_blank">Privacy Policy</a>.</span></label></div>
@@ -399,7 +412,7 @@ oaiq('init', {
                         <li><a href="../../services/soft-washing.html">Soft Washing</a></li>
                         <li><a href="../../services/surface-cleaning.html">Surface Cleaning</a></li>
                         <li><a href="../../services/roof-cleaning.html">Roof Cleaning</a></li>
-                        <li><a href="../../services/gutter-cleaning.html">Gutter Cleaning</a></li>
+                        <li><a href="../../services/gutter-cleaning.html">Gutter Cleaning</a></li><li><a href="../../services/window-cleaning.html">Window Cleaning</a></li>
                     </ul>
                 </div>
             </div>
@@ -456,6 +469,112 @@ function prevStep(step) {
     currentFormStep = step;
 }
         
+function ccbRadioVal(name) {
+    var el = document.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+}
+
+function ccbCountLine(checkboxId, countId, label, unit, suffix) {
+    var cb = document.getElementById(checkboxId);
+    if (!cb || !cb.checked) return '';
+    var countEl = document.getElementById(countId);
+    var count = countEl ? (countEl.value || '').trim() : '';
+    var unitPart = unit ? (' ' + unit) : '';
+    var suffixPart = suffix || '';
+    if (count) return label + ': ' + count + unitPart + suffixPart;
+    return label + ': yes' + suffixPart;
+}
+
+function ccbComposeWindowDetails() {
+    var lines = [];
+
+    var winCountEl = document.getElementById('win_count');
+    var windowsCount = winCountEl ? (winCountEl.value || '').trim() : '';
+    var inout = ccbRadioVal('win_inout');
+    var inoutLabel = { outside: 'outside only', both: 'inside + outside', unsure: 'not sure' }[inout] || '';
+    if (windowsCount && inoutLabel) {
+        lines.push('Windows: ' + windowsCount + ' (' + inoutLabel + ')');
+    } else if (windowsCount) {
+        lines.push('Windows: ' + windowsCount);
+    } else if (inoutLabel) {
+        lines.push('Windows: ' + inoutLabel);
+    }
+
+    var screens = ccbCountLine('win_screens', 'win_screens_count', 'Screens', '', ' - clean them');
+    if (screens) lines.push(screens);
+
+    var stormEl = document.getElementById('win_storm');
+    var storm = stormEl ? (stormEl.value || '').trim() : '';
+    if (storm) lines.push('Storm panes: ' + storm);
+
+    var slidingEl = document.getElementById('win_sliding');
+    var sliding = slidingEl ? (slidingEl.value || '').trim() : '';
+    if (sliding) lines.push('Sliding doors: ' + sliding);
+
+    var skylightsEl = document.getElementById('win_skylights');
+    var skylights = skylightsEl ? (skylightsEl.value || '').trim() : '';
+    if (skylights) lines.push('Skylights: ' + skylights);
+
+    var deepTrack = ccbCountLine('win_deep_track', 'win_deep_track_count', 'Deep track & sill detail', 'windows');
+    if (deepTrack) lines.push(deepTrack);
+
+    var hardWater = ccbCountLine('win_hard_water', 'win_hard_water_count', 'Hard water spots', 'windows');
+    if (hardWater) lines.push(hardWater);
+
+    var overspray = ccbCountLine('win_overspray', 'win_overspray_count', 'Paint / overspray', 'windows');
+    if (overspray) lines.push(overspray);
+
+    var hardReach = ccbCountLine('win_hard_reach', 'win_hard_reach_count', 'Hard to reach', 'windows');
+    if (hardReach) lines.push(hardReach);
+
+    return lines.length ? ('WINDOW CLEANING DETAILS\n' + lines.join('\n')) : '';
+}
+
+function ccbCapMessage(str) {
+    if (str.length <= 2000) return str;
+    var truncated = str.slice(0, 2000);
+    var lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > 0) truncated = truncated.slice(0, lastSpace);
+    return truncated;
+}
+
+function ccbComposeAdditionalInfo(typedValue) {
+    var detailBlock = ccbComposeWindowDetails();
+    var typed = (typedValue || '').trim();
+    var combined = detailBlock
+        ? (typed ? detailBlock + '\n\n' + typed : detailBlock)
+        : typed;
+    return ccbCapMessage(combined);
+}
+
+(function () {
+    var windowCheckbox = document.querySelector('input[name="services"][value="Windows"]');
+    var panel = document.getElementById('windowDetailsPanel');
+    function ccbSyncWindowPanel() {
+        if (windowCheckbox && panel) {
+            panel.style.display = windowCheckbox.checked ? 'block' : 'none';
+        }
+    }
+    if (windowCheckbox) { windowCheckbox.addEventListener('change', ccbSyncWindowPanel); }
+    ccbSyncWindowPanel();
+})();
+
+(function () {
+    function wireCount(checkboxId, wrapId) {
+        var cb = document.getElementById(checkboxId);
+        var wrap = document.getElementById(wrapId);
+        if (!cb || !wrap) return;
+        function sync() { wrap.classList.toggle('show', cb.checked); }
+        cb.addEventListener('change', sync);
+        sync();
+    }
+    wireCount('win_screens', 'win_screens_wrap');
+    wireCount('win_deep_track', 'win_deep_track_wrap');
+    wireCount('win_hard_water', 'win_hard_water_wrap');
+    wireCount('win_overspray', 'win_overspray_wrap');
+    wireCount('win_hard_reach', 'win_hard_reach_wrap');
+})();
+
 function ccbNewEventId() {
     // Shared between the browser pixel and the server-side Conversions API so
     // OpenAI dedupes the two into one conversion instead of counting both.
@@ -602,7 +721,7 @@ function submitForm(e) {
         state: form.querySelector('#state').value,
         services: services.join(', '),
         referral_source: form.querySelector('#referral_source').value,
-        additional_info: form.querySelector('#additional_info').value,
+        additional_info: ccbComposeAdditionalInfo(form.querySelector('#additional_info').value),
         sms_consent: smsConsentEl ? smsConsentEl.checked : false,
         consent_evidence: { form_url: window.location.href, user_agent: navigator.userAgent, submitted_at: new Date().toISOString() },
         form_source: 'location_hub',
