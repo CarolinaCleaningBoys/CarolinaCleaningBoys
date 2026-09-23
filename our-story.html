@@ -135,6 +135,23 @@
            unfiltered photo. Hold the cream scrim all the way down on this page. */
         .hero-overlay { background: linear-gradient(180deg, rgba(244,239,233,0.93) 0%, rgba(244,239,233,0.88) 55%, rgba(244,239,233,0.82) 100%); }
         .hero-tagline { font-size: clamp(1.4rem, 5vw, 2.2rem); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; }
+
+        /* Awards: photo-led cards. Source shots are 900x1200, so the frame is 3:4
+           to match them exactly and crop nothing - these are group photos and a
+           tighter crop would cut faces. */
+        .awards-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); max-width: 860px; margin: var(--space-lg) auto 0; }
+        @media (min-width: 720px) { .awards-grid { grid-template-columns: 1fr 1fr; } }
+        .award-card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-md); }
+        .award-photo { aspect-ratio: 3 / 4; background: var(--off-white); }
+        .award-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .award-body { padding: var(--space-md); }
+        .award-body h3 { font-family: var(--font-display); color: var(--primary); font-size: 1.15rem; margin-bottom: 0.5rem; }
+        .award-body p { font-size: 0.95rem; line-height: 1.7; color: var(--primary); }
+
+        /* Founder bios: credentials read as their own lines above the prose, so
+           the degree strings don't run into the sentence about what they do. */
+        .team-credential { display: block; font-size: 0.85rem; line-height: 1.5; color: var(--primary-dark); opacity: 0.85; margin-bottom: 0.35rem; }
+        .team-credential + .team-credential { margin-bottom: 0.7rem; }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -270,8 +287,8 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 <h2 id="motto-heading" class="story-heading animate-on-scroll">What &ldquo;Turning Dirt into Degrees&rdquo; Means to Us</h2>
                 <div class="story-split animate-on-scroll">
                     <div class="story-text">
-                        <p>Every job pays for something real, a semester, a textbook, gas money, and even rent. We didn't want student loans to be the only way college kids could pay for school, so we picked up a pressure washer instead.</p>
-                        <p>The motto isn't a line we came up with for a t-shirt, it's what actually happens every time we clean a home, wash a driveway, clean a window, and help a client. That's the whole business in four words.</p>
+                        <p>Every job pays for something real, a semester, a textbook, gas, and even rent. We didn't want student loans to be the only way college kids could pay for school, so we picked up a pressure washer instead.</p>
+                        <p>The motto isn't a line we came up with for a t-shirt, it's what actually happens every time we clean a home, wash a driveway, a window, and help a client. That's the whole business in four words.</p>
                     </div>
                     <div class="story-split-image">
                         <img src="images/work/homepage/homepage-06.webp" alt="Carolina Cleaning Boys team member pressure washing a brick home in Greenville, NC" loading="lazy" width="1200" height="1600">
@@ -312,8 +329,8 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             <div class="container">
                 <h2 id="hire-heading" class="story-heading animate-on-scroll">Why We Hire College Students</h2>
                 <div class="story-text animate-on-scroll">
-                    <p>We hire fellow ECU students and build the schedule around their classes and practice, not the other way around. Nobody has to choose between a shift and an exam.</p>
-                    <p>Team leads run their own rig and keep 15% of the revenue they bring in &mdash; real ownership, not just an hourly check. We're not trying to build a workforce that clocks in and disappears. We're trying to build a place where a student can make real money on their own schedule and learn how to run something along the way.</p>
+                    <p>We hire college students and build the schedule around their classes and practice, not the other way around. Nobody has to choose between a shift and an exam.</p>
+                    <p>We value growth, which is why we always push our techs to do more than wash houses. Communication, responsibility and time management are just a few of the skills every CCB member picks up here. We're not trying to build a workforce that clocks in and disappears. We're trying to build a place where a student can make real money on their own schedule and learn how to be successful past work.</p>
                 </div>
             </div>
         </section>
@@ -323,7 +340,8 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             <div class="container">
                 <h2 id="forward-heading" class="story-heading animate-on-scroll">Paying It Forward</h2>
                 <div class="story-text animate-on-scroll">
-                    <p class="story-placeholder">&#10216;Add concrete goals here &mdash; how many students you want to be able to hire, what the program looks like a year from now, scholarship ideas, whatever the real plan is &mdash; placeholder.&#10217;</p>
+                    <p>We have big plans here at CCB. Supporting college students matters to us, and so does teaching them skills that hold up well past the job &mdash; not just how to clean a house, but how to handle a customer, own a problem and manage their own time.</p>
+                    <p>Next up are internship spots, so students can get real experience in sales, management and logistics while they're still in school. From there we plan to expand into the Raleigh area and beyond as the business grows.</p>
                     <p>The short version: every job we book is one more opportunity we can hand to another student trying to get through school the same way we did.</p>
                 </div>
             </div>
@@ -333,21 +351,25 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
         <section class="why-choose-section" aria-labelledby="trust-heading">
             <div class="container">
                 <h2 id="trust-heading" class="section-title animate-on-scroll">A Name Greenville Already Knows</h2>
-                <div class="features-grid">
-                    <article class="feature-card animate-on-scroll">
-                        <div class="feature-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
-                        <h3>200+ Five-Star Reviews</h3>
-                        <p>Every one of them earned the hard way &mdash; job by job, house by house.</p>
+                <p class="section-subtitle animate-on-scroll">We didn't just build this on driveways. We pitched it against other student-run businesses, and won.</p>
+                <div class="awards-grid">
+                    <article class="award-card animate-on-scroll">
+                        <div class="award-photo">
+                            <img src="images/awards/ecu-pirate-entrepreneurship-challenge.webp" alt="The Carolina Cleaning Boys founders after winning the Pirate Entrepreneurship Challenge at East Carolina University" loading="lazy" width="900" height="1200">
+                        </div>
+                        <div class="award-body">
+                            <h3>Pirate Entrepreneurship Challenge</h3>
+                            <p>We pitched Carolina Cleaning Boys against other student-run businesses at East Carolina University and took the win &mdash; $70,000, counting in-kind prizes.</p>
+                        </div>
                     </article>
-                    <article class="feature-card animate-on-scroll">
-                        <div class="feature-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></div>
-                        <h3>100% Student-Owned</h3>
-                        <p>No franchise, no outside owners. Just ECU students running their own company.</p>
-                    </article>
-                    <article class="feature-card animate-on-scroll">
-                        <div class="feature-icon" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
-                        <h3>Word of Mouth Built This</h3>
-                        <p>We didn't grow through big ad budgets. Neighbors told neighbors, and it turned into one of the names people around Pitt County actually recognize.</p>
+                    <article class="award-card animate-on-scroll">
+                        <div class="award-photo">
+                            <img src="images/awards/sbi-national-pitch-fort-myers.webp" alt="The Carolina Cleaning Boys founders after taking first place at a national pitch competition in Fort Myers, Florida" loading="lazy" width="900" height="1200">
+                        </div>
+                        <div class="award-body">
+                            <h3>First Place, Fort Myers</h3>
+                            <p>We took the same pitch to a national competition in Fort Myers, Florida, finished first, and came home with $3,000.</p>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -366,7 +388,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         </div>
                         <h3>Zach</h3>
                         <p class="team-role">Co-Founder</p>
-                        <p class="team-bio">ECU student-athlete, <span class="story-placeholder">&#10216;sport/team &mdash; placeholder&#10217;</span>, studying <span class="story-placeholder">&#10216;major &mdash; placeholder&#10217;</span>. Zach and Nick are brothers &mdash; they started Carolina Cleaning Boys together to help pay their own way through school.</p>
+                        <p class="team-bio"><span class="team-credential">ECU student-athlete, 2022&ndash;2026 &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Engineering, concentration in Biomedical Engineering, minor in Mathematics</span>Started CCB with Nick and Sam. Runs the back end of the business and keeps logistics moving.</p>
                     </div>
 
                     <div class="team-member">
@@ -375,7 +397,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         </div>
                         <h3>Sam</h3>
                         <p class="team-role">Co-Founder</p>
-                        <p class="team-bio">ECU student-athlete, <span class="story-placeholder">&#10216;sport/team &mdash; placeholder&#10217;</span>, studying <span class="story-placeholder">&#10216;major &mdash; placeholder&#10217;</span>. Sam is the third co-founder, running jobs and building the business alongside Zach and Nick.</p>
+                        <p class="team-bio"><span class="team-credential">ECU student-athlete, 2023&ndash;2026 &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Business Management &middot; Immersive MBA &middot; Honors College</span>Started CCB with Nick and Zach as a side hustle and helped turn it into a real business.</p>
                     </div>
 
                     <div class="team-member">
@@ -384,7 +406,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         </div>
                         <h3>Nick</h3>
                         <p class="team-role">Co-Founder</p>
-                        <p class="team-bio">ECU student-athlete, <span class="story-placeholder">&#10216;sport/team &mdash; placeholder&#10217;</span>, studying <span class="story-placeholder">&#10216;major &mdash; placeholder&#10217;</span>. Nick and Zach are brothers who co-founded Carolina Cleaning Boys and built it from the ground up.</p>
+                        <p class="team-bio"><span class="team-credential">ECU student-athlete, 2022&ndash;2026 &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Engineering, concentration in Biomedical Engineering, minor in Mathematics</span>Started the business with Sam and Zach. Has helped CCB reach the Greenville community through branding, marketing and advertising.</p>
                     </div>
                 </div>
             </div>
