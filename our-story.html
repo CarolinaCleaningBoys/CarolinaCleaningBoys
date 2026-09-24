@@ -159,7 +159,11 @@
         #team-heading { margin-bottom: 0.5rem; }
         .team-member-section.alt-bg { background: rgba(255, 255, 255, 0.92); }
         .team-member-section.alt-bg .team-grid { max-width: 560px; }
-        .team-member-section.alt-bg .team-bio { text-align: left; }
+        /* Bios read left-aligned across every profile, founders and team alike.
+           The shared .team-member centres everything, which is fine for a name
+           or a role but hard to read across a full paragraph. Photo, name and
+           role stay centred under the circle; only the prose goes left. */
+        .team-bio, .team-credential { text-align: left; }
     </style>
 
     <!-- Meta Pixel Code -->
