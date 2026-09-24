@@ -160,7 +160,11 @@
         .team-member-section.alt-bg { background: rgba(255, 255, 255, 0.92); }
         .team-member-section.alt-bg .team-grid { max-width: 560px; }
         .team-member-section.alt-bg .team-bio { text-align: left; }
-        .team-initials { display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 3.4rem; line-height: 1; color: var(--white); background: var(--primary-light); letter-spacing: 0.04em; }
+        /* Garrett's photo is a 3:4 portrait dropped into a round 1:1 frame, so a
+           quarter of its height is cropped. Sit it high rather than dead centre
+           so the crop takes from the bottom, not off the top of his head.
+           Adjust this one number if the framing needs nudging. */
+        .team-photo img[src*="garrett"] { object-position: center 25%; }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -430,10 +434,9 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
 
                 <div class="team-grid animate-on-scroll">
                     <div class="team-member">
-                        <!-- No photo of Garrett yet. Initials stand in; swap this whole
-                             .team-initials div for the same <img> markup the founders
-                             use as soon as there is a real headshot. -->
-                        <div class="team-photo team-initials" aria-hidden="true">GS</div>
+                        <div class="team-photo">
+                            <img src="images/garrett.webp" alt="Garrett Sharer of Carolina Cleaning Boys" loading="lazy" width="640" height="853">
+                        </div>
                         <h3>Garrett</h3>
                         <p class="team-role">Team Member</p>
                         <p class="team-bio">Garrett Sharer is currently pursuing a Bachelor of Science in Business Administration with a concentration in Finance at East Carolina University. He works with ECU's Financial Wellness Hub, where he helps students build their financial knowledge and make informed decisions. Garrett is also involved with the East Carolina Investment Club and has experience coaching youth baseball, giving him a strong background in communication, leadership, and working with others.</p>
