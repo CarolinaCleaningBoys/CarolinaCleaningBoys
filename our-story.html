@@ -152,6 +152,15 @@
            the degree strings don't run into the sentence about what they do. */
         .team-credential { display: block; font-size: 0.85rem; line-height: 1.5; color: var(--primary-dark); opacity: 0.85; margin-bottom: 0.35rem; }
         .team-credential + .team-credential { margin-bottom: 0.7rem; }
+
+        /* Team section. The shared .team-grid auto-fits, so a single member would
+           stretch the full 900px; cap it so the card stays a readable column, and
+           left-align the longer bio text while the name and role stay centred. */
+        #team-heading { margin-bottom: 0.5rem; }
+        .team-member-section.alt-bg { background: rgba(255, 255, 255, 0.92); }
+        .team-member-section.alt-bg .team-grid { max-width: 560px; }
+        .team-member-section.alt-bg .team-bio { text-align: left; }
+        .team-initials { display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 3.4rem; line-height: 1; color: var(--white); background: var(--primary-light); letter-spacing: 0.04em; }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -408,6 +417,26 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         <h3>Nick</h3>
                         <p class="team-role">Co-Founder</p>
                         <p class="team-bio"><span class="team-credential">ECU student-athlete &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Engineering (2026), concentration in Biomedical Engineering, minor in Mathematics &middot; master’s expected spring 2027</span>Started the business with Sam and Zach. Has helped CCB reach the Greenville community through branding, marketing and advertising.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8b. The team -->
+        <section class="team-member-section alt-bg" aria-labelledby="team-heading">
+            <div class="container">
+                <h2 id="team-heading" class="section-title animate-on-scroll">Meet the Team</h2>
+                <p class="story-intro-line animate-on-scroll">The students who make it happen, working their way through school the same way we did.</p>
+
+                <div class="team-grid animate-on-scroll">
+                    <div class="team-member">
+                        <!-- No photo of Garrett yet. Initials stand in; swap this whole
+                             .team-initials div for the same <img> markup the founders
+                             use as soon as there is a real headshot. -->
+                        <div class="team-photo team-initials" aria-hidden="true">GS</div>
+                        <h3>Garrett</h3>
+                        <p class="team-role">Team Member</p>
+                        <p class="team-bio">Garrett Sharer is currently pursuing a Bachelor of Science in Business Administration with a concentration in Finance at East Carolina University. He works with ECU's Financial Wellness Hub, where he helps students build their financial knowledge and make informed decisions. Garrett is also involved with the East Carolina Investment Club and has experience coaching youth baseball, giving him a strong background in communication, leadership, and working with others.</p>
                     </div>
                 </div>
             </div>
