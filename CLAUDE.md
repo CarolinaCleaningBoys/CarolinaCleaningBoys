@@ -9,10 +9,16 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 ```
 /                          ← root
 ├── index.html             ← homepage — posts leads straight to the CRM (not the old Google Form/Sheet flow)
-├── our-story.html         ← "About Us"-style page — WORK IN PROGRESS, not finished (confirmed by Zach 2026-08-09).
-│                             Deliberately unlinked from nav/footer/sitemap and NOT YET COMMITTED to git, so it does not
-│                             exist on the live site at all — it's local-only draft work. Don't publish, link, or delete it;
-│                             don't "fix" the missing nav links. It goes live when Zach finishes it.
+├── our-story.html         ← "About Us" page — FINISHED AND LIVE since 2026-09-24. Indexed, in sitemap.xml, and linked
+│                             in the hamburger sidebar on every page. (The old note here said it was an unpublished
+│                             local-only draft; that has been untrue since 2026-09-24.) Contains DATED COPY: the founder
+│                             bios say "master's expected spring 2027" — needs refreshing after they graduate.
+├── what-to-expect.html    ← post-booking page texted to customers after they book ("What to Expect Before We Arrive").
+│                             Prep checklist, how each surface is cleaned, timing, weather, fees, payment + guarantee, FAQ.
+│                             Also publicly indexed so it doubles as a trust page for prospects. The CRM stores this exact
+│                             URL as a setting and texts it — don't rename or move the file without updating that setting.
+│                             Standing fees (moving, cancellation, payment-method %) live here; they must stay in sync with
+│                             the AI agent's knowledge base or a customer gets two different answers.
 ├── style.css              ← shared stylesheet for all pages
 ├── DESIGN.md               ← design-system reference (colors, fonts, brand voice/tone) — written for AI design tooling context, not a site page
 ├── PRODUCT.md               ← product/brand brief (audience, positioning, "anti-references") — written for AI design tooling context, not a site page
@@ -27,12 +33,13 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 │   └── ad-tracking-setup.md   ← plain-English writeup for Nick on how gclid/UTM tracking works on the lp/ pages
 ├── scripts/
 │   └── check-form-scripts.js  ← the lead-form safety checker referenced throughout "Known Patterns & Gotchas" below — run after any form edit
-├── services/               ← the 5 core service pages, linked from every page's nav
+├── services/               ← the 6 core service pages, linked from every page's nav
 │   ├── pressure-washing.html
 │   ├── soft-washing.html
 │   ├── surface-cleaning.html
 │   ├── roof-cleaning.html
-│   └── gutter-cleaning.html
+│   ├── gutter-cleaning.html
+│   └── window-cleaning.html   ← added 2026-09-20
 ├── locations/              ← 24 town folders + one directory/index page. NOT one uniform template — see "Location pages" note below
 │   ├── index.html           ← the "our service areas" hub page; links to only 14 of the 24 towns (see note below)
 │   └── [town]/
@@ -42,7 +49,8 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 │   ├── surface-cleaning/index.html
 │   ├── roof-washing/index.html
 │   ├── gutter-cleaning/index.html
-│   └── brand-awareness/index.html
+│   ├── brand-awareness/index.html
+│   └── window-cleaning/index.html   ← added 2026-09-20
 ├── Landing Pages/           ← NOT live — do not confuse with lp/ above. This is the raw design-tool export (zip files + their unpacked
 │                               contents: Claude Design ".dc.html" files, image-slot.js, support.js, uploads/, screenshots/) that the
 │                               lp/ pages were originally built from. It's an archive/source folder, not deployed anywhere. To change
