@@ -40,7 +40,7 @@
     <meta name="twitter:image" content="https://carolinacleaningboys.com/images/og-share.png">
 
     <!-- Additional SEO Meta Tags -->
-    <!-- Dated copy on this page: the founders' "master's expected spring 2027"
+    <!-- Dated copy on this page: the founders' "master's expected Spring 2027"
          lines and the Where We Come From paragraph will need refreshing once
          they graduate. -->
     <meta name="robots" content="index, follow">
@@ -164,6 +164,18 @@
            or a role but hard to read across a full paragraph. Photo, name and
            role stay centred under the circle; only the prose goes left. */
         .team-bio, .team-credential { text-align: left; }
+    
+        /* Three-section grouping + sticky jump bar. The bar is real anchor
+           links, so it still works with no JS; only the active-chip
+           highlight needs script. */
+        .story-jump { position: sticky; top: 0; z-index: 30; background: rgba(245,240,232,0.97); border-bottom: 1px solid rgba(26,43,60,0.12); backdrop-filter: blur(6px); }
+        .story-jump-inner { display: flex; gap: 0.5rem; overflow-x: auto; padding: 0.7rem 1rem; max-width: 1100px; margin: 0 auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .story-jump-inner::-webkit-scrollbar { display: none; }
+        .story-jump-chip { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 1rem; border-radius: 999px; background: var(--white); border: 1px solid rgba(26,43,60,0.15); color: var(--primary); font-size: 0.9rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
+        .story-jump-chip:hover { border-color: var(--primary-light); }
+        .story-jump-chip.is-active { background: var(--primary); color: var(--white); border-color: var(--primary); }
+        .story-group { scroll-margin-top: 72px; display: block; }
+        .story-group-eyebrow { text-align: center; font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary-light); margin: var(--space-lg) 0 0; }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -293,7 +305,117 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             </div>
         </section>
 
-        <!-- 2. What the motto means to us -->
+        <!-- Jump bar: shortcuts to the three sections -->
+        <nav class="story-jump" aria-label="Jump to a section">
+            <div class="story-jump-inner">
+                <a class="story-jump-chip" href="#our-story">Our Story</a>
+                <a class="story-jump-chip" href="#our-team">Our Team</a>
+                <a class="story-jump-chip" href="#the-business">The Business</a>
+            </div>
+        </nav>
+
+        <!-- Our Story -->
+        <section class="story-group" id="our-story" aria-labelledby="our-story-heading">
+            <div class="container">
+                <p class="story-group-eyebrow" id="our-story-heading">Our Story</p>
+            </div>
+<!-- 3. Where it comes from -->
+        <section class="story-section alt-bg" aria-labelledby="upbringing-heading">
+            <div class="container">
+                <h2 id="upbringing-heading" class="story-heading animate-on-scroll">Where We Come From</h2>
+                <div class="story-text animate-on-scroll">
+                    <!-- DATED COPY: "Spring 2027" needs updating once they graduate. -->
+                    <p>Nick and Zach are from Charlotte, North Carolina and brought their exterior cleaning expertise here to Greenville, NC. They apply their technical knowledge to Carolina Cleaning Boys to create a great customer experience.</p>
+                    <p>Sam is from Raleigh, where he ran a landscaping business before coming to Greenville. He specializes in business management, has strong networking skills, and brings great communication to every client.</p>
+                </div>
+            </div>
+        </section>
+
+<!-- 4. Student-athletes -->
+        <section class="story-section" aria-labelledby="athletes-heading">
+            <div class="container">
+                <h2 id="athletes-heading" class="story-heading animate-on-scroll">Student-Athletes First</h2>
+                <div class="story-split reverse animate-on-scroll">
+                    <div class="story-text">
+                        <p>Nick, Zach and Sam came to ECU to compete on the university's cross country, indoor and outdoor track teams. They were all successful athletes and competed competitively at conference meets. Unlike many other sports, running demands an extensive time commitment year round, and this has taught them that success requires hard work, but more importantly, smart work.</p>
+                        <p>Strong communication, coordination, and hard work enable us to reach our goals and provide exceptional service to every client!</p>
+                    </div>
+                    <div class="story-split-image">
+                        <img src="images/work/homepage/homepage-07.webp" alt="Carolina Cleaning Boys team member holding the company hat after a job in Greenville, NC" loading="lazy" width="1200" height="1600">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- 8. Meet the founders -->
+        <section class="team-member-section" aria-labelledby="founders-heading">
+            <div class="container">
+                <h2 id="founders-heading" class="section-title animate-on-scroll">Meet the Founders</h2>
+                <p class="story-intro-line animate-on-scroll">Nick and Zach are identical twins. Sam is their co-founder and business partner.</p>
+
+                <div class="team-grid animate-on-scroll">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="images/zach1.webp" alt="Zach Willer, co-founder of Carolina Cleaning Boys" loading="lazy" width="400" height="400">
+                        </div>
+                        <h3>Zach</h3>
+                        <p class="team-role">Co-Founder</p>
+                        <p class="team-bio"><span class="team-credential">ECU Student-Athlete &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Engineering (2026), concentration in Biomedical Engineering, minor in Mathematics &middot; Master’s expected Spring 2027</span>Runs the back end of the business and keeps logistics moving.</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="images/sam.webp" width="1600" height="2400" alt="Sam Dewar, co-founder of Carolina Cleaning Boys" loading="lazy">
+                        </div>
+                        <h3>Sam</h3>
+                        <p class="team-role">Co-Founder</p>
+                        <p class="team-bio"><span class="team-credential">ECU Student-Athlete &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Business Management (2026) &middot; Immersive MBA, expected Spring 2027 &middot; Honors College</span>Handles client communication and management.</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="images/nick.webp" width="1023" height="1140" alt="Nick Willer, co-founder of Carolina Cleaning Boys" loading="lazy">
+                        </div>
+                        <h3>Nick</h3>
+                        <p class="team-role">Co-Founder</p>
+                        <p class="team-bio"><span class="team-credential">ECU Student-Athlete &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Engineering (2026), concentration in Biomedical Engineering, minor in Mathematics &middot; Master’s expected Spring 2027</span>Manages advertising, branding and marketing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </section>
+
+        <!-- Our Team -->
+        <section class="story-group" id="our-team" aria-labelledby="our-team-heading">
+            <div class="container">
+                <p class="story-group-eyebrow" id="our-team-heading">Our Team</p>
+            </div>
+<!-- 8b. The team -->
+        <section class="team-member-section alt-bg" aria-labelledby="team-heading">
+            <div class="container">
+                <h2 id="team-heading" class="section-title animate-on-scroll">Meet the Team</h2>
+                <p class="story-intro-line animate-on-scroll">The students who make it happen, working their way through school the same way we did.</p>
+
+                <div class="team-grid animate-on-scroll">
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="images/garrett.webp" alt="Garrett Sharer of Carolina Cleaning Boys" loading="lazy" width="600" height="600">
+                        </div>
+                        <h3>Garrett</h3>
+                        <p class="team-role">Team Lead</p>
+                        <p class="team-bio">Garrett Sharer is currently pursuing a Bachelor of Science in Business Administration with a concentration in Finance at ECU. He works with ECU's Financial Wellness Hub, where he helps students build their financial knowledge and make informed decisions. Garrett is also involved with the East Carolina Investment Club and has experience coaching youth baseball, giving him a strong background in communication, leadership, and working with others.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </section>
+
+        <!-- The Business -->
+        <section class="story-group" id="the-business" aria-labelledby="the-business-heading">
+            <div class="container">
+                <p class="story-group-eyebrow" id="the-business-heading">The Business</p>
+            </div>
+<!-- 2. What the motto means to us -->
         <section class="story-section" aria-labelledby="motto-heading">
             <div class="container">
                 <h2 id="motto-heading" class="story-heading animate-on-scroll">What &ldquo;Turning Dirt into Degrees&rdquo; Means to Us</h2>
@@ -309,46 +431,18 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             </div>
         </section>
 
-        <!-- 3. Where it comes from -->
-        <section class="story-section alt-bg" aria-labelledby="upbringing-heading">
-            <div class="container">
-                <h2 id="upbringing-heading" class="story-heading animate-on-scroll">Where We Come From</h2>
-                <div class="story-text animate-on-scroll">
-                    <!-- DATED COPY: "spring 2027" needs updating once they graduate. -->
-                    <p>Nick and Zach are from Charlotte, North Carolina and brought their exterior cleaning expertise here to Greenville, NC. They earned their engineering degrees from ECU in 2026 and finish their master's in spring 2027, and they apply many of the technical aspects that keep CCB moving!</p>
-                    <p>Sam operated a landscaping business in high school and specializes in business management. He has strong networking skills and brings his great communication to every client.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. Student-athletes -->
-        <section class="story-section" aria-labelledby="athletes-heading">
-            <div class="container">
-                <h2 id="athletes-heading" class="story-heading animate-on-scroll">Student-Athletes First</h2>
-                <div class="story-split reverse animate-on-scroll">
-                    <div class="story-text">
-                        <p>Nick, Zach, and Sam came to ECU to compete on the university's cross country, indoor and outdoor track teams. They were all successful athletes and competed competitively at conference meets. Unlike many other sports, running demands an extensive time commitment year round, and this has taught them that success requires hard work, but more importantly, smart work.</p>
-                        <p>Strong communication, coordination, and hard work enable us to reach our goals and provide exceptional service to every client!</p>
-                    </div>
-                    <div class="story-split-image">
-                        <img src="images/work/homepage/homepage-07.webp" alt="Carolina Cleaning Boys team member holding the company hat after a job in Greenville, NC" loading="lazy" width="1200" height="1600">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Why we hire college students -->
+<!-- 5. Why we hire college students -->
         <section class="story-section alt-bg" aria-labelledby="hire-heading">
             <div class="container">
                 <h2 id="hire-heading" class="story-heading animate-on-scroll">Why We Hire College Students</h2>
                 <div class="story-text animate-on-scroll">
                     <p>We hire college students and build the schedule around their classes and practice, not the other way around. Nobody has to choose between a shift and an exam.</p>
-                    <p>We value growth, which is why we always push our techs to do more than wash houses. Communication, responsibility and time management are just a few of the skills every CCB member picks up here. We're not trying to build a workforce that clocks in and disappears. We're trying to build a place where a student can make real money on their own schedule and learn how to be successful past work.</p>
+                    <p>We value growth, which is why we always push our techs to do more than wash houses. Communication, responsibility and time management are just a few of the skills every CCB member picks up here. We're not trying to build a workforce that clocks in and disappears. We're trying to build a place where a student can make real money on their own schedule and learn how to be successful past Carolina Cleaning Boys, in their careers and in life.</p>
                 </div>
             </div>
         </section>
 
-        <!-- 6. Paying it forward -->
+<!-- 6. Paying it forward -->
         <section class="story-section" aria-labelledby="forward-heading">
             <div class="container">
                 <h2 id="forward-heading" class="story-heading animate-on-scroll">Paying It Forward</h2>
@@ -360,7 +454,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             </div>
         </section>
 
-        <!-- 7. Proof / trust strip -->
+<!-- 7. Proof / trust strip -->
         <section class="why-choose-section" aria-labelledby="trust-heading">
             <div class="container">
                 <h2 id="trust-heading" class="section-title animate-on-scroll">A Name Greenville Already Knows</h2>
@@ -372,7 +466,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         </div>
                         <div class="award-body">
                             <h3>Pirate Entrepreneurship Challenge</h3>
-                            <p>We pitched Carolina Cleaning Boys against other student-run businesses at East Carolina University and took the win &mdash; $20,000 in cash, and more than $70,000 in total prizes once in-kind support is counted.</p>
+                            <p>We pitched Carolina Cleaning Boys against other student-run businesses at East Carolina University and took the win, along with $70,000 in total prizes.</p>
                         </div>
                     </article>
                     <article class="award-card animate-on-scroll">
@@ -387,64 +481,9 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 </div>
             </div>
         </section>
-
-        <!-- 8. Meet the founders -->
-        <section class="team-member-section" aria-labelledby="founders-heading">
-            <div class="container">
-                <h2 id="founders-heading" class="section-title animate-on-scroll">Meet the Founders</h2>
-                <p class="story-intro-line animate-on-scroll">Zach and Nick are brothers. Sam is their co-founder and business partner.</p>
-
-                <div class="team-grid animate-on-scroll">
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="images/zach1.webp" alt="Zach Willer, co-founder of Carolina Cleaning Boys" loading="lazy" width="400" height="400">
-                        </div>
-                        <h3>Zach</h3>
-                        <p class="team-role">Co-Founder</p>
-                        <p class="team-bio"><span class="team-credential">ECU student-athlete &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Engineering (2026), concentration in Biomedical Engineering, minor in Mathematics &middot; master’s expected spring 2027</span>Started CCB with Nick and Sam. Runs the back end of the business and keeps logistics moving.</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="images/sam.webp" width="1600" height="2400" alt="Sam Dewar, co-founder of Carolina Cleaning Boys" loading="lazy">
-                        </div>
-                        <h3>Sam</h3>
-                        <p class="team-role">Co-Founder</p>
-                        <p class="team-bio"><span class="team-credential">ECU student-athlete &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Business Management (2026) &middot; Immersive MBA, expected spring 2027 &middot; Honors College</span>Started CCB with Nick and Zach as a side hustle and helped turn it into a real business.</p>
-                    </div>
-
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="images/nick.webp" width="1023" height="1140" alt="Nick Willer, co-founder of Carolina Cleaning Boys" loading="lazy">
-                        </div>
-                        <h3>Nick</h3>
-                        <p class="team-role">Co-Founder</p>
-                        <p class="team-bio"><span class="team-credential">ECU student-athlete &mdash; cross country, indoor and outdoor track</span><span class="team-credential">B.S. Engineering (2026), concentration in Biomedical Engineering, minor in Mathematics &middot; master’s expected spring 2027</span>Started the business with Sam and Zach. Has helped CCB reach the Greenville community through branding, marketing and advertising.</p>
-                    </div>
-                </div>
-            </div>
         </section>
 
-        <!-- 8b. The team -->
-        <section class="team-member-section alt-bg" aria-labelledby="team-heading">
-            <div class="container">
-                <h2 id="team-heading" class="section-title animate-on-scroll">Meet the Team</h2>
-                <p class="story-intro-line animate-on-scroll">The students who make it happen, working their way through school the same way we did.</p>
-
-                <div class="team-grid animate-on-scroll">
-                    <div class="team-member">
-                        <div class="team-photo">
-                            <img src="images/garrett.webp" alt="Garrett Sharer of Carolina Cleaning Boys" loading="lazy" width="600" height="600">
-                        </div>
-                        <h3>Garrett</h3>
-                        <p class="team-role">Team Lead</p>
-                        <p class="team-bio">Garrett Sharer is currently pursuing a Bachelor of Science in Business Administration with a concentration in Finance at East Carolina University. He works with ECU's Financial Wellness Hub, where he helps students build their financial knowledge and make informed decisions. Garrett is also involved with the East Carolina Investment Club and has experience coaching youth baseball, giving him a strong background in communication, leadership, and working with others.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 9. Closing CTA band -->
+<!-- 9. Closing CTA band -->
         <section class="cta-section" aria-labelledby="closing-cta-heading">
             <div class="container">
                 <div class="cta-content">
@@ -457,8 +496,7 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                 </div>
             </div>
         </section>
-
-    </main>
+        </main>
 
     <footer class="footer">
         <div class="container">
@@ -545,5 +583,26 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
             });
         }
     </script>
+
+<script>
+    // Highlight the jump-bar chip for whichever section is on screen.
+    (function () {
+        var chips = Array.prototype.slice.call(document.querySelectorAll('.story-jump-chip'));
+        if (!chips.length || !('IntersectionObserver' in window)) return;
+        var byId = {};
+        chips.forEach(function (c) { byId[c.getAttribute('href').slice(1)] = c; });
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                chips.forEach(function (c) { c.classList.remove('is-active'); });
+                if (byId[e.target.id]) byId[e.target.id].classList.add('is-active');
+            });
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        ['our-story', 'our-team', 'the-business'].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) obs.observe(el);
+        });
+    })();
+</script>
 </body>
 </html>
