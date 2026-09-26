@@ -151,7 +151,7 @@
         /* Founder bios: credentials read as their own lines above the prose, so
            the degree strings don't run into the sentence about what they do. */
         .team-credential { display: block; font-size: 0.85rem; line-height: 1.5; color: var(--primary-dark); opacity: 0.85; margin-bottom: 0.35rem; }
-        .team-credential + .team-credential { margin-bottom: 0.7rem; }
+        .team-bio .team-credential:last-of-type { margin-bottom: 0.7rem; }
 
         /* Team section. The shared .team-grid auto-fits, so a single member would
            stretch the full 900px; cap it so the card stays a readable column, and
@@ -431,7 +431,15 @@ src="https://www.facebook.com/tr?id=1251424400160038&ev=PageView&noscript=1"
                         </div>
                         <h3>Garrett</h3>
                         <p class="team-role">Team Lead</p>
-                        <p class="team-bio">Garrett Sharer is currently pursuing a Bachelor of Science in Business Administration with a concentration in Finance at ECU. He works with ECU's Financial Wellness Hub, where he helps students build their financial knowledge and make informed decisions. Garrett is also involved with the East Carolina Investment Club and has experience coaching youth baseball, giving him a strong background in communication, leadership, and working with others.</p>
+                        <p class="team-bio"><span class="team-credential">Intern, ECU Financial Wellness Hub &mdash; helps students with financial planning and budgeting</span><span class="team-credential">B.S. Business Administration, concentration in Finance &middot; expected Spring 2027</span><span class="team-credential">East Carolina Investment Club &middot; youth baseball coach</span>Works jobs, talks with clients and keeps Carolina Cleaning Boys moving forward, especially when it comes to providing exceptional customer experiences.</p>
+                    </div>
+
+                    <div class="team-member">
+                        <div class="team-photo">
+                            <img src="images/nehemiah.webp" alt="Nehemiah of Carolina Cleaning Boys, holding the company hat" loading="lazy" width="600" height="600">
+                        </div>
+                        <h3>Nehemiah</h3>
+                        <p class="team-role">Team Member</p>
                     </div>
                 </div>
             </div>
