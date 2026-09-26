@@ -856,7 +856,7 @@ oaiq('init', {
                     <a href="#" class="footer-logo">
                         <img src="images/logo-256-white.png" width="256" height="256" alt="Carolina Cleaning Boys Logo" class="footer-logo-img" style="height:100px!important;width:100px!important;max-width:none!important;object-fit:contain!important;display:block!important;">
                     </a>
-                    <p class="footer-desc">Professional pressure washing, soft-washing, and gutter cleaning services. Proudly student-owned and operated. "Turning Dirt into Degrees"</p>
+                    <p class="footer-desc">Professional pressure washing, soft-washing, gutter cleaning, and window cleaning services. Proudly student-owned and operated. "Turning Dirt into Degrees"</p>
                     <div class="footer-social">
                         <a href="https://www.facebook.com/profile.php?id=61558735994193" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.018 10.125 11.927v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.79-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971h-1.513c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796v8.437C19.612 23.091 24 18.099 24 12.073z"/></svg>
@@ -934,18 +934,25 @@ oaiq('init', {
             });
         }
 
-        document.getElementById('galleryPrev').addEventListener('click', function() {
-            document.getElementById('galleryCarousel').scrollBy({ left: -300, behavior: 'smooth' });
-        });
-        document.getElementById('galleryNext').addEventListener('click', function() {
-            document.getElementById('galleryCarousel').scrollBy({ left: 300, behavior: 'smooth' });
-        });
-        document.getElementById('reviewsPrev').addEventListener('click', function() {
-            document.getElementById('reviewsCarousel').scrollBy({ left: -340, behavior: 'smooth' });
-        });
-        document.getElementById('reviewsNext').addEventListener('click', function() {
-            document.getElementById('reviewsCarousel').scrollBy({ left: 340, behavior: 'smooth' });
-        });
+        // Arrows loop: past the last card the right arrow wraps to the first,
+        // and the left arrow on the first card wraps to the last.
+        function ccbCarouselStep(id, step) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            var max = el.scrollWidth - el.clientWidth;
+            var edge = 8; // tolerance for sub-pixel scroll positions
+            if (step > 0 && el.scrollLeft >= max - edge) {
+                el.scrollTo({ left: 0, behavior: 'smooth' });
+            } else if (step < 0 && el.scrollLeft <= edge) {
+                el.scrollTo({ left: max, behavior: 'smooth' });
+            } else {
+                el.scrollBy({ left: step, behavior: 'smooth' });
+            }
+        }
+        document.getElementById('galleryPrev').addEventListener('click', function() { ccbCarouselStep('galleryCarousel', -300); });
+        document.getElementById('galleryNext').addEventListener('click', function() { ccbCarouselStep('galleryCarousel', 300); });
+        document.getElementById('reviewsPrev').addEventListener('click', function() { ccbCarouselStep('reviewsCarousel', -340); });
+        document.getElementById('reviewsNext').addEventListener('click', function() { ccbCarouselStep('reviewsCarousel', 340); });
     </script>
     <script>
 function ccbRadioVal(name) {
@@ -1246,5 +1253,6 @@ function initAutocomplete() {
 
 }
 </script>
+<script src="js/back-to-top.js" defer></script>
 </body>
 </html>
