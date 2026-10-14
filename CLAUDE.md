@@ -19,6 +19,23 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 │                             URL as a setting and texts it — don't rename or move the file without updating that setting.
 │                             Standing fees (moving, cancellation, payment-method %) live here; they must stay in sync with
 │                             the AI agent's knowledge base or a customer gets two different answers.
+├── our-work.html          ← "Our Work" client map (added 2026-10-13). PREVIEW until Zach approves it on his phone: it has
+│                             <meta name="robots" content="noindex, follow">, is NOT in sitemap.xml and NOT in the menu.
+│                             To launch: change robots to "index, follow", add it to sitemap.xml, add a hamburger-sidebar link
+│                             on every page. Map = self-hosted Leaflet (vendor/) + free OpenStreetMap tiles, data from
+│                             data/our-work-map.json. Businesses show as gold stars + a card list below the map.
+├── data/
+│   └── our-work-map.json  ← PUBLIC file (this repo is public on GitHub). Homes are nudged 160–400 m off the real address and
+│                             carry only town + service types; only Zach-approved businesses are named. NEVER hand-edit it and
+│                             NEVER commit raw addresses anywhere in this repo. Regenerate with the CRM script
+│                             `CRM/scripts/build-our-work-map.cjs` (preview, then `--write`), which audits the output for names,
+│                             streets, zips, emails and phones and refuses to write if it finds any. New business names go in
+│                             that script's APPROVED list, only with Zach's OK.
+├── vendor/                ← self-hosted third-party JS: leaflet-1.9.4/ (BSD-2) and leaflet.markercluster-1.5.3/ (MIT),
+│                             each with its LICENSE file. Self-hosted so no outside CDN can break or track the page.
+├── js/
+│   └── back-to-top.js     ← shared "back to top" button, loaded with `defer` on 42 pages. Injects its own button + CSS,
+│                             shows after 600px of scroll, and parks above the floating CTA / sticky lp bar.
 ├── style.css              ← shared stylesheet for all pages
 ├── DESIGN.md               ← design-system reference (colors, fonts, brand voice/tone) — written for AI design tooling context, not a site page
 ├── PRODUCT.md               ← product/brand brief (audience, positioning, "anti-references") — written for AI design tooling context, not a site page
@@ -250,6 +267,11 @@ After ANY edit to a form or its script, run `node scripts/check-form-scripts.js`
 
 **Service page `<style>` bug (already fixed in surface-cleaning, roof-cleaning, gutter-cleaning):**
 These pages had the `</style>` tag closing the style block after the SEO fix CSS, leaving the FAQ accordion CSS rendered as raw text on the page. The fix is to keep the `</style>` after the FAQ CSS, not before it.
+
+**Reviews (updated 2026-10-13):**
+- The homepage carousel (`index.html` `.reviews-carousel`) holds 40 real Google reviews, newest first, copied verbatim from Zach's Google Takeout export (first name + last initial). The carousel arrows loop at both ends (`ccbCarouselStep`).
+- **Never use reviews from family members or our own team** (e.g. Nick W., Marion D.). They were removed sitewide on 2026-10-13: homepage cards, homepage JSON-LD review list, three lp/ pages, and four location pages. When adding reviews, check the reviewer isn't a Willer, Dewar, or crew member.
+- lp/ and location pages reuse reviews from the homepage carousel; never invent review copy.
 
 **Cloudflare email obfuscation:**
 Email addresses in deployed HTML are replaced with Cloudflare-obfuscated spans. Write plain `mailto:` links in source — Cloudflare handles obfuscation on the CDN side.
