@@ -35,16 +35,17 @@
 const fs = require('fs');
 const vm = require('vm');
 const cp = require('child_process');
+const path = require('path');
 
 // Script types that are real JavaScript. Anything else (notably
 // application/ld+json schema.org blocks) is skipped.
 const JS_TYPES = new Set(['', 'text/javascript', 'application/javascript', 'module']);
 
 function filesToScan() {
-  if (process.argv.length > 2) return process.argv.slice(2).filter((f) => f.endsWith('.html'));
+  if (process.argv.length > 2) return process.argv.slice(2).filter((f) => f.endsWith('.html') || /^js\/.*\.js$/.test(f.split(path.sep).join('/')));
   try {
     return cp
-      .execSync('git ls-files "*.html"', { encoding: 'utf8' })
+      .execSync('git ls-files "*.html" "js/*.js"', { encoding: 'utf8' })
       .split('\n')
       .filter(Boolean);
   } catch (e) {
@@ -91,9 +92,11 @@ for (const file of files) {
     continue; // don't try to parse a corrupted file
   }
 
-  // (1) Inline-script parse check.
+  // (1) Inline-script parse check. Shared JS files (js/*.js, e.g. js/quote-form.js,
+  // which every lead form loads) are parsed whole.
   const html = buf.toString('utf8');
-  for (const s of extractScripts(html)) {
+  const scripts = file.endsWith('.js') ? [{ line: 1, code: html }] : extractScripts(html);
+  for (const s of scripts) {
     try {
       new vm.Script(s.code, { filename: file }); // parses without executing
     } catch (err) {
@@ -110,5 +113,5 @@ if (problems > 0) {
   process.exit(1);
 }
 
-console.log(`OK: ${files.length} HTML file(s) clean -- all inline scripts parse, no NUL bytes.`);
+console.log(`OK: ${files.length} HTML/JS file(s) clean -- all inline scripts parse, no NUL bytes.`);
 process.exit(0);

@@ -379,3 +379,7 @@
 .window-scope-note { max-width: 820px; margin: var(--space-lg) auto 0; padding: 1rem 1.2rem; text-align: left; border-left: 5px solid #F7C531; background: #FFF8E1; border-radius: 12px; box-shadow: var(--shadow-sm); }
 .window-scope-note p { margin: 0; font-size: 0.95rem; line-height: 1.7; color: var(--primary-dark); }
 .window-scope-note .window-scope-label { font-family: var(--font-display); font-size: 1rem; margin-bottom: 0.35rem; }
+
+
+/* House washing price guide (soft-washing page), added 2026-10-14 */
+.price-guide { max-width: 640px; margin: 0 auto var(--space-md); padding: 0.75rem 1rem; background: var(--off-white); border-left: 4px solid var(--primary-light); border-radius: 10px; font-size: 0.95rem; line-height: 1.6; color: var(--primary-dark); text-align: left; }
