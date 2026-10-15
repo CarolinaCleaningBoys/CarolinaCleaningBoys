@@ -383,3 +383,12 @@
 
 /* House washing price guide (soft-washing page), added 2026-10-14 */
 .price-guide { max-width: 640px; margin: 0 auto var(--space-md); padding: 0.75rem 1rem; background: var(--off-white); border-left: 4px solid var(--primary-light); border-radius: 10px; font-size: 0.95rem; line-height: 1.6; color: var(--primary-dark); text-align: left; }
+
+
+/* Performance + accessibility fixes, added 2026-10-14 (Lighthouse audit) */
+/* Reserve the hero video's space on phones so the page doesn't jump when it loads
+   (soft washing page CLS was 0.525; Google's "good" is under 0.1). */
+@media (max-width: 860px) { .hero-split .hero-media video.video-crop-portrait { width: 300px; } }
+/* Footer links: #65a1c7 on #2e4f66 was 3.08:1; WCAG AA needs 4.5:1 for small text. Some footers sit
+   inside a parent at opacity .85, so #c4e0f2 = 5.07:1 faded (6.3:1 solid). */
+.footer-link { color: #c4e0f2; }

@@ -12,8 +12,8 @@ Sitemap: https://carolinacleaningboys.com/sitemap.xml
 Crawl-delay: 1
 
 # Block common non-content paths (if they exist)
+# (JSON is NOT blocked: the Our Work map needs data/our-work-map.json to render for Google.)
 Disallow: /cdn-cgi/
-Disallow: /*.json$
 Disallow: /api/
 
 # Specifically allow important pages for search engines
