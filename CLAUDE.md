@@ -4,7 +4,7 @@ Static HTML/CSS marketing site for Carolina Cleaning Boys, a pressure washing bu
 
 ## File Structure
 
-Last verified against the actual files on disk on 2026-08-12. If you're reading this much later, a quick sanity check (`ls` the folders below) takes less time than trusting a stale tree.
+Last verified against the actual files on disk on 2026-10-14. If you're reading this much later, a quick sanity check (`ls` the folders below) takes less time than trusting a stale tree.
 
 ```
 /                          ← root
@@ -33,8 +33,14 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 ├── vendor/                ← self-hosted third-party JS: leaflet-1.9.4/ (BSD-2) and leaflet.markercluster-1.5.3/ (MIT),
 │                             each with its LICENSE file. Self-hosted so no outside CDN can break or track the page.
 ├── js/
-│   └── back-to-top.js     ← shared "back to top" button, loaded with `defer` on 42 pages. Injects its own button + CSS,
-│                             shows after 600px of scroll, and parks above the floating CTA / sticky lp bar.
+│   ├── back-to-top.js     ← shared "back to top" button, loaded with `defer` on every live page. Injects its own button + CSS,
+│   │                         shows after 600px of scroll, and parks above the floating CTA / sticky lp bar.
+│   ├── quote-form.js      ← THE lead form logic for all 29 pages with #leadForm (homepage, 6 services, 22 towns) since 2026-10-14:
+│   │                         step navigation, window questions, CRM POST, Meta Lead + Ads conversion, success/error. The
+│   │                         page's <form data-form-source="full_form|service_page|location_hub"> sets form_source. One file =
+│   │                         one point of failure: run node scripts/check-form-scripts.js after ANY edit (it now parses js/*.js).
+│   └── analytics-config.js ← GA4, OFF until GA4_ID is set (placeholder G-XXXXXXXXXX). Fires form_step_view (1-3),
+│                             form_submit_success, phone_click, email_click, quote_cta_click. Never touches Ads/Meta code.
 ├── style.css              ← shared stylesheet for all pages
 ├── DESIGN.md               ← design-system reference (colors, fonts, brand voice/tone) — written for AI design tooling context, not a site page
 ├── PRODUCT.md               ← product/brand brief (audience, positioning, "anti-references") — written for AI design tooling context, not a site page
@@ -43,12 +49,21 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 ├── privacy-policy.html
 ├── terms-and-conditions.html
 ├── robots.txt
-├── sitemap.xml             ← lists every page meant to be indexed. Has some drift — see "Location pages" below.
+├── sitemap.xml             ← GENERATED: run `node scripts/build-sitemap.js` after adding/removing pages (skips noindex + redirect stubs).
+├── llms.txt                ← plain-text summary for AI search tools (facts only). Review count kept current by the nightly script.
+├── _redirects              ← Cloudflare Pages 301 rules (old city URLs, Kenley, /index.html). GitHub Pages IGNORES it; active only
+│                             after a move to Cloudflare Pages.
+├── README.md               ← short how-to (sitemap, review count, form checker).
 ├── google551afceabee48996.html   ← Google Search Console ownership-verification file. Must keep this exact filename; don't rename or delete it.
 ├── docs/
 │   └── ad-tracking-setup.md   ← plain-English writeup for Nick on how gclid/UTM tracking works on the lp/ pages
 ├── scripts/
-│   └── check-form-scripts.js  ← the lead-form safety checker referenced throughout "Known Patterns & Gotchas" below — run after any form edit
+│   ├── check-form-scripts.js  ← the lead-form safety checker referenced throughout "Known Patterns & Gotchas" below (HTML + js/*.js)
+│   ├── build-sitemap.js       ← rebuilds sitemap.xml (no deps)
+│   └── update-review-count.js ← nightly Google review count update (GitHub Action .github/workflows/update-review-count.yml,
+│                                12:15 UTC). Reads the CRM's google_review_snapshots with the Supabase ANON key (secret
+│                                SUPABASE_REVIEW_KEY; needs CRM migration 163). NEVER the service_role key: this repo is public.
+│                                Updates every <span data-review-count>, JSON-LD reviewCount, meta text and llms.txt.
 ├── services/               ← the 6 core service pages, linked from every page's nav
 │   ├── pressure-washing.html
 │   ├── soft-washing.html
@@ -56,8 +71,8 @@ Last verified against the actual files on disk on 2026-08-12. If you're reading 
 │   ├── roof-cleaning.html
 │   ├── gutter-cleaning.html
 │   └── window-cleaning.html   ← added 2026-09-20
-├── locations/              ← 24 town folders + one directory/index page. NOT one uniform template — see "Location pages" note below
-│   ├── index.html           ← the "our service areas" hub page; links to only 14 of the 24 towns (see note below)
+├── locations/              ← 22 town pages, all one template (`locations/{town}/index.html`) since 2026-10-14 — see "Location pages"
+│   ├── index.html           ← the "Service Areas" hub: one card per town (A-Z), one link each to /locations/{town}/
 │   └── [town]/
 ├── lp/                      ← LIVE standalone paid-traffic landing pages (what Google/Meta ads actually point to)
 │   ├── pressure-washing/index.html   ← served at carolinacleaningboys.com/lp/pressure-washing
@@ -249,7 +264,7 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
 
 **The lead form silently breaks when its JavaScript won't parse (CRITICAL — the #1 recurring cause of lost leads):**
 
-The `<script>` block holding `submitForm` posts leads directly to the CRM (`https://pressure-wash-crm.vercel.app/api/leads/web`, normal CORS `fetch()`, real success/error JSON is read — see `ccbSendLead`/`ccbShowSuccess`/`ccbShowError`), and fires the Meta Pixel + Google Ads conversions **only after a confirmed success**. If that script has *any* syntax error, the whole block fails to load, `submitForm` never exists, and the Submit button silently does nothing: **no lead reaches the CRM, no Gmail, no conversions — all at once, with no visible error.** This has broken real lead capture at least three times (2026-06-05, 2026-07-08, and 14 location pages + soft-washing found 2026-07-12), plus a separate file-truncation incident on 2026-07-12 that left `index.html` missing its closing `</script></body></html>` in production for over a month (fixed 2026-07-16 alongside the Apps-Script-to-CRM switch).
+**Since 2026-10-14 this code lives in ONE shared file, `js/quote-form.js`, loaded by all 29 form pages, so a syntax error there kills every form on the site at once. The checker parses it too.** The script holding `submitForm` posts leads directly to the CRM (`https://pressure-wash-crm.vercel.app/api/leads/web`, normal CORS `fetch()`, real success/error JSON is read — see `ccbSendLead`/`ccbShowSuccess`/`ccbShowError`), and fires the Meta Pixel + Google Ads conversions **only after a confirmed success**. If that script has *any* syntax error, the whole block fails to load, `submitForm` never exists, and the Submit button silently does nothing: **no lead reaches the CRM, no Gmail, no conversions — all at once, with no visible error.** This has broken real lead capture at least three times (2026-06-05, 2026-07-08, and 14 location pages + soft-washing found 2026-07-12), plus a separate file-truncation incident on 2026-07-12 that left `index.html` missing its closing `</script></body></html>` in production for over a month (fixed 2026-07-16 alongside the Apps-Script-to-CRM switch).
 
 **As of 2026-07-16, `index.html` (the homepage form) was switched off the old Google Apps Script / Sheet flow onto this direct CRM POST** (Phase 1 of a planned site-wide switch — other pages may still reference the old flow until migrated). Its payload shape is NOT identical to the `lp/` pages documented below: it sends `street_address` (not `address`), `services` as a comma-joined string (not `service_type`), a nested `attribution` object (not flat UTM/click-ID fields), and no `zip`/`message` fields (uses `additional_info` instead). The CRM's `/api/leads/web` route must accept both shapes — confirm this on the CRM side (`CRM/src/app/api/leads/web/route.ts`) before/after this kind of migration, since a schema mismatch there would now surface as an honest "Something went wrong" error to real customers instead of a silent Apps Script failure.
 
@@ -290,17 +305,18 @@ Email addresses in deployed HTML are replaced with Cloudflare-obfuscated spans. 
 - Pages in `locations/[city]/` use `../../` for root assets
 - Root pages (`index.html`, `privacy-policy.html`, etc.) use no prefix
 
-**Location pages (corrected 2026-08-12 — the old "~100+ pages" claim below was wrong, don't repeat it):**
+**Location pages (rebuilt 2026-10-14):**
 
-`locations/` has 24 town folders, but they are NOT all the same template. Two different setups exist, and mixing them up will waste an edit:
+All **22 towns** use ONE template, `locations/{town}/index.html` (clean URL `/locations/{town}/`), modeled on `locations/wilson/`: hero, quote form, intro, five services, before/after, area, FAQ (+ matching FAQPage JSON-LD), reviews, nearby areas, CTA. Towns: Ayden, Bailey, Bethel, Black Creek, Farmville, Fountain, Greenville, Grimesland, Hookerton, Kenly, Kinston, Lucama, Middlesex, Saratoga, Selma, Simpson, Sims, Snow Hill, Stantonsburg, Walstonburg, Wilson, Winterville.
 
-1. **8 "hub" towns** — Ayden, Bethel, Farmville, Fountain, Greenville, Grimesland, Simpson, Winterville. Each of these has ONE real content page, `pressure-washing.html` (~50KB, the actual page Google indexes). The other 4 files in that same folder (`index.html`, `gutter-cleaning.html`, `roof-cleaning.html`, `soft-washing.html`) are just tiny meta-refresh redirect stubs that immediately forward to `pressure-washing.html`. **If you need to edit one of these towns, edit `pressure-washing.html` — editing `index.html` or the other service filenames does nothing real.**
-2. **14 "single-page" towns** — Bailey, Black Creek, Hookerton, Kenley, Kinston, Lucama, Middlesex, Saratoga, Selma, Sims, Snow Hill, Stantonsburg, Walstonburg, Wilson. Each of these has just one `index.html` that covers all 5 services on a single page. This is the real, indexed content for that town.
-3. **2 dead/duplicate stubs** — `kenly/` (redirects to `kenley/` — likely a misspelling cleanup) and `knightdale/` (redirects back to the `locations/` directory page, i.e. effectively retired). Neither has real content of its own. Oddly, `sitemap.xml` still lists `kenly/pressure-washing.html` even though it's a dead redirect — that's a leftover sitemap entry worth cleaning up at some point, but hasn't been fixed as of this writing.
+- The 8 towns that used to live at `locations/{town}/pressure-washing.html` (Ayden, Bethel, Farmville, Fountain, Greenville, Grimesland, Simpson, Winterville) were moved to `index.html` on 2026-10-14. Their old `pressure-washing.html`, `gutter-cleaning.html`, `roof-cleaning.html`, `soft-washing.html` and `surface-cleaning.html` are now **noindex redirect stubs** to `/locations/{town}/`. Don't edit the stubs; edit `index.html`.
+- **The town is spelled Kenly.** `locations/kenly/index.html` is the page; `locations/kenley/` and `locations/kenly/pressure-washing.html` are stubs. `knightdale/` is a stub to the hub.
+- Local details on town pages came from the old pages only (no invented landmarks). Keep it that way.
+- Redirect stubs: `<meta name="robots" content="noindex, follow">`, canonical to the new URL, meta refresh, JS `location.replace`, visible link. GitHub Pages can't do real 301s; `_redirects` takes over after a Cloudflare Pages move.
 
-So the real count is roughly **22 unique location landing pages** (8 hub-town pages + 14 single-page towns), not "100+." The `locations/index.html` directory/hub page only links to the 14 single-page towns — the 8 hub towns and the two dead stubs aren't linked from it (they're presumably reached via the sitemap, ads, or direct links elsewhere).
+Towns like Clayton, Garner, Raleigh, Rolesville, Wake Forest, Wendell, and Zebulon do **not** have pages, despite hero photos staged in `images/locations/`. Treat them as planned, not built.
 
-Towns like Clayton, Garner, Raleigh, Rolesville, Wake Forest, Wendell, and Zebulon do **not** currently have a `locations/` folder at all, despite older drafts of this doc listing them as existing cities and despite `images/locations/` already having hero photos staged for them — treat those as "planned, not yet built," not as existing pages.
+**Quote form (standardized 2026-10-14):** every #leadForm page has the same steps: 1 contact (property type, name, email, phone, SMS consent directly under phone - full homepage wording, unchecked, optional), 2 property + service (street, city, state, services, optional window questions), 3 details (how did you hear, notes, submit). Page-specific bits stay in the HTML: hidden `_subject`, city default on town pages, the service pre-ticked on service pages. The logic is in `js/quote-form.js`. The 7 `lp/` pages keep their own single-step form and flat payload (different design on purpose).
 
 **FAQ accordion JS** (used in service pages):
 ```js
