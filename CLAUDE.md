@@ -39,6 +39,7 @@ Last verified against the actual files on disk on 2026-10-14. If you're reading 
 │   │                         step navigation, window questions, CRM POST, Meta Lead + Ads conversion, success/error. The
 │   │                         page's <form data-form-source="full_form|service_page|location_hub"> sets form_source. One file =
 │   │                         one point of failure: run node scripts/check-form-scripts.js after ANY edit (it now parses js/*.js).
+│   ├── lazy-video.js      ← starts each <video data-src> only when it nears the screen (see Performance rules)
 │   └── analytics-config.js ← GA4, OFF until GA4_ID is set (placeholder G-XXXXXXXXXX). Fires form_step_view (1-3),
 │                             form_submit_success, phone_click, email_click, quote_cta_click. Never touches Ads/Meta code.
 ├── style.css              ← shared stylesheet for all pages
@@ -317,6 +318,15 @@ All **22 towns** use ONE template, `locations/{town}/index.html` (clean URL `/lo
 Towns like Clayton, Garner, Raleigh, Rolesville, Wake Forest, Wendell, and Zebulon do **not** have pages, despite hero photos staged in `images/locations/`. Treat them as planned, not built.
 
 **Quote form (standardized 2026-10-14):** every #leadForm page has the same steps: 1 contact (property type, name, email, phone, SMS consent directly under phone - full homepage wording, unchecked, optional), 2 property + service (street, city, state, services, optional window questions), 3 details (how did you hear, notes, submit). Page-specific bits stay in the HTML: hidden `_subject`, city default on town pages, the service pre-ticked on service pages. The logic is in `js/quote-form.js`. The 7 `lp/` pages keep their own single-step form and flat payload (different design on purpose).
+
+**Performance rules (Lighthouse audit 2026-10-14; keep these or the gains come back undone):**
+- **Videos never download on page open.** Write every `<video>` as `data-src="..." preload="none"` plus a `poster`, and load `/js/lazy-video.js` (defer) on the page. It sets the real `src` when the video is within 200px of the screen (web.dev/articles/lazy-loading-video). A plain `src=` makes every visitor download the full file (the Greenville page was 8.2 MB before; 1.0 MB after).
+- **Encode new videos small:** `ffmpeg -i in.mp4 -vf scale=540:-2 -c:v libx264 -crf 26 -preset slow -pix_fmt yuv420p -movflags +faststart -an out.mp4` (540 wide, no audio, playback index at the start). Videos are shown at most ~315x560; 1080p originals were 7-9 MB, encoded ones 1-3 MB.
+- **Reserve space for media** (width/height or CSS aspect-ratio) or the page jumps while loading. The phone hero video needs `width: 300px` (rule at the end of style.css); without it the soft washing page's layout-shift score was 0.525 (Google's "good" is under 0.1).
+- **Preload the hero image** when it's a CSS background or a video poster: `<link rel="preload" as="image" href="..." fetchpriority="high">` in the head (all pages with a background or video hero have one). Without it the browser finds the image ~1s late.
+- **Size images for how they're shown.** Town pages' menu logo is `images/logo-nav.png` (440px copy of logo-1200.png; the 1200px file is 352 KB). Footer partner logos are stored 136px tall (shown 34px). Window ad page photos use `*-600.webp` copies (shown max 286px). Measure the displayed size before resizing; don't shrink heroes that stretch across tall phone screens.
+- Footer links use `#c4e0f2` (WCAG AA contrast, even inside the 0.85-opacity footer). Don't revert to the darker blue.
+- **Biggest remaining cost is third-party tracking** (Meta Pixel ~10 speed points on the homepage, Google tag ~6, OpenAI ~0; measured by blocking each). Changing how they load is Zach's business call.
 
 **FAQ accordion JS** (used in service pages):
 ```js
