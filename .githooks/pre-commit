@@ -10,7 +10,7 @@
 # See scripts/check-form-scripts.js and the "Lead form" section of CLAUDE.md.
 
 # Only the HTML files staged for this commit.
-staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.html')
+staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.html' 'js/*.js')
 [ -z "$staged" ] && exit 0
 
 # Locate a Node runtime. On this project node.exe lives one level above the
