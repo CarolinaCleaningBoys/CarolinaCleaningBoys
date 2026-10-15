@@ -1,0 +1,46 @@
+name: Update review count
+
+# Daily at 12:15 UTC, after the CRM's 11:00 UTC Google review snapshot.
+on:
+  schedule:
+    - cron: '15 12 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so build-sitemap.js can read lastmod dates
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Update review count
+        id: rc
+        env:
+          # Supabase ANON key (public). Never put the service_role key here: this repo is public.
+          SUPABASE_REVIEW_KEY: ${{ secrets.SUPABASE_REVIEW_KEY }}
+        run: node scripts/update-review-count.js
+
+      - name: Rebuild sitemap
+        if: steps.rc.outputs.count != ''
+        run: node scripts/build-sitemap.js
+
+      - name: Check forms still parse
+        if: steps.rc.outputs.count != ''
+        run: node scripts/check-form-scripts.js
+
+      - name: Commit and push if anything changed
+        if: steps.rc.outputs.count != ''
+        run: |
+          if git diff --quiet; then echo "No changes."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: update review count to ${{ steps.rc.outputs.count }}"
+          git push origin HEAD:main

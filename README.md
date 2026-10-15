@@ -10,7 +10,7 @@ Run `node scripts/build-sitemap.js` after changing pages. It rebuilds `sitemap.x
 
 ## Review count
 
-`scripts/update-review-count.js` updates the Google review count across the site (every `<span data-review-count>`, JSON-LD `reviewCount`, and `llms.txt`). The GitHub Action `.github/workflows/update-review-count.yml` runs it every morning.
+`scripts/update-review-count.js` (needs the `SUPABASE_REVIEW_KEY` repo secret = the Supabase anon key, never service_role) updates the Google review count across the site (every `<span data-review-count>`, JSON-LD `reviewCount`, and `llms.txt`). The GitHub Action `.github/workflows/update-review-count.yml` runs it every morning.
 
 ## Form safety check
 
