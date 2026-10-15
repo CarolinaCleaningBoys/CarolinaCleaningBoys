@@ -8,7 +8,8 @@
  *
  * gtag.js is already loaded on every page for Google Ads; this only adds the
  * GA4 config call and these events (GA4 only, sent with send_to = GA4_ID):
- *   form_step_view       { step: 1|2|3, page_type }  step 1 when the form scrolls into view
+ *   form_step_view       { step: 1|2|3, page_type }  step 1 when the form scrolls into view,
+ *                                                   2 and 3 when js/quote-form.js shows them
  *   form_submit_success  { page_type }                when the CRM confirms the lead
  *   phone_click          { page_type }                any tel: link
  *   email_click          { page_type }                any mailto: link
@@ -49,22 +50,19 @@ const GA4_ID = 'G-XXXXXXXXXX';
   }
 
   function watchForm() {
-    var form = document.getElementById('estimate-form');
+    // Step 1: when the form itself scrolls into view (the homepage form sits in the hero).
+    var form = document.getElementById('leadForm');
     if (form && 'IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) { if (en.isIntersecting) { stepView(1); io.disconnect(); } });
       }, { threshold: 0.25 });
       io.observe(form);
     }
-    var steps = document.querySelectorAll('.form-progress-step');
-    if (steps.length && 'MutationObserver' in window) {
-      var mo = new MutationObserver(function () {
-        for (var i = 0; i < steps.length; i++) {
-          if (steps[i].classList.contains('active') && i > 0) stepView(i + 1);
-        }
-      });
-      for (var j = 0; j < steps.length; j++) mo.observe(steps[j], { attributes: true, attributeFilter: ['class'] });
-    }
+    // Steps 2 and 3: js/quote-form.js announces each step as it shows it.
+    document.addEventListener('ccb:form-step', function (e) {
+      var n = e && e.detail && e.detail.step;
+      if (n > 1) stepView(n);
+    });
   }
 
   // ---- successful submission ---------------------------------------------

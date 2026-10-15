@@ -57,6 +57,8 @@ function ccbShowStep(target) {
     }
     var card = document.getElementById('hero-quote-form');
     if (card) card.scrollTop = 0;
+    // Tell analytics (js/analytics-config.js) which step is showing.
+    try { document.dispatchEvent(new CustomEvent('ccb:form-step', { detail: { step: target } })); } catch (e) { /* never block the form */ }
 }
 function ccbLoadMaps() {
     if (window._mapsLoaded || typeof window.initAutocomplete !== 'function') return;
