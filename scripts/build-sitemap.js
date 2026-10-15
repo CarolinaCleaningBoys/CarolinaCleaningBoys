@@ -52,8 +52,8 @@ for (const file of walk(ROOT, [])) {
   const robots = html.match(/<meta\s+name=["']robots["']\s+content=["']([^"']*)["']/i);
   if (robots && /noindex/i.test(robots[1])) continue;
   if (/http-equiv=["']refresh["']/i.test(html)) continue; // any stub missing noindex
-  if (/(^|[\/])lp[\/]/.test(path.relative(ROOT, file))) continue; // paid-ad landing pages: near-duplicates of the service pages, kept out of the sitemap
   let rel = path.relative(ROOT, file).split(path.sep).join('/');
+  if (rel.startsWith('lp/')) continue; // paid-ad landing pages: near-duplicates of the service pages, kept out of the sitemap
   let url = '/' + rel;
   if (url === '/index.html') url = '/';
   else if (url.endsWith('/index.html')) url = url.slice(0, -'index.html'.length);
