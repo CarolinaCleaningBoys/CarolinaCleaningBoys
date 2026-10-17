@@ -326,7 +326,7 @@ Towns like Clayton, Garner, Raleigh, Rolesville, Wake Forest, Wendell, and Zebul
 - **Preload the hero image** when it's a CSS background or a video poster: `<link rel="preload" as="image" href="..." fetchpriority="high">` in the head (all pages with a background or video hero have one). Without it the browser finds the image ~1s late.
 - **Size images for how they're shown.** Town pages' menu logo is `images/logo-nav.png` (440px copy of logo-1200.png; the 1200px file is 352 KB). Footer partner logos are stored 136px tall (shown 34px). Window ad page photos use `*-600.webp` copies (shown max 286px). Measure the displayed size before resizing; don't shrink heroes that stretch across tall phone screens.
 - Footer links use `#c4e0f2` (WCAG AA contrast, even inside the 0.85-opacity footer). Don't revert to the darker blue.
-- **Biggest remaining cost is third-party tracking** (Meta Pixel ~10 speed points on the homepage, Google tag ~6, OpenAI ~0; measured by blocking each). Changing how they load is Zach's business call.
+- **The Meta Pixel is deferred** (2026-10-16, Zach approved): the snippet on every page loads fbevents.js on the first scroll/tap/key press or 3s after page load. fbq still queues init/PageView/Lead immediately, so events aren't lost. Keep this when adding pages (copy the snippet from an existing page). Homepage median 77 -> 91. Headless/automated browsers never send Meta events, so test the fbq queue, not network requests.
 
 **FAQ accordion JS** (used in service pages):
 ```js
