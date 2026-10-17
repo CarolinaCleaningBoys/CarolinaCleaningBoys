@@ -215,7 +215,7 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
 n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
+var go=function(){if(go.d)return;go.d=1;s.parentNode.insertBefore(t,s)};/* CCB 2026-10-16: load Meta's file on first interaction or 3s after page load (whichever first). Events (init, PageView, Lead) queue in fbq until it loads, so none are dropped. */['scroll','touchstart','pointerdown','keydown'].forEach(function(x){f.addEventListener(x,go,{once:true,passive:true})});if(b.readyState==='complete'){setTimeout(go,3000)}else{f.addEventListener('load',function(){setTimeout(go,3000)})}}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1251424400160038');
 fbq('track', 'PageView');
