@@ -16,7 +16,7 @@
  *   quote_cta_click      { page_type }                "Get a FREE Quote" style buttons
  * It never touches the Google Ads conversion or the Meta Pixel.
  */
-const GA4_ID = 'G-DZ9MM0LCKZ';
+const GA4_ID = 'G-WTNJTD8VC9';
 
 (function () {
   if (!/^G-[A-Z0-9]+$/.test(GA4_ID) || GA4_ID === 'G-XXXXXXXXXX') return;
@@ -26,7 +26,8 @@ const GA4_ID = 'G-DZ9MM0LCKZ';
     window.gtag = function () { window.dataLayer.push(arguments); };
   }
   // No gtag('config', GA4_ID) here on purpose: GA4 is attached to the site's existing Google tag
-  // (AW-17822819353 / GT-MBNRHLTD, set up 2026-10-17), which already sends page views.
+  // (AW-17822819353 / GT-MBNRHLTD), which already sends page views. G-WTNJTD8VC9 is the older property
+  // with the history (Zach, 2026-10-17); G-DZ9MM0LCKZ was created 2026-10-17 and can be detached.
   // A config call here would count every visit twice. This file only adds the events below.
 
   var path = location.pathname;
