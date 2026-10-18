@@ -7,7 +7,7 @@
  * Until then this file does nothing at all.
  *
  * gtag.js is already loaded on every page for Google Ads; this only adds the
- * GA4 config call and these events (GA4 only, sent with send_to = GA4_ID):
+ * these events (GA4 only, sent with send_to = GA4_ID):
  *   form_step_view       { step: 1|2|3, page_type }  step 1 when the form scrolls into view,
  *                                                   2 and 3 when js/quote-form.js shows them
  *   form_submit_success  { page_type }                when the CRM confirms the lead
@@ -16,7 +16,7 @@
  *   quote_cta_click      { page_type }                "Get a FREE Quote" style buttons
  * It never touches the Google Ads conversion or the Meta Pixel.
  */
-const GA4_ID = 'G-XXXXXXXXXX';
+const GA4_ID = 'G-DZ9MM0LCKZ';
 
 (function () {
   if (!/^G-[A-Z0-9]+$/.test(GA4_ID) || GA4_ID === 'G-XXXXXXXXXX') return;
@@ -25,7 +25,9 @@ const GA4_ID = 'G-XXXXXXXXXX';
   if (typeof window.gtag !== 'function') {
     window.gtag = function () { window.dataLayer.push(arguments); };
   }
-  window.gtag('config', GA4_ID);
+  // No gtag('config', GA4_ID) here on purpose: GA4 is attached to the site's existing Google tag
+  // (AW-17822819353 / GT-MBNRHLTD, set up 2026-10-17), which already sends page views.
+  // A config call here would count every visit twice. This file only adds the events below.
 
   var path = location.pathname;
   var pageType = (path === '/' || path === '/index.html') ? 'home'
