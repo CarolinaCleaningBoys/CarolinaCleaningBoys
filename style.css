@@ -392,3 +392,10 @@
 /* Footer links: #65a1c7 on #2e4f66 was 3.08:1; WCAG AA needs 4.5:1 for small text. Some footers sit
    inside a parent at opacity .85, so #c4e0f2 = 5.07:1 faded (6.3:1 solid). */
 .footer-link { color: #c4e0f2; }
+
+
+/* "My account" link in the header (2026-10-20): plain text, not a button, so it doesn't compete with the
+   FREE Quote button. Hidden on phones/tablets, where it's in the hamburger menu instead. */
+.nav-account { font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; color: var(--primary); text-decoration: none; padding: 0.5rem 0.25rem; white-space: nowrap; }
+.nav-account:hover, .nav-account:focus-visible { color: var(--primary-dark); text-decoration: underline; }
+@media (max-width: 860px) { .nav-account { display: none; } }

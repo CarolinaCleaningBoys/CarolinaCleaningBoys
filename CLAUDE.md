@@ -174,6 +174,12 @@ Every page includes:
 </header>
 ```
 
+**"My account" link (added 2026-10-20) - every live page has it; copy it onto any new page.** Target `https://pressure-wash-crm.vercel.app/account` (the CRM's public customer account page).
+- Header: `<a href="https://pressure-wash-crm.vercel.app/account" class="nav-account">My account</a>` as the FIRST child of `.nav-contact` (plain text, not a button; `.nav-account` CSS is at the end of style.css and hides it at <=860px). The Service Areas hub (`locations/index.html`) wraps it and its quote button in a `.nav-contact` div.
+- Hamburger: `<a href="...account" class="sidebar-link">My account</a>` right after the What to Expect link (emoji pages use "👤 My account").
+- Footer: appended to the Privacy | Terms | ... row in `.footer-bottom` as `&nbsp;|&nbsp; <a ... class="footer-link">My account</a>`; town pages (no link row) get it as its own `<p>` after the copyright line.
+- lp/ pages (no hamburger): small underlined `.lp-account` link under the service-area line in the header, and `&middot; My account` after Privacy Policy in the lp footer.
+
 **Required sidebar JS** (include at bottom of every page):
 ```html
 <script>
