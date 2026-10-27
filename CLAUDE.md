@@ -17,7 +17,7 @@ Last verified against the actual files on disk on 2026-10-14. If you're reading 
 │                             Prep checklist, how each surface is cleaned, timing, weather, fees, payment + guarantee, FAQ.
 │                             Also publicly indexed so it doubles as a trust page for prospects. The CRM stores this exact
 │                             URL as a setting and texts it — don't rename or move the file without updating that setting.
-│                             Standing fees (moving, cancellation, payment-method %) live here; they must stay in sync with
+│                             Standing fees (moving, cancellation) and the payment-method wording (no percentages since 2026-10-27: cash, check, Zelle = lowest price; card, bank transfer, Venmo include processing) live here; they must stay in sync with
 │                             the AI agent's knowledge base or a customer gets two different answers.
 ├── our-work.html          ← "Our Work" client map. Built 2026-10-13, LAUNCHED 2026-10-14 (indexed, in sitemap.xml, in the
 │                             hamburger menu on every page, between Our Story and What to Expect). Map = self-hosted Leaflet
