@@ -653,7 +653,7 @@ function ccbFireConversionTracking(phone, email, openaiEventId) {
     } else {
       fireLead('');
     }
-  } catch (err) { console.error('[CCB] Meta Lead tracking failed:', err); }
+  } catch (err) { console.error('[CCB] Meta Contact tracking failed:', err); }
 
   // Google Ads conversion. Also isolated.
   try {
@@ -763,18 +763,20 @@ document.getElementById('quoteForm').addEventListener('submit', function (e) {
 
 <script>
 // Secondary conversion: any remaining tel: call links (header phone, "call us"
-// links, sticky call icon) fire the Google Ads + Meta Lead conversion on
-// click too, since a phone call is also a qualifying lead action, separate
-// from the form submit handled above.
+// links, sticky call icon) fire the Google Ads conversion and a Meta "Contact"
+// event on click, separate from the form submit handled above.
+// Meta gets Contact, NOT Lead (2026-10-28, Zach): a tap has no form data, so it
+// can't carry the shared eventID and could never be deduplicated, which
+// inflated Meta's Lead count. Lead is reserved for real form submissions.
 (function () {
   function fireCtaConversion() {
     try {
       if (typeof fbq === 'function') {
-        fbq('track', 'Lead', { value: 150.00, currency: 'USD' });
+        fbq('track', 'Contact');
       } else {
-        console.warn('[CCB] Meta pixel unavailable, Lead event not sent.');
+        console.warn('[CCB] Meta pixel unavailable, Contact event not sent.');
       }
-    } catch (err) { console.error('[CCB] Meta Lead tracking failed:', err); }
+    } catch (err) { console.error('[CCB] Meta Contact tracking failed:', err); }
 
     try {
       if (typeof gtag === 'function') {
