@@ -62,9 +62,13 @@
 
         /* Header — override style.css */
         .header { background: #F4EFE9 !important; padding: 0 !important; position: sticky !important; top: 0 !important; z-index: 1000 !important; border-bottom: 3px solid #6FAFD8 !important; }
-        .nav { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 80px; }
+        .nav { max-width: 1100px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; min-height: 80px; }
         .logo { display: inline-block; line-height: 0; }
-        .logo-img { height: 70px; width: auto; display: block; }
+        /* same logo file + sizes as the town pages (style.css) */
+        .logo-img { height: 90px; width: auto; display: block; }
+        @media (min-width: 768px) { .logo-img { height: 100px; } }
+        @media (min-width: 1024px) { .logo-img { height: 110px; } }
+        @media (max-width: 500px) { .logo-img { height: 70px; } }
         .nav-cta { background: #e8823a; color: #fff; font-weight: 700; padding: 10px 20px; border-radius: 25px; font-size: 0.9rem; }
         .nav-cta:hover { background: #c96e28; color: #fff; }
         .hamburger { background: none; border: none; cursor: pointer; padding: 8px; display: flex; flex-direction: column; gap: 5px; }
@@ -203,7 +207,7 @@ oaiq('init', {
                 <span class="hamburger-line"></span>
             </button>
             <a href="/" class="logo">
-                <img src="../images/logo-256.png" alt="Carolina Cleaning Boys Logo" class="logo-img" width="256" height="256">
+                <img src="../images/logo-nav.png" alt="Carolina Cleaning Boys Logo" class="logo-img" width="440" height="231">
             </a>
             <div class="nav-contact"><a href="https://pressure-wash-crm.vercel.app/account" class="nav-account">My account</a><a href="/#estimate-form" class="nav-cta">✨ FREE Quote</a></div>
         </nav>
