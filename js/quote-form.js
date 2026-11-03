@@ -361,3 +361,16 @@ function submitForm(e) {
     // confirms it actually received the lead (see ccbSendLead).
     ccbSendLead(data, form, btn, originalBtnLabel);
 }
+
+// ---- "How do we count windows?" link under the window count box (Zach 2026-11-03) ----
+// The code lives in js/window-guide.js (shared with lp/window-cleaning, which has its own
+// form script). Loaded only on pages that have the window count box.
+(function () {
+    try {
+        if (!document.getElementById('win_count')) return;
+        var s = document.createElement('script');
+        s.src = '/js/window-guide.js';
+        s.defer = true;
+        document.body.appendChild(s);
+    } catch (e) {}
+})();

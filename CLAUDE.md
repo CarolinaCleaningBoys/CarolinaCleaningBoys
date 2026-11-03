@@ -39,6 +39,10 @@ Last verified against the actual files on disk on 2026-10-14. If you're reading 
 │   │                         step navigation, window questions, CRM POST, Meta Lead + Ads conversion, success/error. The
 │   │                         page's <form data-form-source="full_form|service_page|location_hub"> sets form_source. One file =
 │   │                         one point of failure: run node scripts/check-form-scripts.js after ANY edit (it now parses js/*.js).
+│   ├── window-guide.js    ← "How do we count windows?" tap-to-open link under the #win_count box (Zach 2026-11-03). Shows
+│   │                         images/how-to-count-windows.webp (34 KB copy of the CRM's texted guide picture), downloaded only
+│   │                         when opened. Loaded by quote-form.js (only on pages with #win_count) and directly by
+│   │                         lp/window-cleaning. The CRM also texts the same picture to every window lead (welcome text).
 │   ├── lazy-video.js      ← starts each <video data-src> only when it nears the screen (see Performance rules)
 │   └── analytics-config.js ← GA4, OFF until GA4_ID is set (placeholder G-XXXXXXXXXX). Fires form_step_view (1-3),
 │                             form_submit_success, phone_click, email_click, quote_cta_click. Never touches Ads/Meta code.
