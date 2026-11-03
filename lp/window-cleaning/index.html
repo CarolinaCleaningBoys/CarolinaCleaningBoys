@@ -549,7 +549,7 @@ textarea.lp-field{resize:vertical}
     // Fall back to attribution already captured on another CCB page this visit
     try {
       var stored = JSON.parse(localStorage.getItem('ccb_attribution') || '{}');
-      if (stored && stored.captured_at && (Date.now() - stored.captured_at) < 2592000000) {
+      if (stored && stored.captured_at && (Date.now() - stored.captured_at) < 7776000000) {
         for (var j = 0; j < params.length; j++) {
           if (!bundle[params[j]] && stored[params[j]]) bundle[params[j]] = stored[params[j]];
         }
@@ -819,6 +819,19 @@ document.getElementById('quoteForm').addEventListener('submit', function (e) {
     oppref: val('oppref'),
     openai_event_id: ccbNewEventId()
   };
+
+  // Meta cookies for CAPI matching (never blocks the submit)
+  try {
+    var ccbCk = function (nm) { var m = document.cookie.match(new RegExp('(?:^|;\\s*)' + nm + '=([^;]+)')); return m ? decodeURIComponent(m[1]) : ''; };
+    var ccbFbc = ccbCk('_fbc'), ccbFbp = ccbCk('_fbp');
+    if (!ccbFbc) {
+      var ccbSt = {}; try { ccbSt = JSON.parse(localStorage.getItem('ccb_attribution') || '{}') || {}; } catch (e3) {}
+      var ccbFbclid = new URLSearchParams(window.location.search).get('fbclid') || payload.fbclid || ccbSt.fbclid || '';
+      if (ccbFbclid) ccbFbc = 'fb.1.' + (ccbSt.captured_at || Date.now()) + '.' + ccbFbclid;
+    }
+    if (ccbFbc) payload.fbc = ccbFbc;
+    if (ccbFbp) payload.fbp = ccbFbp;
+  } catch (e4) {}
 
   fetch('https://pressure-wash-crm.vercel.app/api/leads/web', {
     method: 'POST',

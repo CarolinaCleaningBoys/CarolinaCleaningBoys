@@ -303,7 +303,7 @@ oaiq('init', {
         if (!urlHasParams) {
             try {
                 var prior = JSON.parse(localStorage.getItem('ccb_attribution') || '{}');
-                if (prior && prior.captured_at && (Date.now() - prior.captured_at) < 2592000000) {
+                if (prior && prior.captured_at && (Date.now() - prior.captured_at) < 7776000000) {
                     for (var m2 = 0; m2 < params.length; m2++) {
                         if (!bundle[params[m2]] && prior[params[m2]]) { bundle[params[m2]] = prior[params[m2]]; }
                     }

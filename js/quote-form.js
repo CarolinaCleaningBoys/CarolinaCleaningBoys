@@ -285,7 +285,7 @@ function ccbShowError(form, btn, originalBtnLabel) {
 }
 
 function ccbGetAttribution() {
-    try { return (function(){try{var _a=JSON.parse(localStorage.getItem('ccb_attribution'))||{};if(!_a.captured_at||(Date.now()-_a.captured_at)>2592000000){return {};}return _a;}catch(_e){return {};}})() || {}; } catch(e) { return {}; }
+    try { return (function(){try{var _a=JSON.parse(localStorage.getItem('ccb_attribution'))||{};if(!_a.captured_at||(Date.now()-_a.captured_at)>7776000000){return {};}return _a;}catch(_e){return {};}})() || {}; } catch(e) { return {}; }
 }
 
 function submitForm(e) {
@@ -343,6 +343,19 @@ function submitForm(e) {
         openai_event_id: ccbNewEventId(),
         company_website: hp ? hp.value : ''
     };
+
+    // Meta cookies for CAPI matching (never blocks the submit)
+    try {
+      var ccbCk = function (nm) { var m = document.cookie.match(new RegExp('(?:^|;\\s*)' + nm + '=([^;]+)')); return m ? decodeURIComponent(m[1]) : ''; };
+      var ccbFbc = ccbCk('_fbc'), ccbFbp = ccbCk('_fbp');
+      if (!ccbFbc) {
+        var ccbSt = {}; try { ccbSt = JSON.parse(localStorage.getItem('ccb_attribution') || '{}') || {}; } catch (e3) {}
+        var ccbFbclid = new URLSearchParams(window.location.search).get('fbclid') || ccbAttr.fbclid || ccbSt.fbclid || '';
+        if (ccbFbclid) ccbFbc = 'fb.1.' + (ccbSt.captured_at || Date.now()) + '.' + ccbFbclid;
+      }
+      if (ccbFbc) data.fbc = ccbFbc;
+      if (ccbFbp) data.fbp = ccbFbp;
+    } catch (e4) {}
 
     // Send the lead. Success message + tracking only fire once the CRM
     // confirms it actually received the lead (see ccbSendLead).
