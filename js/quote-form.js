@@ -22,6 +22,15 @@ function ccbFormSections() {
     var form = document.getElementById('leadForm');
     return form ? form.querySelectorAll('.form-section') : [];
 }
+function ccbPhoneOk(raw) {
+    var d = String(raw || '').replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+    if (d.length !== 10) return false;
+    if (/^(\d)\1{9}$/.test(d)) return false;
+    if (d === '1234567890' || d === '0123456789' || d === '9876543210') return false;
+    if (d.charAt(0) === '0' || d.charAt(0) === '1') return false;
+    return true;
+}
 function ccbStepError(section, msg, focusEl) {
     var el = section.querySelector('.hero-form-error');
     if (el) { el.textContent = msg; } else { alert(msg); }
@@ -36,7 +45,7 @@ function ccbValidateSection(section) {
     if (has('#first_name') && !val('first_name')) { ccbStepError(section, 'Please enter your first name.', document.getElementById('first_name')); return false; }
     if (has('#last_name') && !val('last_name')) { ccbStepError(section, 'Please enter your last name.', document.getElementById('last_name')); return false; }
     if (has('#email') && !val('email')) { ccbStepError(section, 'Please enter your email address.', document.getElementById('email')); return false; }
-    if (has('#phone') && val('phone').replace(/\D/g, '').length < 10) { ccbStepError(section, 'Please enter a valid phone number (at least 10 digits).', document.getElementById('phone')); return false; }
+    if (has('#phone') && !ccbPhoneOk(val('phone'))) { ccbStepError(section, "Please double-check your phone number. We'll text your quote to it.", document.getElementById('phone')); return false; }
     if (has('#street_address') && !val('street_address')) { ccbStepError(section, 'Please enter your street address.', document.getElementById('street_address')); return false; }
     if (has('#city') && !val('city')) { ccbStepError(section, 'Please enter your city.', document.getElementById('city')); return false; }
     if (has('input[name="services"]') && !document.querySelectorAll('input[name="services"]:checked').length) { ccbStepError(section, 'Please select at least one service.'); return false; }
@@ -298,8 +307,8 @@ function submitForm(e) {
 
     // Phone validation
     var phoneVal = form.querySelector('#phone').value.replace(/\D/g, '');
-    if (phoneVal.length < 10) {
-        alert('Please enter a valid phone number (at least 10 digits).');
+    if (!ccbPhoneOk(phoneVal)) {
+        alert("Please double-check your phone number. We'll text your quote to it.");
         form.querySelector('#phone').focus();
         return;
     }
