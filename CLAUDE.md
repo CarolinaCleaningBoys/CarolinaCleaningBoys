@@ -264,7 +264,7 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
 
 ## Business Info
 
-- **Phone:** 252-359-0002 (main since 2026-11-20, the Telnyx number logged in the CRM). Old 919-717-4653 still works as a backup but is no longer shown on the site. The lp/ ad pages show (704) 860-9138.
+- **Phone:** 252-359-0002 (main since 2026-11-20, the Telnyx number logged in the CRM). Old 919-717-4653 still works as a backup but is no longer shown on the site. The lp/ ad pages use it too (all numbers moving to this one).
 - **Email:** carolinacleaningboys@gmail.com
 - **Location:** Greenville, NC (Pitt County, Eastern NC)
 - **Facebook:** https://www.facebook.com/profile.php?id=61558735994193
