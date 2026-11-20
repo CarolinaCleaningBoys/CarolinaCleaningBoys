@@ -274,7 +274,7 @@ function ccbShowSuccess(form, btn) {
     setTimeout(function() {
         var fallback = document.createElement('p');
         fallback.style.cssText = 'margin-top:8px;font-size:0.95rem;color:#555;text-align:center;';
-        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:919-717-4653" style="color:#3F647F;font-weight:700;">919-717-4653</a>.';
+        fallback.innerHTML = 'If you don\u2019t hear from us within 24 hours, call <a href="tel:252-359-0002" style="color:#3F647F;font-weight:700;">252-359-0002</a>.';
         form.appendChild(fallback);
     }, 10000);
 }
@@ -290,7 +290,7 @@ function ccbShowError(form, btn, originalBtnLabel) {
         errorMsg.style.cssText = 'margin-top:12px;font-size:0.95rem;color:#dc2626;font-weight:600;text-align:center;';
         form.appendChild(errorMsg);
     }
-    errorMsg.innerHTML = 'Something went wrong sending your request \u2014 please try again, or call <a href="tel:919-717-4653" style="color:#dc2626;text-decoration:underline;">919-717-4653</a>.';
+    errorMsg.innerHTML = 'Something went wrong sending your request \u2014 please try again, or call <a href="tel:252-359-0002" style="color:#dc2626;text-decoration:underline;">252-359-0002</a>.';
 }
 
 function ccbGetAttribution() {

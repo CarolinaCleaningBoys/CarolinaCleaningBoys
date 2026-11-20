@@ -152,7 +152,7 @@ Every page includes:
         <a href="services/gutter-cleaning.html" class="sidebar-link">🍂 Gutter Cleaning</a>
         <div class="sidebar-divider"></div>
         <a href="index.html#estimate-form" class="sidebar-link sidebar-cta" onclick="closeSidebar()">📋 Get a FREE Quote</a>
-        <a href="tel:919-717-4653" class="sidebar-link">📞 919-717-4653</a>
+        <a href="tel:252-359-0002" class="sidebar-link">📞 252-359-0002</a>
     </div>
 </nav>
 <header class="header">
@@ -221,7 +221,7 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
                 <h3>Contact Us</h3>
                 <address>
                     <p>📍 Greenville, North Carolina</p>
-                    <p><a href="tel:919-717-4653" class="footer-link">📞 919-717-4653</a></p>
+                    <p><a href="tel:252-359-0002" class="footer-link">📞 252-359-0002</a></p>
                     <p><a href="mailto:carolinacleaningboys@gmail.com" class="footer-link">✉️ carolinacleaningboys@gmail.com</a></p>
                 </address>
             </div>
@@ -264,7 +264,7 @@ Service pages (`services/`) use relative `../` paths. Root pages use direct path
 
 ## Business Info
 
-- **Phone:** 919-717-4653
+- **Phone:** 252-359-0002 (main since 2026-11-20, the Telnyx number logged in the CRM). Old 919-717-4653 still works as a backup but is no longer shown on the site. The lp/ ad pages show (704) 860-9138.
 - **Email:** carolinacleaningboys@gmail.com
 - **Location:** Greenville, NC (Pitt County, Eastern NC)
 - **Facebook:** https://www.facebook.com/profile.php?id=61558735994193
